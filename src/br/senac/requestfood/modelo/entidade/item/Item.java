@@ -1,5 +1,7 @@
 package br.senac.requestfood.modelo.entidade.item;
 
+import br.senac.requestfood.modelo.entidade.consumivel.Consumivel;
+
 public class Item {
 
     private int quantidade;

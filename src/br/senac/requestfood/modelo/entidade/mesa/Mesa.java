@@ -3,6 +3,8 @@ package br.senac.requestfood.modelo.entidade.mesa;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.senac.requestfood.modelo.entidade.comanda.Comanda;
+
 public class Mesa {
 
     private int numero;
