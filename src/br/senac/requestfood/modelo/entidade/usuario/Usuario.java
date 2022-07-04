@@ -8,6 +8,7 @@ public class Usuario {
     private String nome;
     private Contato contato;
 
+    // CONSTRUCTOR
     public Usuario (int id, String nome, Contato contato){
         setId(id);
         setNome(nome);
