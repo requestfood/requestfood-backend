@@ -5,6 +5,7 @@ public class Contato {
     private int telefone;
     private String email;
 
+    //CONSTRUCTOR
     public Contato (int telefone, String email){
         setTelefone(telefone);
         setEmail(email);
