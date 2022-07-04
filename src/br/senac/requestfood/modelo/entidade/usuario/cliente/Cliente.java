@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.senac.requestfood.modelo.entidade.comanda.Comanda;
+import br.senac.requestfood.modelo.entidade.contato.Contato;
 import br.senac.requestfood.modelo.entidade.usuario.Usuario;
 import br.senac.requestfood.modelo.enumeracao.genero.Genero;
 
