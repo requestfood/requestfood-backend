@@ -1,5 +1,6 @@
 package br.senac.requestfood.modelo.entidade.usuario.restaurante;
 
+import br.senac.requestfood.modelo.entidade.cardapio.Cardapio;
 import br.senac.requestfood.modelo.entidade.contato.Contato;
 import br.senac.requestfood.modelo.entidade.mesa.Mesa;
 import br.senac.requestfood.modelo.entidade.usuario.Usuario;
