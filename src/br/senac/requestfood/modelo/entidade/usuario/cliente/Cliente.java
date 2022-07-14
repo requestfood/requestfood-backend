@@ -21,8 +21,7 @@ public class Cliente extends Usuario {
 		setDataNascimento(dataNascimento);
 		comandas = new ArrayList();
 	}
-	
-	
+
 	public Genero getGenero() {
 		return genero;
 	}
@@ -39,5 +38,12 @@ public class Cliente extends Usuario {
 	
 	public List<Comanda> getComandas() {
 		return comandas;
+	}
+
+	public void adicionarComanda(Comanda comanda){
+		this.comandas.add(comanda);
+	}
+	public void removerComanda(Comanda comanda){
+		this.comandas.remove(comanda);
 	}
 }
