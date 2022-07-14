@@ -2,15 +2,24 @@ package br.senac.requestfood.modelo.entidade.contato;
 
 public class Contato {
 
+    private long id;
     private int telefone;
     private String email;
 
     //CONSTRUCTOR
-    public Contato (int telefone, String email){
+    public Contato(long id, int telefone, String email) {
         setTelefone(telefone);
         setEmail(email);
 
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getTelefone() {
@@ -28,4 +37,5 @@ public class Contato {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }
