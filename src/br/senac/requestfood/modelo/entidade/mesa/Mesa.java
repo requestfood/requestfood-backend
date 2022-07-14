@@ -15,6 +15,7 @@ public class Mesa {
 
 
     public Mesa(Estabelecimento estabelecimento, long numero, boolean disponivelMesa) {
+        setEstabelecimento(estabelecimento);
         setNumero(numero);
         setDisponivelMesa(disponivelMesa);
         comandas = new ArrayList<>();
