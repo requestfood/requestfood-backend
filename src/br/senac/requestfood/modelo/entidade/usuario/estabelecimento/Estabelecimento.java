@@ -1,4 +1,4 @@
-package br.senac.requestfood.modelo.entidade.usuario.restaurante;
+package br.senac.requestfood.modelo.entidade.usuario.estabelecimento;
 
 import br.senac.requestfood.modelo.entidade.cardapio.Cardapio;
 import br.senac.requestfood.modelo.entidade.contato.Contato;
@@ -8,12 +8,12 @@ import br.senac.requestfood.modelo.entidade.usuario.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurante extends Usuario {
+public class Estabelecimento extends Usuario {
 
     private Cardapio cardapio;
     private List<Mesa> mesas;
 
-    public Restaurante(Cardapio cardapio, int id , String nome, Contato contato){
+    public Estabelecimento(Cardapio cardapio, int id , String nome, Contato contato){
         super(id, nome, contato);
         setCardapio(cardapio);
         mesas = new ArrayList<>();
