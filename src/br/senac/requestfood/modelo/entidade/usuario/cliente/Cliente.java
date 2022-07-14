@@ -15,7 +15,7 @@ public class Cliente extends Usuario {
 	private LocalDate dataNascimento;
 	private List<Comanda> comandas;
 	
-	public Cliente(int id, String nome, Contato contato, Genero genero, LocalDate dataNascimento) {
+	public Cliente(long id, String nome, Contato contato, Genero genero, LocalDate dataNascimento) {
 		super(id, nome, contato);
 		setGenero(genero);
 		setDataNascimento(dataNascimento);
