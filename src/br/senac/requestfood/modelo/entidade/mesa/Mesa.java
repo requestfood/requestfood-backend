@@ -4,22 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.senac.requestfood.modelo.entidade.comanda.Comanda;
+import br.senac.requestfood.modelo.entidade.usuario.estabelecimento.Estabelecimento;
 
 public class Mesa {
 
-    private int numero;
+    private Estabelecimento estabelecimento;
+    private long numero;
     private boolean disponivel;
     private List<Comanda> comandas;
 
-    public Mesa(int numero, boolean disponivelMesa) {
+
+    public Mesa(Estabelecimento estabelecimento, long numero, boolean disponivelMesa) {
+        setEstabelecimento(estabelecimento);
         setNumero(numero);
         setDisponivelMesa(disponivelMesa);
         comandas = new ArrayList<>();
     }
-    public void setNumero(int numero) {
+    public Estabelecimento getEstabelecimento() {
+        return estabelecimento;
+    }
+    public void setEstabelecimento(Estabelecimento estabelecimento) {
+        this.estabelecimento = estabelecimento;
+    }
+
+    public void setNumero(long numero) {
         this.numero = numero;
     }
-    public int getNumero() {
+    public long getNumero() {
         return numero;
     }
     public void setDisponivelMesa(boolean disponivel) {
