@@ -8,8 +8,8 @@ import java.awt.*;
 public class Prato extends Consumivel {
     private TipoPrato tipoPrato;
 
-    public Prato(String nome, float valor, String descricao, Image imagem){
-        super(nome, valor, descricao, imagem);
+    public Prato(Long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Image imagem){
+        super(id, estabelecimento, nome, valor, descricao, imagem);
         setTipoPrato(tipoPrato);
     }
 
