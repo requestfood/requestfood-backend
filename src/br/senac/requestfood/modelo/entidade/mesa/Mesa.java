@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.senac.requestfood.modelo.entidade.comanda.Comanda;
+import br.senac.requestfood.modelo.entidade.item.Item;
 import br.senac.requestfood.modelo.entidade.usuario.estabelecimento.Estabelecimento;
 
 public class Mesa {
@@ -19,6 +20,21 @@ public class Mesa {
         setNumero(numero);
         setDisponivelMesa(disponivelMesa);
         comandas = new ArrayList<>();
+    }
+    public boolean equals(Object objeto) {
+
+        if (this == objeto)
+            return true;
+
+        if (objeto == null)
+            return false;
+
+        if (getClass() != objeto.getClass())
+            return false;
+
+        Mesa mesa = ((Mesa) objeto);
+
+        return this.getEstabelecimento() == mesa.getEstabelecimento() && this.getNumero() == this.getNumero() && this.getDisponivel() == mesa.getDisponivel() && this.getComandas() == mesa.getComandas();
     }
     public Estabelecimento getEstabelecimento() {
         return estabelecimento;
