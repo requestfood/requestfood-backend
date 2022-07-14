@@ -4,22 +4,22 @@ import br.senac.requestfood.modelo.entidade.contato.Contato;
 
 public class Usuario {
 
-    private int id;
+    private long id;
     private String nome;
     private Contato contato;
 
     // CONSTRUCTOR
-    public Usuario (int id, String nome, Contato contato){
+    public Usuario (long id, String nome, Contato contato){
         setId(id);
         setNome(nome);
         setContato(contato);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
