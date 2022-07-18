@@ -18,6 +18,9 @@ public class Bebida extends Consumivel {
     @Column(name = "tipo_bebida", nullable = false)
     private TipoBebida tipoBebida;
 
+    public Bebida() {
+    }
+
     public Bebida(long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Byte[] imagem, boolean alcoolico, TipoBebida tipoBebida){
         super(id, estabelecimento, nome, valor, descricao, imagem);
         setAlcoolico(alcoolico);
