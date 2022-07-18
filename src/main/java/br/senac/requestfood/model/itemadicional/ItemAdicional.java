@@ -23,8 +23,14 @@ public class ItemAdicional {
     @Column(name = "quantidade_adicional", nullable = false)
     private int quantidade;
 
-    public ItemAdicional(long id, Item item, String nomeAdicional, int quantidade) {
+    public ItemAdicional() {
+    }
 
+    public ItemAdicional(long id, Item item, String nomeAdicional, int quantidade) {
+        setId(id);
+        setItem(item);
+        setNomeAdicional(nomeAdicional);
+        setQuantidade(quantidade);
     }
 
 
