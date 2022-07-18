@@ -16,6 +16,9 @@ public class Prato extends Consumivel {
     @Column(name = "tipo_prato", nullable = false)
     private TipoPrato tipoPrato;
 
+    public Prato() {
+    }
+
     public Prato(Long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Byte[] imagem, TipoPrato tipoPrato){
         super(id, estabelecimento, nome, valor, descricao, imagem);
         setTipoPrato(tipoPrato);
