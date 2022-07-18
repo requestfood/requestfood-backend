@@ -3,24 +3,42 @@ package br.senac.requestfood.model.mesa;
 import br.senac.requestfood.model.comanda.Comanda;
 import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mesa {
+    @Entity
+    @Table(name = "mesa")
+    public class Mesa {
 
-    private Estabelecimento estabelecimento;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "numero_mesa")
     private long numero;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Estabelecimento estabelecimento;
+
+    @Column(name = "mesa_disponivel")
     private boolean disponivel;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa", cascade = CascadeType.ALL)
     private List<Comanda> comandas;
 
 
-    public Mesa(Estabelecimento estabelecimento, long numero, boolean disponivelMesa) {
+        public Mesa() {
+        }
+
+        public Mesa(Estabelecimento estabelecimento, long numero, boolean disponivelMesa) {
         setEstabelecimento(estabelecimento);
         setNumero(numero);
         setDisponivelMesa(disponivelMesa);
         comandas = new ArrayList<>();
     }
-    public boolean equals(Object objeto) {
+
+        public boolean equals(Object objeto) {
 
         if (this == objeto)
             return true;
