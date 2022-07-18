@@ -2,16 +2,31 @@ package br.senac.requestfood.model.itemadicional;
 
 import br.senac.requestfood.model.item.Item;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "item_adicional")
 public class ItemAdicional {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_item_adicional")
     private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_item", nullable = false)
     private Item item;
+
+    @Column(name = "nome_adicional", nullable = false, unique = true)
     private String nomeAdicional;
+
+    @Column(name = "quantidade_adicional", nullable = false)
     private int quantidade;
 
     public ItemAdicional(long id, Item item, String nomeAdicional, int quantidade) {
 
     }
+
 
     public long getId() {
         return id;
