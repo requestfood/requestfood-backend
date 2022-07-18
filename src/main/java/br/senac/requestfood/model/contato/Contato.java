@@ -1,19 +1,34 @@
 package br.senac.requestfood.model.contato;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "contato")
 public class Contato {
 
 //    ATTRIBUTES
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="id_contato")
     private long id;
-    private int telefone;
+
+    @Column(name = "telefone_contato", nullable = false, length = 11)
+    private String telefone;
+
+    @Column(name = "email_contato", nullable = false, length = 50, unique = true)
     private String email;
 
-//    CONSTRUCTOR
-    public Contato(long id, int telefone, String email) {
+    public Contato() {
+    }
+
+    //    CONSTRUCTOR
+    public Contato(long id, String telefone, String email) {
         setTelefone(telefone);
         setEmail(email);
     }
 
-//    GET E SET
+    //    GET E SET
     public long getId() {
         return id;
     }
@@ -22,11 +37,11 @@ public class Contato {
         this.id = id;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
