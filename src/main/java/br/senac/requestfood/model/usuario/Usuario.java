@@ -21,8 +21,11 @@ public abstract class Usuario {
 	@JoinColumn(name = "id_contato", nullable = false)
     private Contato contato;
 
-//	CONSTRUCTOR
-    public Usuario (long id, String nome, Contato contato){
+    protected Usuario() {
+    }
+
+    //	CONSTRUCTOR
+    protected Usuario (long id, String nome, Contato contato){
         setId(id);
         setNome(nome);
         setContato(contato);
