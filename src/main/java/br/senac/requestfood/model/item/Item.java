@@ -1,106 +1,131 @@
 package br.senac.requestfood.model.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.senac.requestfood.model.comanda.Comanda;
 import br.senac.requestfood.model.consumivel.Consumivel;
 import br.senac.requestfood.model.itemadicional.ItemAdicional;
-
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.processing.Generated;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "item")
 public class Item {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_item")
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_item")
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Comanda comanda;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_comanda", nullable = false)
+	private Comanda comanda;
 
-    @Column(name = "quantidade_item", nullable = false)
-    private int quantidade;
+	@Column(name = "quantidade_item", nullable = false)
+	private int quantidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_consumivel", nullable = false)
-    private Consumivel produto;
+	@OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+	@JoinColumn(name = "id_consumivel", nullable = false)
+	private Consumivel produto;
 
-    @Column(name = "observacao_item", length = 100)
-    private String observacao;
+	@Column(name = "observacao_item", length = 100)
+	private String observacao;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
-    private List<ItemAdicional> itensadicionais;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ItemAdicional> itensAdicionais;
 
-    public Item(long id, Comanda comanda, int quantidade, Consumivel produto, String observacao) {
-        setId(id);
-        setComanda(comanda);
-        setQuantidade(quantidade);
-        setProduto(produto);
-        setObservacao(observacao);
-        itensadicionais = new ArrayList<>();
-    }
+	public Item() {}
 
-    public boolean equals(Object objeto) {
+	public Item(Long id, Comanda comanda, int quantidade, Consumivel produto, String observacao) {
+		setId(id);
+		setComanda(comanda);
+		setQuantidade(quantidade);
+		setProduto(produto);
+		setObservacao(observacao);
+		itensAdicionais = new ArrayList<>();
+	}
 
-        if (this == objeto)
-            return true;
+	public boolean equals(Object objeto) {
 
-        if(objeto == null)
-            return false;
+		if (this == objeto)
+			return true;
 
-        if (getClass() != objeto.getClass())
-            return false;
+		if (objeto == null)
+			return false;
 
-        Item item = ((Item)objeto);
+		if (getClass() != objeto.getClass())
+			return false;
 
-        return this.getId() == item.getId() && this.getComanda() == item.comanda && this.getQuantidade() == item.getQuantidade() && this.getProduto() == item.getProduto() && this.getObservacao().equals(getObservacao());
-    }
+		Item item = ((Item) objeto);
 
-    public long getId() {
-        return id;
-    }
+		return this.getId() == item.getId() && this.getComanda() == item.comanda
+				&& this.getQuantidade() == item.getQuantidade() && this.getProduto() == item.getProduto()
+				&& this.getObservacao().equals(getObservacao());
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public Comanda getComanda() {
-        return comanda;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setComanda(Comanda comanda) {
-        this.comanda = comanda;
-    }
+	public Comanda getComanda() {
+		return comanda;
+	}
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
+	public void setComanda(Comanda comanda) {
+		this.comanda = comanda;
+	}
 
-    public int getQuantidade() {
-        return quantidade;
-    }
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 
-    public void setProduto(Consumivel produto) {
-        this.produto = produto;
-    }
+	public int getQuantidade() {
+		return quantidade;
+	}
 
-    public Consumivel getProduto() {
-        return produto;
-    }
+	public void setProduto(Consumivel produto) {
+		this.produto = produto;
+	}
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
+	public Consumivel getProduto() {
+		return produto;
+	}
 
-    public String getObservacao() {
-        return observacao;
-    }
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 
-    public List<ItemAdicional> getItensadicionais() {
-        return itensadicionais;
-    }
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public List<ItemAdicional> getItensAdicionais() {
+		return itensAdicionais;
+	}
+
+	public void adicionarItemAdicional(ItemAdicional itemAdicional) {
+		itensAdicionais.add(itemAdicional);
+	}
+
+	public void removerItemAdicional(ItemAdicional itemAdicional) {
+		itensAdicionais.remove(itemAdicional);
+	}
 }

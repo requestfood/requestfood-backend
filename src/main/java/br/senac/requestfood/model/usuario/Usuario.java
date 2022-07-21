@@ -1,57 +1,49 @@
 package br.senac.requestfood.model.usuario;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
 import br.senac.requestfood.model.contato.Contato;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuario")
 public abstract class Usuario {
 
-//	ATTRIBUTES
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_usuario", nullable = false)
-    private long id;
-	
-	@Column(name = "nome_usuario" , nullable = false, length = 45)
-    private String nome;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_contato", nullable = false)
-    private Contato contato;
+	@Column(name = "id_usuario")
+	private Long id;
 
-    protected Usuario() {
-    }
+	@Column(name = "nome_usuario", nullable = false, length = 45)
+	private String nome;
 
-    //	CONSTRUCTOR
-    protected Usuario (long id, String nome, Contato contato){
-        setId(id);
-        setNome(nome);
-        setContato(contato);
-    }
+	protected Usuario() {}
 
-    public long getId() {
-        return id;
-    }
+	protected Usuario(Long id, String nome, Contato contato) {
+		setId(id);
+		setNome(nome);
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }

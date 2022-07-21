@@ -1,20 +1,32 @@
 package br.senac.requestfood.model.mesa;
 
-import br.senac.requestfood.model.comanda.Comanda;
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-    @Entity
-    @Table(name = "mesa")
-    public class Mesa {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-    @Id
+import br.senac.requestfood.model.comanda.Comanda;
+import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
+
+@Entity
+@Table(name = "mesa")
+public class Mesa {
+
+   	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "numero_mesa")
-    private long numero;
+    @Column(name = "id_mesa")
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
@@ -24,21 +36,19 @@ import java.util.List;
     @Column(name = "mesa_disponivel")
     private boolean disponivel;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa")
     private List<Comanda> comandas;
 
-
-        public Mesa() {
-        }
-
-        public Mesa(Estabelecimento estabelecimento, long numero, boolean disponivelMesa) {
+    public Mesa() {}
+     
+    public Mesa(Estabelecimento estabelecimento, Long id, boolean disponivelMesa) {
         setEstabelecimento(estabelecimento);
-        setNumero(numero);
+        setId(id);
         setDisponivelMesa(disponivelMesa);
         comandas = new ArrayList<>();
     }
 
-        public boolean equals(Object objeto) {
+    public boolean equals(Object objeto) {
 
         if (this == objeto)
             return true;
@@ -51,28 +61,43 @@ import java.util.List;
 
         Mesa mesa = ((Mesa) objeto);
 
-        return this.getEstabelecimento() == mesa.getEstabelecimento() && this.getNumero() == this.getNumero() && this.getDisponivel() == mesa.getDisponivel() && this.getComandas() == mesa.getComandas();
+        return this.getEstabelecimento() == mesa.getEstabelecimento() && this.getId() == this.getId() && this.getDisponivel() == mesa.getDisponivel() && this.getComandas() == mesa.getComandas();
     }
+        
+    
     public Estabelecimento getEstabelecimento() {
         return estabelecimento;
     }
+    
     public void setEstabelecimento(Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
     }
 
-    public void setNumero(long numero) {
-        this.numero = numero;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public long getNumero() {
-        return numero;
+    
+    public long getId() {
+        return id;
     }
+    
     public void setDisponivelMesa(boolean disponivel) {
         this.disponivel = disponivel;
     }
+    
     public boolean getDisponivel() {
         return disponivel;
     }
+    
     public List<Comanda> getComandas() {
         return comandas;
+    }
+    
+    public void adicionarComanda(Comanda comanda) {
+    	comandas.add(comanda);
+    }
+    
+    public void removerComanda(Comanda comanda) {
+    	comandas.remove(comanda);
     }
 }

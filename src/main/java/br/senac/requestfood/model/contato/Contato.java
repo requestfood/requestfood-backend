@@ -1,55 +1,50 @@
 package br.senac.requestfood.model.contato;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import br.senac.requestfood.model.usuario.Usuario;
 
 @Entity
 @Table(name = "contato")
 public class Contato {
 
-//    ATTRIBUTES
+	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuario;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id_contato")
-    private long id;
+	@Column(name = "telefone_contato", nullable = false, length = 11, unique = true)
+	private String telefone;
 
-    @Column(name = "telefone_contato", nullable = false, length = 11)
-    private String telefone;
+	@Column(name = "email_contato", nullable = false, length = 50, unique = true)
+	private String email;
 
-    @Column(name = "email_contato", nullable = false, length = 50, unique = true)
-    private String email;
+	public Contato() {}
 
-    public Contato() {
-    }
+	public Contato(String telefone, String email) {
+		setTelefone(telefone);
+		setEmail(email);
+	}
 
-    //    CONSTRUCTOR
-    public Contato(long id, String telefone, String email) {
-        setTelefone(telefone);
-        setEmail(email);
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    //    GET E SET
-    public long getId() {
-        return id;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

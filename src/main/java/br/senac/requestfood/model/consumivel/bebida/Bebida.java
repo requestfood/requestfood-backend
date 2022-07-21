@@ -1,27 +1,29 @@
 package br.senac.requestfood.model.consumivel.bebida;
 
-import br.senac.requestfood.model.consumivel.Consumivel;
-import br.senac.requestfood.model.tipobebida.TipoBebida;
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import br.senac.requestfood.enumeration.bebida.CategoriaBebida;
+import br.senac.requestfood.model.consumivel.Consumivel;
+import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
 
 @Entity
 @Table(name = "bebida")
-@PrimaryKeyJoinColumn(name = "id_consumivel")
-
 public class Bebida extends Consumivel {
 
+	@Column(name = "alcoolico_bebida", nullable = false)
     private boolean alcoolico;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_bebida", nullable = false)
-    private TipoBebida tipoBebida;
+    private CategoriaBebida tipoBebida;
 
-    public Bebida() {
-    }
+    public Bebida() {}
 
-    public Bebida(long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Byte[] imagem, boolean alcoolico, TipoBebida tipoBebida){
+    public Bebida(Long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Byte[] imagem, boolean alcoolico, CategoriaBebida tipoBebida){
         super(id, estabelecimento, nome, valor, descricao, imagem);
         setAlcoolico(alcoolico);
         setTipoBebida(tipoBebida);
@@ -30,15 +32,15 @@ public class Bebida extends Consumivel {
     public void setAlcoolico(boolean alcoolico) {
         this.alcoolico = alcoolico;
     }
+    
     public boolean alcoolico (boolean alcoolico) {
         return alcoolico;
     }
 
-    public void setTipoBebida(TipoBebida tipoBebida) {
+    public void setTipoBebida(CategoriaBebida tipoBebida) {
         this.tipoBebida = tipoBebida;
     }
-    public TipoBebida getTipoBebida() {
+    public CategoriaBebida getTipoBebida() {
         return tipoBebida;
     }
-
 }

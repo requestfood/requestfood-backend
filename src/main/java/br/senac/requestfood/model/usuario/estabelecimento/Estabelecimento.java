@@ -1,27 +1,32 @@
 package br.senac.requestfood.model.usuario.estabelecimento;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import br.senac.requestfood.model.consumivel.Consumivel;
 import br.senac.requestfood.model.contato.Contato;
 import br.senac.requestfood.model.mesa.Mesa;
 import br.senac.requestfood.model.usuario.Usuario;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 @Entity
 @Table(name = "estabelecimento")
-@PrimaryKeyJoinColumn(name="id_usuario")
 public class Estabelecimento extends Usuario {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Consumivel> consumiveis;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento", cascade = CascadeType.ALL)
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mesa> mesas;
 
-    public Estabelecimento() {
-    }
+    public Estabelecimento() {}
 
-    public Estabelecimento(long id , String nome, Contato contato){
+    public Estabelecimento(Long id , String nome, Contato contato){
         super(id, nome, contato);
         mesas = new ArrayList<>();
         consumiveis = new ArrayList<>();
@@ -32,5 +37,21 @@ public class Estabelecimento extends Usuario {
     }
     public List<Consumivel> getConsumiveis() {
         return consumiveis;
+    }
+    
+    public void adicionarMesa(Mesa mesa) {
+    	mesas.add(mesa);
+    }
+    
+    public void removerMesa(Mesa mesa) {
+    	mesas.remove(mesa);
+    }
+    
+    public void adicionarConsumivel(Consumivel consumivel) {
+    	consumiveis.add(consumivel);
+    }
+    
+    public void removerConsumivel(Consumivel consumivel) {
+    	consumiveis.remove(consumivel);
     }
 }

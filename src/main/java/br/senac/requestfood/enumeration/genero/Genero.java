@@ -1,4 +1,4 @@
-package br.senac.requestfood.model.genero;
+package br.senac.requestfood.enumeration.genero;
 
 public enum Genero {
 
