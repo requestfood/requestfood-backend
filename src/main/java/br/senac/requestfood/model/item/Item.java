@@ -6,14 +6,33 @@ import br.senac.requestfood.model.itemadicional.ItemAdicional;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.processing.Generated;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "item")
 public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_item")
     private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Comanda comanda;
+
+    @Column(name = "quantidade_item", nullable = false)
     private int quantidade;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_consumivel", nullable = false)
     private Consumivel produto;
+
+    @Column(name = "observacao_item", length = 100)
     private String observacao;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemAdicional> itensadicionais;
 
     public Item(long id, Comanda comanda, int quantidade, Consumivel produto, String observacao) {
