@@ -43,8 +43,11 @@ public class Comanda {
     private Cliente cliente;
 
     @Column(name = "data_hora_emissao_comanda", nullable = false)
-    private LocalDateTime dataHoraEmissao;
+    private LocalDateTime dataEmissao;
 
+    @Column(name = "data_hora_fechamento_comanda")
+    private LocalDateTime dataFechamento;
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itens;
 
@@ -57,7 +60,7 @@ public class Comanda {
 
     protected Comanda(long id, Estabelecimento estabelecimento, Cliente cliente, LocalDateTime dataHoraEmissao, Mesa mesa, double valorTotal) {
         setCliente(cliente);
-        setDataHora(dataHoraEmissao);
+        setDataEmissao(dataHoraEmissao);
         setMesa(mesa);
         setValorTotal(valorTotal);
         itens = new ArrayList<>();
@@ -76,7 +79,8 @@ public class Comanda {
         return this.getId() == comanda.getId()
                 && this.getEstabelecimento().equals(comanda.getEstabelecimento())
                 && this.getCliente().equals(comanda.getCliente())
-                && this.getDataHora().equals(comanda.getDataHora())
+                && this.getDataEmissao().equals(comanda.getDataEmissao())
+                && this.getDataFechamento().equals(comanda.getDataFechamento())
                 && this.getItens().equals(comanda.getItens())
                 && this.getMesa().equals(comanda.getMesa())
                 && this.getValorTotal() == comanda.getValorTotal();
@@ -89,14 +93,21 @@ public class Comanda {
         this.cliente = cliente;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHoraEmissao;
+    public LocalDateTime getDataEmissao() {
+        return dataEmissao;
     }
-    public void setDataHora(LocalDateTime dataHoraEmissao) {
-        this.dataHoraEmissao = dataHoraEmissao;
+    public void setDataEmissao(LocalDateTime dataHoraEmissao) {
+        this.dataEmissao = dataHoraEmissao;
     }
 
-    public List<Item> getItens() {
+    public LocalDateTime getDataFechamento() {
+		return dataFechamento;
+	}
+	public void setDataFechamento(LocalDateTime dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+
+	public List<Item> getItens() {
         return itens;
     }
 
@@ -136,6 +147,5 @@ public class Comanda {
     
     public void removerItem(Item item) {
     	itens.remove(item);
-    } 
-    
+    }    
 }
