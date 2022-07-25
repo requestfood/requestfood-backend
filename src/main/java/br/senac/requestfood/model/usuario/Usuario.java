@@ -31,7 +31,7 @@ public abstract class Usuario {
 		setNome(nome);
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

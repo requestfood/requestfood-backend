@@ -48,7 +48,7 @@ public class Comanda {
     @Column(name = "data_hora_fechamento_comanda")
     private LocalDateTime dataFechamento;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itens;
 
     @ManyToOne(fetch = FetchType.LAZY)
