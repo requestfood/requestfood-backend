@@ -3,6 +3,9 @@ package br.senac.requestfood.model.contato;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -14,6 +17,11 @@ import br.senac.requestfood.model.usuario.Usuario;
 @Table(name = "contato")
 public class Contato {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_contato")
+	private Long id;
+	
 	@OneToOne(fetch = FetchType.LAZY)
 	@MapsId
 	@JoinColumn(name = "id_usuario", nullable = false)
