@@ -11,9 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.senac.requestfood.model.comanda.Comanda;
@@ -28,22 +27,21 @@ public class Mesa {
     @Column(name = "id_mesa")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Estabelecimento estabelecimento;
 
     @Column(name = "mesa_disponivel")
     private boolean disponivel;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa", cascade = CascadeType.PERSIST)
     private List<Comanda> comandas;
 
     public Mesa() {}
      
-    public Mesa(Estabelecimento estabelecimento, Long id, boolean disponivelMesa) {
-        setEstabelecimento(estabelecimento);
+    public Mesa(Long id, Estabelecimento estabelecimento, boolean disponivelMesa) {
         setId(id);
+        setEstabelecimento(estabelecimento);
         setDisponivelMesa(disponivelMesa);
         comandas = new ArrayList<>();
     }
@@ -77,7 +75,7 @@ public class Mesa {
         this.id = id;
     }
     
-    public long getId() {
+    public Long getId() {
         return id;
     }
     

@@ -10,8 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
@@ -26,9 +25,8 @@ public abstract class Consumivel {
 	@Column(name = "id_consumivel")
 	private Long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	@JoinColumn(name = "id_usuario")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario", nullable = false)
 	private Estabelecimento estabelecimento;
 
 	@Column(name = "nome_consumivel", length = 45, nullable = false)
