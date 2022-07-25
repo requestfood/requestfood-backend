@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.senac.requestfood.model.comanda.Comanda;
 import br.senac.requestfood.model.consumivel.Consumivel;
 import br.senac.requestfood.model.contato.Contato;
 import br.senac.requestfood.model.mesa.Mesa;
@@ -24,12 +25,16 @@ public class Estabelecimento extends Usuario {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mesa> mesas;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comanda> comandas;
+
     public Estabelecimento() {}
 
     public Estabelecimento(Long id , String nome, Contato contato){
         super(id, nome, contato);
         mesas = new ArrayList<>();
         consumiveis = new ArrayList<>();
+        comandas = new ArrayList<>();
     }
 
     public List<Mesa> getMesas() {
@@ -38,7 +43,10 @@ public class Estabelecimento extends Usuario {
     public List<Consumivel> getConsumiveis() {
         return consumiveis;
     }
-    
+    public List<Comanda> getComandas() {
+        return comandas;
+    }
+
     public void adicionarMesa(Mesa mesa) {
     	mesas.add(mesa);
     }

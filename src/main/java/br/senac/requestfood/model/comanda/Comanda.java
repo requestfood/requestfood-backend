@@ -33,8 +33,7 @@ public class Comanda {
     @Column(name = "id_comanda")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estabelecimento")
     private Estabelecimento estabelecimento;
 
