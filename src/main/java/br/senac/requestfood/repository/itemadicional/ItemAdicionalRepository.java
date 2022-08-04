@@ -1,6 +1,13 @@
 package br.senac.requestfood.repository.itemadicional;
 
-public interface ItemAdicionalRepository {
+import br.senac.requestfood.model.item.Item;
+import br.senac.requestfood.model.itemadicional.ItemAdicional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ItemAdicionalRepository extends JpaRepository <ItemAdicional, Long> {
 	//usem oque o professor mandou de exemplo
-	
+
+    boolean existsItem (Item item);
 }
