@@ -1,5 +1,9 @@
 package br.senac.requestfood.projection.bebida;
 
-public interface BebidaProjection {
+import br.senac.requestfood.enumeration.bebida.CategoriaBebida;
 
+public interface BebidaProjection {
+	
+	CategoriaBebida getTipoBebida();
+	
 }
