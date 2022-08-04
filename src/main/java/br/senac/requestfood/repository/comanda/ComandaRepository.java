@@ -23,10 +23,12 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>{
 	
 	boolean existsMesa(Mesa mesa);
 	
-	Optional<ComandaProjection> findById(Long id);
+	Optional<ComandaProjection> findComandaById(Long id);
 	
 	Optional<ComandaMesasProjection> findComandaWithMesaById(Long id);
 	
+	Optional<ComandaClienteProjection> findComandaWithClienteById(Long id);
 	
+	Optional<ComandaEstabelecimentoProjection> findComandaWithEstabelecimentoById(Long id);
 
 }
