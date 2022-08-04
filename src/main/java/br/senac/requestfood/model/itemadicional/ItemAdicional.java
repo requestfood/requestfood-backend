@@ -29,11 +29,11 @@ public class ItemAdicional {
     private String nomeAdicional;
 
     @Column(name = "quantidade_adicional", nullable = false)
-    private int quantidade;
+    private Integer quantidade;
 
     public ItemAdicional() {}
 
-    public ItemAdicional(Long id, Item item, String nomeAdicional, int quantidade) {
+    public ItemAdicional(Long id, Item item, String nomeAdicional, Integer quantidade) {
         setId(id);
         setItem(item);
         setNomeAdicional(nomeAdicional);
@@ -59,32 +59,25 @@ public class ItemAdicional {
     public long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public Item getItem() {
         return item;
     }
-
     public void setItem(Item item) {
         this.item = item;
     }
-
     public String getNomeAdicional() {
         return nomeAdicional;
     }
-
     public void setNomeAdicional(String nomeAdicional) {
         this.nomeAdicional = nomeAdicional;
     }
-
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
-
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 }

@@ -27,22 +27,26 @@ public class Mesa {
     @Column(name = "id_mesa")
     private Long id;
 
+   	@Column(name = "password_mesa", unique = true, nullable = false)
+    private String password;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Estabelecimento estabelecimento;
 
-    @Column(name = "mesa_disponivel")
-    private boolean disponivel;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa", cascade = CascadeType.PERSIST)
     private List<Comanda> comandas;
+    
+    @Column(name = "limitusernumber_mesa", nullable = false)
+    private Integer limitUserNumber;
 
     public Mesa() {}
      
-    public Mesa(Long id, Estabelecimento estabelecimento, boolean disponivelMesa) {
+    public Mesa(Long id, String password, Estabelecimento estabelecimento, Integer limitUserNumber) {
         setId(id);
+        setPassword(password);
         setEstabelecimento(estabelecimento);
-        setDisponivelMesa(disponivelMesa);
+        setLimitUserNumber(limitUserNumber);
         comandas = new ArrayList<>();
     }
 
@@ -59,43 +63,40 @@ public class Mesa {
 
         Mesa mesa = ((Mesa) objeto);
 
-        return this.getEstabelecimento() == mesa.getEstabelecimento() && this.getId() == this.getId() && this.getDisponivel() == mesa.getDisponivel() && this.getComandas() == mesa.getComandas();
+        return this.getEstabelecimento() == mesa.getEstabelecimento() && this.getId() == this.getId() && this.getComandas() == mesa.getComandas() && this.getPassword() == mesa.getPassword() && this.getLimitUserNumber() == mesa.getLimitUserNumber();
     }
         
-    
     public Estabelecimento getEstabelecimento() {
         return estabelecimento;
     }
-    
     public void setEstabelecimento(Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-    
     public Long getId() {
         return id;
     }
-    
-    public void setDisponivelMesa(boolean disponivel) {
-        this.disponivel = disponivel;
-    }
-    
-    public boolean getDisponivel() {
-        return disponivel;
-    }
-    
     public List<Comanda> getComandas() {
         return comandas;
     }
-    
     public void adicionarComanda(Comanda comanda) {
     	comandas.add(comanda);
     }
-    
     public void removerComanda(Comanda comanda) {
     	comandas.remove(comanda);
     }
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Integer getLimitUserNumber() {
+		return limitUserNumber;
+	}
+	public void setLimitUserNumber(Integer limitUserNumber) {
+		this.limitUserNumber = limitUserNumber;
+	}
 }

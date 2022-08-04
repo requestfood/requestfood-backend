@@ -35,12 +35,12 @@ public class Item {
 	private Comanda comanda;
 
 	@Column(name = "quantidade_item", nullable = false)
-	private int quantidade;
+	private Integer quantidade;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @MapsId
 	@JoinColumn(name = "id_consumivel", nullable = false)
-	private Consumivel produto;
+	private Consumivel consumivel;
 
 	@Column(name = "observacao_item", length = 100)
 	private String observacao;
@@ -50,11 +50,11 @@ public class Item {
 
 	public Item() {}
 
-	public Item(Long id, Comanda comanda, int quantidade, Consumivel produto, String observacao) {
+	public Item(Long id, Comanda comanda, Integer quantidade, Consumivel consumivel, String observacao) {
 		setId(id);
 		setComanda(comanda);
 		setQuantidade(quantidade);
-		setProduto(produto);
+		setProduto(consumivel);
 		setObservacao(observacao);
 		itensAdicionais = new ArrayList<>();
 	}
@@ -72,7 +72,7 @@ public class Item {
 
 		Item item = ((Item) objeto);
 
-		return this.getId() == item.getId() && this.getComanda() == item.comanda
+		return this.getId() == item.getId() && this.getComanda() == item.getComanda()
 				&& this.getQuantidade() == item.getQuantidade() && this.getProduto() == item.getProduto()
 				&& this.getObservacao().equals(getObservacao());
 	}
@@ -93,20 +93,20 @@ public class Item {
 		this.comanda = comanda;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setProduto(Consumivel produto) {
-		this.produto = produto;
+	public void setProduto(Consumivel consumivel) {
+		this.consumivel = consumivel;
 	}
 
 	public Consumivel getProduto() {
-		return produto;
+		return consumivel;
 	}
 
 	public void setObservacao(String observacao) {

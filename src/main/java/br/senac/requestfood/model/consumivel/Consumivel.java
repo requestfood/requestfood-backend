@@ -33,7 +33,7 @@ public abstract class Consumivel {
 	private String nome;
 
 	@Column(name = "valor_consumivel", nullable = false)
-	private float valor;
+	private Double valor;
 
 	@Column(name = "descricao_consumivel", length = 200)
 	private String descricao;
@@ -42,13 +42,13 @@ public abstract class Consumivel {
 	@Column(name = "imagem_consumivel")
 	private Byte[] imagem;
 
-	protected Consumivel(Long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Byte[] imagem) {
-		setId(id);
-		setEstabelecimento(estabelecimento);
-		setNome(nome);
-		setValor(valor);
-		setDescricao(descricao);
-		setImagem(imagem);
+	protected Consumivel(Long id, Estabelecimento estabelecimento, String nome, Double valor, String descricao, Byte[] imagem) {
+		this.id = id;
+		this.estabelecimento = estabelecimento;
+		this.nome = nome;
+		this.valor = valor;
+		this.descricao = descricao;
+		this.imagem = imagem;
 	}
 
 	protected Consumivel() {}
@@ -91,11 +91,11 @@ public abstract class Consumivel {
 		this.nome = nome;
 	}
 
-	public float getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

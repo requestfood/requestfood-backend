@@ -13,9 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,17 +53,20 @@ public class Comanda {
     private Mesa mesa;
 
     @Transient
-    private double valorTotal;
-
-    protected Comanda(long id, Estabelecimento estabelecimento, Cliente cliente, LocalDateTime dataHoraEmissao, Mesa mesa, double valorTotal) {
-        setCliente(cliente);
-        setDataEmissao(dataHoraEmissao);
-        setMesa(mesa);
-        setValorTotal(valorTotal);
-        itens = new ArrayList<>();
-    }
+    private Double valorTotal;
     
-    public Comanda() {}
+    protected Comanda(Long id, Estabelecimento estabelecimento, Cliente cliente, LocalDateTime dataEmissao, LocalDateTime dataFechamento, List<Item> itens, Mesa mesa, Double valorTotal) {
+		this.id = id;
+		this.estabelecimento = estabelecimento;
+		this.cliente = cliente;
+		this.dataEmissao = dataEmissao;
+		this.dataFechamento = dataFechamento;
+		this.itens = itens;
+		this.mesa = mesa;
+		this.valorTotal = valorTotal;
+	}
+
+	public Comanda() {}
     
     public boolean equals(Object objeto) {
         if (objeto == null)
@@ -120,7 +121,7 @@ public class Comanda {
     public double getValorTotal() {
         return valorTotal;
     }
-    public void setValorTotal(double valorTotal) {
+    public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -136,7 +137,7 @@ public class Comanda {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

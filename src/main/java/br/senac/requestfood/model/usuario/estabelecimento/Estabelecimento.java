@@ -30,8 +30,8 @@ public class Estabelecimento extends Usuario {
 
     public Estabelecimento() {}
 
-    public Estabelecimento(Long id , String nome, Contato contato){
-        super(id, nome, contato);
+    public Estabelecimento(Long id , String nome, Contato contato, String password){
+        super(id, nome, contato, password);
         mesas = new ArrayList<>();
         consumiveis = new ArrayList<>();
         comandas = new ArrayList<>();

@@ -15,7 +15,7 @@ import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
 public class Bebida extends Consumivel {
 
 	@Column(name = "alcoolico_bebida", nullable = false)
-    private boolean alcoolico;
+    private Boolean alcoolico;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_bebida", nullable = false)
@@ -23,20 +23,18 @@ public class Bebida extends Consumivel {
 
     public Bebida() {}
 
-    public Bebida(Long id, Estabelecimento estabelecimento, String nome, float valor, String descricao, Byte[] imagem, boolean alcoolico, CategoriaBebida tipoBebida){
+    public Bebida(Long id, Estabelecimento estabelecimento, String nome, Double valor, String descricao, Byte[] imagem, Boolean alcoolico, CategoriaBebida tipoBebida){
         super(id, estabelecimento, nome, valor, descricao, imagem);
         setAlcoolico(alcoolico);
         setTipoBebida(tipoBebida);
     }
 
-    public void setAlcoolico(boolean alcoolico) {
+    public void setAlcoolico(Boolean alcoolico) {
         this.alcoolico = alcoolico;
     }
-    
-    public boolean alcoolico (boolean alcoolico) {
+    public Boolean getAlcoolico (Boolean alcoolico) {
         return alcoolico;
     }
-
     public void setTipoBebida(CategoriaBebida tipoBebida) {
         this.tipoBebida = tipoBebida;
     }

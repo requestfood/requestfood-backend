@@ -32,8 +32,8 @@ public class Cliente extends Usuario {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.PERSIST)
     private List<Comanda> comandas;
 	
-    public Cliente(Long id, String nome, Contato contato, Genero genero, LocalDate dataNascimento) {
-        super(id, nome, contato);
+    public Cliente(Long id, String nome, Contato contato, String password, Genero genero, LocalDate dataNascimento) {
+        super(id, nome, contato, password);
         setGenero(genero);
         setDataNascimento(dataNascimento);
         comandas = new ArrayList<>();
