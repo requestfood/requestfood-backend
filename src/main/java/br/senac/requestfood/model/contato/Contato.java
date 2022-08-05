@@ -21,11 +21,6 @@ public class Contato {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_contato")
 	private Long id;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	@JoinColumn(name = "id_usuario", nullable = false)
-	private Usuario usuario;
 
 	@Column(name = "telefone_contato", nullable = false, length = 11, unique = true)
 	private String telefone;
