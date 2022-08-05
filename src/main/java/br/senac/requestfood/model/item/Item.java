@@ -109,6 +109,14 @@ public class Item {
 		return consumivel;
 	}
 
+	public Consumivel getConsumivel() {
+		return consumivel;
+	}
+
+	public void setConsumivel(Consumivel consumivel) {
+		this.consumivel = consumivel;
+	}
+
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
