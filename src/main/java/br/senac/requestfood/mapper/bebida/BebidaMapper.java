@@ -12,11 +12,11 @@ import br.senac.requestfood.model.consumivel.bebida.Bebida;
 public class BebidaMapper {
 
 	public BebidaDTO toDTO(Bebida bebida) {
-		return new BebidaDTO(bebida.getId(), bebida.getEstabelecimento(), bebida.getNome(), bebida.getValor(), bebida.getDescricao(), bebida.getImagem(), bebida.getAlcoolico(), bebida.getTipoBebida());
+		return new BebidaDTO(bebida.getId(), bebida.getEstabelecimento(), bebida.getNome(), bebida.getValor());
 	}
 	
-	public Bebida toEntity(BebidaDTO bebidaDTO) {
-		return new Bebida(bebidaDTO.id(), bebidaDTO.estabelecimento(), bebidaDTO.nome(), bebidaDTO.valor(), bebidaDTO.descricao(), bebidaDTO.imagem(), bebidaDTO.alcoolico(), bebidaDTO.tipoBebida());
+	public void toEntity(BebidaDTO bebidaDTO) {
+		// Not completed, waiting response for Front-End
 	}
 	
 	public List<BebidaDTO> toDTO(List<Bebida> bebidas){
@@ -35,7 +35,7 @@ public class BebidaMapper {
 		final List<Bebida> bebidas = new ArrayList<>();
 		
 		for (BebidaDTO bebidaDTO : dtos) {
-			bebidas.add(toEntity(bebidaDTO));
+//			bebidas.add(toEntity(bebidaDTO));
 		}
 		
 		return bebidas;
