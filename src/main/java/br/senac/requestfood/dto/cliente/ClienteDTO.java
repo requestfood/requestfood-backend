@@ -1,3 +1,5 @@
 package br.senac.requestfood.dto.cliente;
 
-public record ClienteDTO(Long id, String nome, String email) {}
+import br.senac.requestfood.model.contato.Contato;
+
+public record ClienteDTO(Long id,String nome, Contato contato) {}
