@@ -14,6 +14,8 @@ public interface ComandaProjection {
 	Long getId();
 	
 	Cliente getCliente();
+
+	LocalDateTime getDataEmissao();
 	
 	LocalDateTime getDataFechamento();
 	
