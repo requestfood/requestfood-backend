@@ -5,5 +5,6 @@ public interface ContatoProjection {
 	String getName();
 	
 	String getEmail();
+
 	
 }

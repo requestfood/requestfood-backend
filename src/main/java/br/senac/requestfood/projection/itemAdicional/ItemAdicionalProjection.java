@@ -4,12 +4,11 @@ import br.senac.requestfood.model.item.Item;
 
 public interface ItemAdicionalProjection {
 
-	Long getId();
-	
 	Item getItem();
 	
 	String getAdditionalName();
 	
 	Integer getQuantity();
-	
+
+	String getDescription();
 }

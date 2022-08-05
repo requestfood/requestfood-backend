@@ -14,7 +14,8 @@ import br.senac.requestfood.model.item.Item;
 
 @Entity
 @Table(name = "item_adicional")
-public class ItemAdicional {
+public class
+ItemAdicional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
