@@ -32,7 +32,7 @@ public class Bebida extends Consumivel {
     public void setAlcoolico(Boolean alcoolico) {
         this.alcoolico = alcoolico;
     }
-    public Boolean getAlcoolico (Boolean alcoolico) {
+    public Boolean getAlcoolico () {
         return alcoolico;
     }
     public void setTipoBebida(CategoriaBebida tipoBebida) {
