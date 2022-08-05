@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.cliente.ClienteDTO;
-import br.senac.requestfood.model.consumivel.bebida.Bebida;
 import br.senac.requestfood.model.usuario.cliente.Cliente;
 
 @Service

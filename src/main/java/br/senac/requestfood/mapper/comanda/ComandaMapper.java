@@ -11,7 +11,7 @@ import br.senac.requestfood.model.comanda.Comanda;
 @Service
 public class ComandaMapper {
 
-	public ComandaDTO toDTO(br.senac.requestfood.model.comanda.Comanda comanda) {
+	public ComandaDTO toDTO(Comanda comanda) {
 		return new ComandaDTO(comanda.getId(), comanda.getCliente(), comanda.getMesa(), comanda.getDataEmissao(), comanda.getDataFechamento(), comanda.getItens());
 	}
 	
