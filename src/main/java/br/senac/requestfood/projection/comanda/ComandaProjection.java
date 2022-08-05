@@ -17,10 +17,6 @@ public interface ComandaProjection {
 
 	LocalDateTime getDataEmissao();
 	
-	LocalDateTime getDataFechamento();
-	
-	List<ItemProjection> getItens();
-	
 	Mesa getMesa();
 	
 	Double getValorTotal();

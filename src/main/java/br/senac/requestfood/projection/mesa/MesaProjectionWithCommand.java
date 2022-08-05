@@ -9,11 +9,11 @@ public interface MesaProjectionWithCommand {
 
     Long getId();
 
-    Estabelecimento getEstabelecimento();
+    Estabelecimento getEstablishment();
 
     String getPassword();
 
     Integer getLimitUserNumber();
 
-    List<ComandaProjection> getComandas();
+    List<ComandaProjection> getBills();
 }

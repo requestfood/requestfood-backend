@@ -19,5 +19,5 @@ public interface ItemProjectionwithItemAdicional {
 
     String getDescription();
 
-    List<ItemAdicional> getItensAdicionais();
+    List<ItemAdicional> getAdditionalItem();
 }

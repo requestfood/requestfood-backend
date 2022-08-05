@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface ClienteProjectionWithComandas {
 
+    Long getId();
+
+    String getNome();
+
     Genero getGenero();
 
     LocalDate getDataNascimento();

@@ -9,7 +9,7 @@ public interface MesaProjection {
 
 	Long getId();
 	
-	Estabelecimento getEstabelecimento();
+	Estabelecimento getEstablishment();
 	
 	String getPassword();
 	
