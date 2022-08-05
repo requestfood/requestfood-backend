@@ -14,6 +14,4 @@ public interface MesaProjection {
 	String getPassword();
 	
 	Integer getLimitUserNumber();
-		
-	List<ComandaProjection> getComandas();
 }
