@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.senac.requestfood.projection.comanda.ComandaProjection;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
-import br.senac.requestfood.projection.mesa.MesaProjection;
+import br.senac.requestfood.projection.mesa.TableProjection;
 
 public interface EstablishmentWithAllProjection {
 
@@ -12,7 +12,7 @@ public interface EstablishmentWithAllProjection {
 
 	String getName();
 
-	List<MesaProjection> getTables();
+	List<TableProjection> getTables();
 
 	List<ConsumableProjection> getConsumable();
 

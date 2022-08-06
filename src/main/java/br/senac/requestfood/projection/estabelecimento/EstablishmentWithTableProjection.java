@@ -2,7 +2,7 @@ package br.senac.requestfood.projection.estabelecimento;
 
 import java.util.List;
 
-import br.senac.requestfood.projection.mesa.MesaProjection;
+import br.senac.requestfood.projection.mesa.TableProjection;
 
 public interface EstablishmentWithTableProjection {
 
@@ -10,5 +10,5 @@ public interface EstablishmentWithTableProjection {
 
 	String getName();
 
-	List<MesaProjection> getTables();
+	List<TableProjection> getTables();
 }
