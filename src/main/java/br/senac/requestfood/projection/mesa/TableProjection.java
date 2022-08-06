@@ -2,10 +2,10 @@ package br.senac.requestfood.projection.mesa;
 
 import java.util.List;
 
+import br.senac.requestfood.model.comanda.Comanda;
 import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
-import br.senac.requestfood.projection.comanda.ComandaProjection;
 
-public interface MesaProjection {
+public interface TableProjection {
 
 	Long getId();
 	
@@ -14,4 +14,6 @@ public interface MesaProjection {
 	String getPassword();
 	
 	Integer getLimitUserNumber();
+	
+	List<Comanda> getComandas();
 }
