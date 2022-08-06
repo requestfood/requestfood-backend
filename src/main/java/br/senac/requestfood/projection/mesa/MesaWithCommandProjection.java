@@ -5,7 +5,7 @@ import br.senac.requestfood.projection.comanda.ComandaProjection;
 
 import java.util.List;
 
-public interface MesaProjectionWithCommand {
+public interface MesaWithCommandProjection {
 
     Long getId();
 

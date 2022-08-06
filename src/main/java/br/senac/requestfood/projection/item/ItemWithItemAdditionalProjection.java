@@ -7,7 +7,7 @@ import br.senac.requestfood.model.itemadicional.ItemAdicional;
 
 import java.util.List;
 
-public interface ItemProjectionwithItemAdicional {
+public interface ItemWithItemAdditionalProjection {
 
     Item getItem();
 

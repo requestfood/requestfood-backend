@@ -8,7 +8,7 @@ import br.senac.requestfood.projection.item.ItemProjection;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ComandaProjectionWithClosureDate {
+public interface ComandaWithClosureDateProjection {
 
     Long getId();
 

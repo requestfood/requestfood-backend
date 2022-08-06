@@ -6,7 +6,7 @@ import br.senac.requestfood.projection.comanda.ComandaProjection;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ClienteProjectionWithComandas {
+public interface ClienteWithComandasProjection {
 
     Long getId();
 
