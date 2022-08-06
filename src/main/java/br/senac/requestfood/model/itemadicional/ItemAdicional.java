@@ -14,8 +14,7 @@ import br.senac.requestfood.model.item.Item;
 
 @Entity
 @Table(name = "item_adicional")
-public class
-ItemAdicional {
+public class ItemAdicional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,7 @@ ItemAdicional {
     private Item item;
 
     @Column(name = "nome_adicional", nullable = false)
-    private String nomeAdicional;
+    private String nome;
 
     @Column(name = "quantidade_adicional", nullable = false)
     private Integer quantidade;
@@ -70,10 +69,10 @@ ItemAdicional {
         this.item = item;
     }
     public String getNomeAdicional() {
-        return nomeAdicional;
+        return nome;
     }
     public void setNomeAdicional(String nomeAdicional) {
-        this.nomeAdicional = nomeAdicional;
+        this.nome= nomeAdicional;
     }
     public Integer getQuantidade() {
         return quantidade;
