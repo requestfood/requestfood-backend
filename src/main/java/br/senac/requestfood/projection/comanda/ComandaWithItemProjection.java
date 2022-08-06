@@ -16,8 +16,6 @@ public interface ComandaWithItemProjection {
 
     LocalDateTime getDataEmissao();
 
-    LocalDateTime getDataFechamento();
-
     List<ItemProjection> getItens();
 
     Mesa getMesa();
