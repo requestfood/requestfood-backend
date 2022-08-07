@@ -12,11 +12,12 @@ import br.senac.requestfood.model.comanda.Comanda;
 public class ComandaMapper {
 
 	public ComandaDTO toDTO(Comanda comanda) {
-		return new ComandaDTO(comanda.getId(), comanda.getCliente(), comanda.getMesa(), comanda.getDataEmissao(), comanda.getDataFechamento(), comanda.getItens());
+		return new ComandaDTO(comanda.getId(), comanda.getCliente(), comanda.getMesa(), comanda.getDataEmissao(), comanda.getDataFechamento(), comanda.getItens(), comanda.getValorTotal());
 	}
 	
-	public void toEntity(ComandaDTO clienteDTO) {
+	public Comanda toEntity(ComandaDTO comandaDTO) {
 	//Not Completed, waiting response for Front-End
+		return null;
 	}
 
 	public List<ComandaDTO> toDTO(List<Comanda> comandas){
@@ -35,7 +36,7 @@ public class ComandaMapper {
 		final List<Comanda> comandas= new ArrayList<>();
 		
 		for (ComandaDTO comandaDTO : comandaDTOs) {
-		//	clientes.add(toEntity(comandaDTO));
+			comandas.add(toEntity(comandaDTO));
 		}
 		
 		return comandas;

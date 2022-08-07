@@ -19,8 +19,6 @@ public interface ComandaProjection {
 	
 	Mesa getMesa();
 	
-	Double getValorTotal();
-	
 	Estabelecimento getEstabelecimento();
 	
 }
