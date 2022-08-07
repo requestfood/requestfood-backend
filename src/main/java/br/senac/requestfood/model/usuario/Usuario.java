@@ -30,7 +30,7 @@ public abstract class Usuario {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@MapsId
-	@JoinColumn(name = "id_contato", nullable = false)
+	@JoinColumn(name = "id_contact", nullable = false)
 	private Contato contato;
 	
 	@Column(name = "password_user", nullable = false, length = 8)
