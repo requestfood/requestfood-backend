@@ -11,6 +11,8 @@ import java.util.ConcurrentModificationException;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	//usem oque o professor mandou de exemplo
 
+    boolean existsByPassword(String password);
+    boolean existsByName(String name);
     boolean existsContato (Contato contato);
 
 }
