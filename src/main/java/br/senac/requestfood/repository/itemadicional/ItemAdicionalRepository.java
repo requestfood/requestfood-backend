@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface ItemAdicionalRepository extends JpaRepository <ItemAdicional, Long> {
 	//usem oque o professor mandou de exemplo
 
+    boolean existsName (String name);
+    boolean existsQuantity (Integer quantity);
+    boolean existsId (Long id);
     boolean existsItem (Item item);
 }
