@@ -21,7 +21,7 @@ public interface MesaRepository extends JpaRepository<Mesa, Long> {
 
     boolean existsEstabelecimento(Estabelecimento estabelecimento);
 
-    @Query(value = "SELECT u.id AS id, u.name AS name, u.email AS email FROM University u")
+    @Query(value = "SELECT u.id AS id, u.name AS name FROM Estabelecimento u")
     List<TableProjection> findComandas();
 
 }
