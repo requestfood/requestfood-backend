@@ -65,7 +65,7 @@ public class ClientServiceImpl implements ClientService {
 	
 	public ClienteWithComandasProjection findByidWithComandas(Long id) {
 
-		ClienteWithComandasProjection client = repository.findClientWithCommandById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		ClienteWithComandasProjection client = repository.findClienteWithCommandsById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		return client;
 	}

@@ -8,7 +8,7 @@ import br.senac.requestfood.projection.cliente.ClienteWithComandasProjection;
 
 public interface ClientService {
 	
-	ClienteDTO save(ClienteDTO clientDTO, Long id);
+	ClienteDTO save(ClienteDTO clientDTO);
 	
 	void update(ClienteDTO clientDTO, Long id);
 	
