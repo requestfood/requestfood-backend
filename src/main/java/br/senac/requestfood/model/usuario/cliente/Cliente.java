@@ -23,7 +23,7 @@ import br.senac.requestfood.model.usuario.Usuario;
 public class Cliente extends Usuario {
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "genero_cliente", nullable = false)
+	@Column(name = "genero_client", nullable = false)
     private Genero genero;
 	
 	@Column(name = "data_nascimento_cliente", nullable = false)

@@ -15,8 +15,9 @@ public class ClienteMapper {
 		return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getContato());
 	}
 	
-	public void toEntity(ClienteDTO clienteDTO) {
+	public Cliente toEntity(ClienteDTO clienteDTO) {
 	//Not Completed, waiting response for Front-End
+		return null;
 	}
 
 	public List<ClienteDTO> toDTO(List<Cliente> clientes){
