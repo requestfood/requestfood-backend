@@ -25,7 +25,7 @@ public class DrinkServiceImpl implements DrinkService{
 	
 	public BebidaDTO save(BebidaDTO bebidaDTO) {
 
-		if (!repository.existsByName(bebidaDTO.nome()))
+		if (repository.existsByName(bebidaDTO.nome()))
 			throw new ConsumivelNameRegisteredException("Bebida " + bebidaDTO.nome() + " is already registered");
 
 		Bebida drink = mapper.toEntity(bebidaDTO);

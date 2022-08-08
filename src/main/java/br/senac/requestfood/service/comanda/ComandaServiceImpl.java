@@ -26,10 +26,10 @@ public class ComandaServiceImpl implements ComandaService{
 	
 	public ComandaDTO save(ComandaDTO comandaDTO) {
 		
-		if(!repository.existsClient(comandaDTO.cliente()))
+		if(repository.existsClient(comandaDTO.cliente()))
 			throw new CommandClientNotFoundException("Client "+ comandaDTO.cliente().getId() + " was not found");
 
-		if(!repository.existsMesa(comandaDTO.mesa()))
+		if(repository.existsMesa(comandaDTO.mesa()))
 			throw new ComandaMesaRegisteredException("Table "+ comandaDTO.mesa().getId() + " was not found");
 
 		Comanda comanda = mapper.toEntity(comandaDTO);
@@ -42,10 +42,10 @@ public class ComandaServiceImpl implements ComandaService{
 		
 		Comanda comanda = repository.findById(id).orElseThrow(() -> new CommandNotFoundException("Command " + id + " was not found"));
 		
-		if(!repository.existsClient(comandaDTO.cliente()))
+		if(repository.existsClient(comandaDTO.cliente()))
 			throw new CommandClientNotFoundException("Client "+ comandaDTO.cliente().getId() + " was not found");
 
-		if(!repository.existsMesa(comandaDTO.mesa()))
+		if(repository.existsMesa(comandaDTO.mesa()))
 			throw new ComandaMesaRegisteredException("Table "+ comandaDTO.mesa().getId() + " was not found");
 		
 		comanda.setCliente(comandaDTO.cliente());
