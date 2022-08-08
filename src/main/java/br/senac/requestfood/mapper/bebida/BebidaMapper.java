@@ -15,8 +15,9 @@ public class BebidaMapper {
 		return new BebidaDTO(bebida.getId(), bebida.getEstabelecimento(), bebida.getNome(), bebida.getValor());
 	}
 	
-	public void toEntity(BebidaDTO bebidaDTO) {
+	public Bebida toEntity(BebidaDTO bebidaDTO) {
 		// Not completed, waiting response for Front-End
+		return null;
 	}
 	
 	public List<BebidaDTO> toDTO(List<Bebida> bebidas){
@@ -35,7 +36,7 @@ public class BebidaMapper {
 		final List<Bebida> bebidas = new ArrayList<>();
 		
 		for (BebidaDTO bebidaDTO : dtos) {
-//			bebidas.add(toEntity(bebidaDTO));
+			bebidas.add(toEntity(bebidaDTO));
 		}
 		
 		return bebidas;

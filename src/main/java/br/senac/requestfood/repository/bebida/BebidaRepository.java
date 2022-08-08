@@ -1,28 +1,22 @@
 package br.senac.requestfood.repository.bebida;
 
-import br.senac.requestfood.model.consumivel.bebida.Bebida;
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
-import br.senac.requestfood.projection.bebida.BebidaProjection;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import br.senac.requestfood.model.consumivel.bebida.Bebida;
+import br.senac.requestfood.projection.bebida.BebidaProjection;
 
 @Repository
 public interface BebidaRepository extends JpaRepository<Bebida, Long> {
 
+    boolean existsByName (String name);
 
-    Optional<BebidaProjection> findBebidaById(Long id);
-    boolean existsId (Long id);
-    boolean existsName (String name);
+    Optional<BebidaProjection> findDrinkById(Long id);
 
-    boolean existsEstabelecimento (Estabelecimento estabelecimento);
-
-    boolean existsValue (Float value);
-
-    boolean existsDescription (String Description);
-
-    boolean existsImage (Byte[] image);
-
+    @Query(value = "SELECT d.id_consumivel AS id, d.name_consumable AS name, d.id_user AS establishment, d.value_consumable AS value, d.description_consumable AS description, d.image_consumable AS image, d.type_drink FROM Drink d")
+    List<BebidaProjection> findDrinks();
 }
