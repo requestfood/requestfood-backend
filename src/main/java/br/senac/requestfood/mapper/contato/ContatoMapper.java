@@ -15,8 +15,9 @@ public class ContatoMapper {
 		return new ContatoDTO(contato.getId(), contato.getTelefone(), contato.getEmail());
 	}
 	
-	public void toEntity(ContatoDTO contatoDTO) {
+	public Contato toEntity(ContatoDTO contatoDTO) {
 		// Not completed, waiting response for Front-End
+		return null;
 	}
 	
 	public List<ContatoDTO> toDTO(List<Contato> contatos){
@@ -35,7 +36,7 @@ public class ContatoMapper {
 		final List<Contato> contatos = new ArrayList<>();
 		
 		for (ContatoDTO contatoDTO : contatoDTOs) {
-//			contatos.add(toEntity(contatoDTO));
+			contatos.add(toEntity(contatoDTO));
 		}
 		
 		return contatos;
