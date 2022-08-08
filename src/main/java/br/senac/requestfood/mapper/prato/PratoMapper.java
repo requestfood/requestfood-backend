@@ -12,11 +12,12 @@ import br.senac.requestfood.model.consumivel.prato.Prato;
 public class PratoMapper {
 
 	public PratoDTO toDTO(Prato prato) {
-		return new PratoDTO(prato.getId(), prato.getNome(), prato.getValor());
+		return new PratoDTO(prato.getId(), prato.getNome(), prato.getEstabelecimento(),prato.getValor());
 	}
 	
-	public void toEntity(PratoDTO pratoDTO) {
+	public Prato toEntity(PratoDTO pratoDTO) {
 	//Not Completed, waiting response for Front-End
+		return null;
 	}
 
 	public List<PratoDTO> toDTO(List<Prato> pratos){
@@ -35,7 +36,7 @@ public class PratoMapper {
 		final List<Prato> pratos= new ArrayList<>();
 		
 		for (PratoDTO pratoDTO : pratoDTOs) {
-		//	clientes.add(toEntity(clienteDTO));
+			pratos.add(toEntity(pratoDTO));
 		}
 		
 		return pratos;

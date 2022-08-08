@@ -36,7 +36,7 @@ public class ClienteMapper {
 		final List<Cliente> clientes= new ArrayList<>();
 		
 		for (ClienteDTO clienteDTO : clienteDTOs) {
-		//	clientes.add(toEntity(clienteDTO));
+			clientes.add(toEntity(clienteDTO));
 		}
 		
 		return clientes;

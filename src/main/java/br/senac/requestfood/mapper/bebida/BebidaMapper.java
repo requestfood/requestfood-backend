@@ -12,7 +12,7 @@ import br.senac.requestfood.model.consumivel.bebida.Bebida;
 public class BebidaMapper {
 
 	public BebidaDTO toDTO(Bebida bebida) {
-		return new BebidaDTO(bebida.getId(), bebida.getEstabelecimento(), bebida.getNome(), bebida.getValor());
+		return new BebidaDTO(bebida.getId(), bebida.getNome(), bebida.getEstabelecimento(),bebida.getValor());
 	}
 	
 	public Bebida toEntity(BebidaDTO bebidaDTO) {
