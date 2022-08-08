@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.cliente.ClienteDTO;
-import br.senac.requestfood.exception.client.ClientContactRegisteredExeception;
+import br.senac.requestfood.exception.client.ContactRegisteredExeception;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.mapper.cliente.ClienteMapper;
 import br.senac.requestfood.model.usuario.cliente.Cliente;
@@ -27,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
 	public ClienteDTO save(ClienteDTO clientDTO) {
 		
 		if (repository.existsByContact(clientDTO.contato()))
-			throw new ClientContactRegisteredExeception("Contact " + clientDTO.nome() + " is already registered");
+			throw new ContactRegisteredExeception("Contact " + clientDTO.nome() + " is already registered");
 		
 		Cliente client = mapper.toEntity(clientDTO);
 		Cliente clientSaved = repository.save(client);
@@ -40,7 +40,7 @@ public class ClientServiceImpl implements ClientService {
 		Cliente client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		if (repository.existsByContact(clientDTO.contato()))
-			throw new ClientContactRegisteredExeception("Contact " + clientDTO.nome() + " is already registered");
+			throw new ContactRegisteredExeception("Contact " + clientDTO.nome() + " is already registered");
 		
 		client.setNome(clientDTO.nome());
 		client.setContato(clientDTO.contato());
