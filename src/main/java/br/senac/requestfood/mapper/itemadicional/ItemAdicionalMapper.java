@@ -14,8 +14,8 @@ public class ItemAdicionalMapper {
         return new ItemAdicionalDTO(itemAdicional.getId(), itemAdicional.getItem(), itemAdicional.getNomeAdicional(), itemAdicional.getQuantidade());
     }
 
-    public void toEntity(ItemAdicionalDTO itemAdicionalDTO) {
-		// Not completed, waiting response for Front-End
+    public ItemAdicional toEntity(ItemAdicionalDTO itemAdicionalDTO) {
+    	return null;
     }
     
     public List<ItemAdicionalDTO> toDTO(List<ItemAdicional> itemadicionais){
@@ -34,7 +34,7 @@ public class ItemAdicionalMapper {
 		final List<ItemAdicional> itemadicionais = new ArrayList<>();
 		
 		for (ItemAdicionalDTO itemadicionalDTO : itemadicionalDTOs) {
-//			contatos.add(toEntity(contatoDTO));
+			itemadicionais.add(toEntity(itemadicionalDTO));
 		}
 		
 		return itemadicionais;
