@@ -16,8 +16,9 @@ public class ItemMapper {
 		return new ItemDTO(item.getId(), item.getComanda(), item.getQuantidade(), item.getConsumivel(), item.getObservacao(), item.getItensAdicionais());
 	}
 	
-	public void toEntity(ItemDTO itemDTO) {
+	public Item toEntity(ItemDTO itemDTO) {
 	//Not Completed, waiting response for Front-End
+		return null;
 	}
 
 	public List<ItemDTO> toDTO(List<Item> items){
@@ -36,7 +37,7 @@ public class ItemMapper {
 		final List<Item> items= new ArrayList<>();
 		
 		for (ItemDTO itemDTO : itemDTOs) {
-		//	items.add(toEntity(itemDTO));
+			items.add(toEntity(itemDTO));
 		}
 		
 		return items;

@@ -5,11 +5,13 @@ import br.senac.requestfood.model.consumivel.Consumivel;
 
 public interface ItemProjection {
 	
-	Comanda getBill();
+	Long getId();
+	
+	Comanda getCommand();
 	
 	Integer getQuantity();
 
-	Consumivel getProduct();
+	Consumivel getConsumable();
 	
 	String getDescription();
 

@@ -31,22 +31,22 @@ public class Item {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_comanda", nullable = false)
+	@JoinColumn(name = "id_command", nullable = false)
 	private Comanda comanda;
 
-	@Column(name = "quantidade_item", nullable = false)
+	@Column(name = "quantity_item", nullable = false)
 	private Integer quantidade;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @MapsId
-	@JoinColumn(name = "id_consumivel", nullable = false)
+	@JoinColumn(name = "id_consumable", nullable = false)
 	private Consumivel consumivel;
 
-	@Column(name = "observacao_item", length = 100)
-	private String observacao;
+	@Column(name = "observation_item", length = 100)
+	private String observation;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemAdicional> itensAdicionais;
+	private List<ItemAdicional> itemAddicionals;
 
 	public Item() {}
 
@@ -56,7 +56,7 @@ public class Item {
 		setQuantidade(quantidade);
 		setProduto(consumivel);
 		setObservacao(observacao);
-		itensAdicionais = new ArrayList<>();
+		itemAddicionals = new ArrayList<>();
 	}
 
 	public boolean equals(Object objeto) {
@@ -118,22 +118,22 @@ public class Item {
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observation = observacao;
 	}
 
 	public String getObservacao() {
-		return observacao;
+		return observation;
 	}
 
 	public List<ItemAdicional> getItensAdicionais() {
-		return itensAdicionais;
+		return itemAddicionals;
 	}
 
 	public void adicionarItemAdicional(ItemAdicional itemAdicional) {
-		itensAdicionais.add(itemAdicional);
+		itemAddicionals.add(itemAdicional);
 	}
 
 	public void removerItemAdicional(ItemAdicional itemAdicional) {
-		itensAdicionais.remove(itemAdicional);
+		itemAddicionals.remove(itemAdicional);
 	}
 }
