@@ -1,28 +1,26 @@
 package br.senac.requestfood.repository.mesa;
 
-import br.senac.requestfood.model.mesa.Mesa;
-import br.senac.requestfood.model.usuario.Usuario;
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
-import br.senac.requestfood.projection.mesa.TableProjection;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import br.senac.requestfood.model.mesa.Mesa;
+import br.senac.requestfood.projection.mesa.TableProjection;
+import br.senac.requestfood.projection.mesa.TableWithCommandProjection;
 
 @Repository
 public interface MesaRepository extends JpaRepository<Mesa, Long> {
-    //usem oque o professor mandou de exemplo
 
-    boolean existsId (Long id);
+	boolean TableLimitUserNumber(Integer limitUserNumber);
 
-    boolean existsPassword (String password);
-    boolean existsLimitUserNumber(Integer limitUserNumber);
+    Optional<TableProjection> findTableById(Long id);
 
-    boolean existsEstabelecimento(Estabelecimento estabelecimento);
+    Optional<TableWithCommandProjection> findTableWithCommandById(Long id);
 
-    @Query(value = "SELECT u.id AS id, u.name AS name FROM Estabelecimento u")
-    List<TableProjection> findComandas();
-
+    @Query(value = "SELECT t.id_table AS id, t.id_user AS establishment, t.password_table AS password, t.limitusernumber_table FROM Table t")
+    List<TableProjection> findTables();
 }
 

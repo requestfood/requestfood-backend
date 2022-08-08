@@ -14,12 +14,12 @@ import br.senac.requestfood.projection.mesa.TableWithCommandProjection;
 import br.senac.requestfood.repository.mesa.MesaRepository;
 
 @Service
-public class tableServiceImpl implements TableService{
+public class TableServiceImpl implements TableService{
 
 	private final MesaRepository repository;
 	private final MesaMapper mapper;
 
-	public tableServiceImpl(MesaRepository repository, MesaMapper mapper) {
+	public TableServiceImpl(MesaRepository repository, MesaMapper mapper) {
 		this.repository = repository;
 		this.mapper = mapper;
 	}
@@ -66,7 +66,6 @@ public class tableServiceImpl implements TableService{
 	}
 	
 	public TableProjection findById(Long id) {
-		
 		TableProjection table = repository.findTableById(id).orElseThrow(() -> new TableNotFoundException("Table " + id + " was not found" ));
 		return table;
 	}
@@ -79,6 +78,4 @@ public class tableServiceImpl implements TableService{
 	public List<TableProjection> findAll() {
 		return repository.findTables();
 	}
-
-	
 }

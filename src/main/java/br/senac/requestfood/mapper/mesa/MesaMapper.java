@@ -10,11 +10,12 @@ import br.senac.requestfood.model.mesa.Mesa;
 
 @Service
 public class MesaMapper {
-    public MesaDTO toDTO(Mesa mesa) {
+    
+	public MesaDTO toDTO(Mesa mesa) {
         return new MesaDTO(mesa.getId(), mesa.getEstabelecimento(), mesa.getPassword(), mesa.getLimitUserNumber(), mesa.getComandas());
     }
 
-    public MesaDTO toEntity(MesaDTO mesaDTO) {
+    public Mesa toEntity(MesaDTO mesaDTO) {
         // Not completed, waiting response for Front-End
     	return null;
     }
@@ -35,7 +36,7 @@ public class MesaMapper {
         final List<Mesa> mesas = new ArrayList<>();
 
         for (MesaDTO mesaDTO : mesaDTOs) {
-            // contatos.add(toEntity(contatoDTO));
+            mesas.add(toEntity(mesaDTO));
         }
 
         return mesas;
