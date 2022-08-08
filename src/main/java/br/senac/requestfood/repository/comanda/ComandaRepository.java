@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.model.comanda.Comanda;
-import br.senac.requestfood.model.mesa.Mesa;
-import br.senac.requestfood.model.usuario.cliente.Cliente;
 import br.senac.requestfood.projection.comanda.ComandaProjection;
 import br.senac.requestfood.projection.comanda.ComandaWithClosureDateProjection;
 import br.senac.requestfood.projection.comanda.ComandaWithItemProjection;

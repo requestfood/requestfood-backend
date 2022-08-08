@@ -1,16 +1,15 @@
 package br.senac.requestfood.repository.contato;
 
-import br.senac.requestfood.model.contato.Contato;
-import br.senac.requestfood.model.usuario.Usuario;
-import br.senac.requestfood.projection.cliente.ClienteProjection;
-import br.senac.requestfood.projection.contato.ContatoProjection;
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import br.senac.requestfood.model.contato.Contato;
+import br.senac.requestfood.model.usuario.Usuario;
+import br.senac.requestfood.projection.contato.ContatoProjection;
 
 @Repository
 public interface ContatoRepository extends JpaRepository<Contato, Long> {
