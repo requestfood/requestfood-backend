@@ -1,29 +1,23 @@
 package br.senac.requestfood.repository.prato;
 
-import br.senac.requestfood.model.consumivel.prato.Prato;
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
-import br.senac.requestfood.projection.bebida.BebidaProjection;
-import br.senac.requestfood.projection.prato.PratoProjection;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import br.senac.requestfood.model.consumivel.prato.Prato;
+import br.senac.requestfood.projection.prato.PratoProjection;
 
 @Repository
 public interface PratoRepository extends JpaRepository<Prato, Long> {
-	//usem oque o professor mandou de exemplo
 
-    Optional<PratoProjection> findPratoById(Long id);
+	boolean existsByName (String name);
 
-    boolean existsId (Long id);
-    boolean existsName (String name);
+    Optional<PratoProjection> findDishById(Long id);
 
-    boolean existsEstabelecimento (Estabelecimento estabelecimento);
-
-    boolean existsValue (Float value);
-
-    boolean existsDescription (String Description);
-
-    boolean existsImage (Byte[] image);
-	
+    @Query(value = "SELECT d.id_consumivel AS id, d.name_consumable AS name, d.id_user AS establishment, d.value_consumable AS value, d.description_consumable AS description, d.image_consumable AS image, d.type_dish FROM Dish d")
+    List<PratoProjection> findDishs();
+    
 }
