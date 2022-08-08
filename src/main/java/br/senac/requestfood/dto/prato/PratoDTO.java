@@ -1,3 +1,5 @@
 package br.senac.requestfood.dto.prato;
 
-public record PratoDTO(Long id, String nome, Double valor) {}
+import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
+
+public record PratoDTO(Long id, String nome, Estabelecimento estabelecimento ,Double valor) {}
