@@ -17,10 +17,6 @@ import br.senac.requestfood.projection.comanda.ComandaWithItemProjection;
 @Repository
 public interface ComandaRepository extends JpaRepository<Comanda, Long>{
 
-	boolean existsClient(Cliente client);
-	
-	boolean existsMesa(Mesa mesa);
-
 	Optional<ComandaProjection> findComandaById(Long id);
 
 	Optional<ComandaWithItemProjection> findComandaWithItemById(Long id);

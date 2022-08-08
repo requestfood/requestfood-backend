@@ -3,8 +3,6 @@ package br.senac.requestfood.service.comanda;
 import java.util.List;
 
 import br.senac.requestfood.dto.comanda.ComandaDTO;
-import br.senac.requestfood.exception.comanda.ComandaMesaRegisteredException;
-import br.senac.requestfood.exception.comanda.CommandClientNotFoundException;
 import br.senac.requestfood.exception.comanda.CommandNotFoundException;
 import br.senac.requestfood.mapper.comanda.ComandaMapper;
 import br.senac.requestfood.model.comanda.Comanda;
@@ -26,12 +24,6 @@ public class ComandaServiceImpl implements ComandaService{
 	
 	public ComandaDTO save(ComandaDTO comandaDTO) {
 		
-		if(repository.existsClient(comandaDTO.cliente()))
-			throw new CommandClientNotFoundException("Client "+ comandaDTO.cliente().getId() + " was not found");
-
-		if(repository.existsMesa(comandaDTO.mesa()))
-			throw new ComandaMesaRegisteredException("Table "+ comandaDTO.mesa().getId() + " was not found");
-
 		Comanda comanda = mapper.toEntity(comandaDTO);
 		Comanda comandaSaved = repository.save(comanda);
 
@@ -41,12 +33,6 @@ public class ComandaServiceImpl implements ComandaService{
 	public void update(ComandaDTO comandaDTO, Long id) {
 		
 		Comanda comanda = repository.findById(id).orElseThrow(() -> new CommandNotFoundException("Command " + id + " was not found"));
-		
-		if(repository.existsClient(comandaDTO.cliente()))
-			throw new CommandClientNotFoundException("Client "+ comandaDTO.cliente().getId() + " was not found");
-
-		if(repository.existsMesa(comandaDTO.mesa()))
-			throw new ComandaMesaRegisteredException("Table "+ comandaDTO.mesa().getId() + " was not found");
 		
 		comanda.setCliente(comandaDTO.cliente());
 		comanda.setMesa(comandaDTO.mesa());
