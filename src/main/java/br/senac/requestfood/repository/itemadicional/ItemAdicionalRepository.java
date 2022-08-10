@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 public interface ItemAdicionalRepository extends JpaRepository <ItemAdicional, Long> {
 
 	Optional<ItemAdicionalProjection> findAdditionalItemById(Long id);
-	
-	//select incorreto
-	@Query(value = "SELECT u.id AS id_usuario, u.nome_cliente AS nome FROM cliente u")
-	List<ItemAdicionalProjection> findAdditionalItens();
+
+	@Query(value = "SELECT a.id_AdditionalItem as id, a.Item as Item, a.Name as ItemName, a.Quantity as ItemQuantity FROM AdditionalItem a")
+	List<ItemAdicionalProjection>findAdditionalItens();
+
 
 }
