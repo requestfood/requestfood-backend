@@ -2,7 +2,6 @@ package br.senac.requestfood.controller.drink;
 
 import br.senac.requestfood.dto.bebida.BebidaDTO;
 import br.senac.requestfood.projection.bebida.BebidaProjection;
-import br.senac.requestfood.projection.prato.PratoProjection;
 import br.senac.requestfood.service.drink.DrinkService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
