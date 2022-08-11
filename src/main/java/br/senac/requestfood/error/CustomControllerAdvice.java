@@ -1,7 +1,7 @@
 package br.senac.requestfood.error;
 
 import br.senac.requestfood.exception.client.ClientNotFoundException;
-import br.senac.requestfood.exception.client.ContactRegisteredExeception;
+import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.comanda.ComandaMesaRegisteredException;
 import br.senac.requestfood.exception.comanda.CommandClientNotFoundException;
 import br.senac.requestfood.exception.comanda.CommandNotFoundException;
@@ -15,8 +15,8 @@ import br.senac.requestfood.exception.item.ItemNotFoundException;
 import br.senac.requestfood.exception.itemadicional.AdditionalItemNotFoundException;
 import br.senac.requestfood.exception.itemadicional.ItemAdicionalNomeRegisteredException;
 import br.senac.requestfood.exception.mesa.TableNotFoundException;
-import br.senac.requestfood.exception.usuario.UsuarioClienteNotFoundExeception;
-import br.senac.requestfood.exception.usuario.UsuarioEstabelecimentoNotFoundExeception;
+import br.senac.requestfood.exception.usuario.UsuarioClienteNotFoundException;
+import br.senac.requestfood.exception.usuario.UsuarioEstabelecimentoNotFoundException;
 import br.senac.requestfood.exception.usuario.UsuarioNotFoundException;
 import br.senac.requestfood.exception.usuario.UsuarioPasswordException;
 import org.springframework.http.HttpStatus;
