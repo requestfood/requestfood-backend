@@ -1,9 +1,11 @@
 package br.senac.requestfood.controller.dish;
 
-
 import br.senac.requestfood.dto.prato.PratoDTO;
 import br.senac.requestfood.projection.prato.PratoProjection;
 import br.senac.requestfood.service.dish.DishService;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +42,9 @@ public class DishController {
     public ResponseEntity<PratoProjection> getDish(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(dishService.findById(id));
     }
+
+    @GetMapping()
+	public ResponseEntity<List<PratoProjection>> getAllDish() {
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findAll());
+	}
 }

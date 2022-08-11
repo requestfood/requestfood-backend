@@ -1,5 +1,7 @@
 package br.senac.requestfood.controller.comanda;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,14 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import br.senac.requestfood.dto.comanda.ComandaDTO;
 import br.senac.requestfood.projection.comanda.ComandaProjection;
 import br.senac.requestfood.service.comanda.ComandaService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/command")
 
 public class ComandaController {
@@ -37,7 +38,7 @@ public class ComandaController {
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updatedCommand(@RequestBody ComandaDTO comandaDTO, @PathVariable(value = "id") Long id) {
 		commandService.update(comandaDTO, id);
-		return ResponseEntity.status(HttpStatus.OK).body("Command updated successfully")
+		return ResponseEntity.status(HttpStatus.OK).body("Command updated successfully");
 	}
 
 	@DeleteMapping("/{id}")
@@ -51,4 +52,8 @@ public class ComandaController {
 		return ResponseEntity.status(HttpStatus.OK).body(commandService.findById(id));
 	}
 
+	@GetMapping()
+	public ResponseEntity<List<ComandaProjection>> getAllCommand() {
+		return ResponseEntity.status(HttpStatus.OK).body(commandService.findAll());
+	}
 }
