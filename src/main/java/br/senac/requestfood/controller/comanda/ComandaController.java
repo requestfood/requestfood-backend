@@ -5,11 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import br.senac.requestfood.dto.comanda.ComandaDTO;
 import br.senac.requestfood.projection.comanda.ComandaProjection;
@@ -17,34 +19,36 @@ import br.senac.requestfood.service.comanda.ComandaService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/comanda")
+@RequestMapping("/command")
 
 public class ComandaController {
     
-    private final ComandaController comandaService;
+    private final ComandaService commandService;
 
     public ComandaController(ComandaService comandaService) {
-		this.comandaService = comandaService;
+		this.commandService = comandaService;
 	}
 
 	@PostMapping
-	public ResponseEntity<ComandaDTO> addComanda(@RequestBody ComandaDTO comandaDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(comandaService.save(comandaDTO));
+	public ResponseEntity<ComandaDTO> addCommand(@RequestBody ComandaDTO comandaDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(commandService.save(comandaDTO));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateComanda(@RequestBody ComandaDTO comandaDTO, @PathVariable(value = "id") Long id) {
-		comandaService.update(comandaDTO, id);
+	public ResponseEntity<String> updatedCommand(@RequestBody ComandaDTO comandaDTO, @PathVariable(value = "id") Long id) {
+		commandService.update(comandaDTO, id);
+		return ResponseEntity.status(HttpStatus.OK).body("Command updated successfully")
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteComanda(@PathVariable(value = "id") Long id) {
-		comandaService.delete(id);
+	public ResponseEntity<String> deletedCommand(@PathVariable(value = "id") Long id) {
+		commandService.delete(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Command deleted successfully");
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ComandaProjection> getComanda(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(comandaService.findById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(commandService.findById(id));
 	}
 
 }
