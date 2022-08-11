@@ -20,8 +20,8 @@ public class DishController {
     }
 
     @PostMapping
-    public ResponseEntity<PratoDTO> dish(@RequestBody PratoDTO additionalItemDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(dishService.save(additionalItemDTO));
+    public ResponseEntity<PratoDTO> dish(@RequestBody PratoDTO pratoDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(dishService.save(pratoDTO));
     }
 
     @PutMapping("/{id}")
