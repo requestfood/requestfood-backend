@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import br.senac.requestfood.dto.itemadicional.ItemAdicionalDTO;
 import br.senac.requestfood.projection.itemAdicional.ItemAdicionalProjection;
 import br.senac.requestfood.service.additionalitem.AdditionalItemService;
@@ -48,5 +50,10 @@ public class AdditionalItemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ItemAdicionalProjection> getItemAdditional(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(additionalItemService.findById(id));
+	}
+
+	@GetMapping()
+	public ResponseEntity<List<ItemAdicionalProjection>> getAllAddictionalItem() {
+		return ResponseEntity.status(HttpStatus.OK).body(additionalItemService.findAll());
 	}
 }
