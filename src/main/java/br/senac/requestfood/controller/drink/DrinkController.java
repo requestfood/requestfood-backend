@@ -2,10 +2,13 @@ package br.senac.requestfood.controller.drink;
 
 import br.senac.requestfood.dto.bebida.BebidaDTO;
 import br.senac.requestfood.projection.bebida.BebidaProjection;
+import br.senac.requestfood.projection.item.ItemProjection;
 import br.senac.requestfood.service.drink.DrinkService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -38,5 +41,10 @@ public class DrinkController {
     @GetMapping("/{id}")
     public ResponseEntity<BebidaProjection> getDrink(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(drinkService.findById(id));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<BebidaProjection>> getAllDrink() {
+        return ResponseEntity.status(HttpStatus.OK).body(drinkService.findAll());
     }
 }
