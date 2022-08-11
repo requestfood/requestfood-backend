@@ -17,8 +17,6 @@ public interface ItemAdicionalRepository extends JpaRepository <ItemAdicional, L
 
 	Optional<ItemAdicionalProjection> findAdditionalItemById(Long id);
 
-	@Query(value = "SELECT a.id_additional_item AS id, a.id_item AS Item, a.additional_name AS AdditionItemName, a.additional_quantity AS AdditionalItemQuantity FROM additionalItem a")
+	@Query(value = "SELECT  a.additional_name AS AdditionItemName FROM additionalItem a")
 	List<ItemAdicionalProjection>findAdditionalItens();
-
-
 }
