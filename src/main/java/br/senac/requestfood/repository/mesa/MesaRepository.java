@@ -20,7 +20,7 @@ public interface MesaRepository extends JpaRepository<Mesa, Long> {
 
     Optional<TableWithCommandProjection> findTableWithCommandById(Long id);
 
-    @Query(value = "SELECT t.id_table AS id, t.id_user AS establishment, t.password_table AS password, t.limitusernumber_table FROM Table t")
+    @Query(value = "SELECT t.id_table AS id, t.id_user AS establishment, t.password_table AS password, t.limitusernumber_table FROM table t")
     List<TableProjection> findTables();
 }
 

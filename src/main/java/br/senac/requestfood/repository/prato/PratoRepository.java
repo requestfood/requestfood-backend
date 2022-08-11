@@ -17,7 +17,7 @@ public interface PratoRepository extends JpaRepository<Prato, Long> {
 
     Optional<PratoProjection> findDishById(Long id);
 
-    @Query(value = "SELECT d.id_consumivel AS id, d.name_consumable AS name, d.id_user AS establishment, d.value_consumable AS value, d.description_consumable AS description, d.image_consumable AS image, d.type_dish FROM Dish d")
+    @Query(value = "SELECT d.id_consumivel AS id, d.name_consumable AS name, d.id_user AS establishment, d.value_consumable AS value, d.description_consumable AS description, d.image_consumable AS image, d.type_dish FROM dish d")
     List<PratoProjection> findDishs();
     
 }
