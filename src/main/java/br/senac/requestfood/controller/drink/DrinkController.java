@@ -19,7 +19,7 @@ public class DrinkController {
     }
 
     @PostMapping
-    public ResponseEntity<BebidaDTO> dish(@RequestBody BebidaDTO drinkDto) {
+    public ResponseEntity<BebidaDTO> drink(@RequestBody BebidaDTO drinkDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(drinkService.save(drinkDto));
     }
 
