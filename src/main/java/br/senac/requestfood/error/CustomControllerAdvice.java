@@ -29,8 +29,8 @@ public class CustomControllerAdvice {
 
     //Exceptions Client
 
-    @ExceptionHandler(ContactRegisteredExeception.class)
-    public ResponseEntity<ErrorResponse> handleContactRegisteredExeception(Exception exception) {
+    @ExceptionHandler(ContactRegisteredException.class)
+    public ResponseEntity<ErrorResponse> handleContactRegisteredException(Exception exception) {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
     }
@@ -138,14 +138,14 @@ public class CustomControllerAdvice {
 
     //Exceptions User
 
-    @ExceptionHandler(UsuarioClienteNotFoundExeception.class)
-    public ResponseEntity<ErrorResponse> handleUsuarioClienteNotFoundExeception(Exception exception){
+    @ExceptionHandler(UsuarioClienteNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUsuarioClienteNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
-    @ExceptionHandler(UsuarioEstabelecimentoNotFoundExeception.class)
-    public ResponseEntity<ErrorResponse> handleUsuarioEstabelecimentoNotFoundExeception(Exception exception){
+    @ExceptionHandler(UsuarioEstabelecimentoNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUsuarioEstabelecimentoNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
