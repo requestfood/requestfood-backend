@@ -18,34 +18,36 @@ import br.senac.requestfood.service.cliente.ClientService;
 
 
 @RestController
-@CrossOrigin
-@RequestMapping("/cliente")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/client")
 
 public class ClienteController {
 
-    private final ClientService clienteService;
+    private final ClientService clientService;
 
-	public ClienteController(ClientService clienteService) {
-		this.clienteService = clienteService;
+	public ClienteController(ClientService clientService) {
+		this.clientService = clientService;
 	}
 
 	@PostMapping
-	public ResponseEntity<ClienteDTO> addCliente(@RequestBody ClienteDTO clienteDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteDTO));
+	public ResponseEntity<ClienteDTO> addClient(@RequestBody ClienteDTO clientDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(clientDTO));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateCliente(@RequestBody ClienteDTO clienteDTO, @PathVariable(value = "id") Long id) {
-		clienteService.update(clienteDTO, id);
+	public ResponseEntity<String> updatedClient(@RequestBody ClienteDTO clientDTO, @PathVariable(value = "id") Long id) {
+		clientService.update(clientDTO, id);
+		return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully");
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteCliente(@PathVariable(value = "id") Long id) {
-		clienteService.delete(id);
+	public ResponseEntity<String> deletedClient(@PathVariable(value = "id") Long id) {
+		clientService.delete(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Client deleted successfully");
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ClienteProjection> getCliente(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findById(id));
+	public ResponseEntity<ClienteProjection> getClient(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(clientService.findById(id));
 	}
 }
