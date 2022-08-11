@@ -1,5 +1,7 @@
 package br.senac.requestfood.controller.cliente;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,5 +51,10 @@ public class ClienteController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteProjection> getClient(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(clientService.findById(id));
+	}
+
+	@GetMapping()
+	public ResponseEntity<List<ClienteProjection>> getAllClient() {
+		return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
 	}
 }
