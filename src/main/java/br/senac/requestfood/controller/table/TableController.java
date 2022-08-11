@@ -3,6 +3,9 @@ package br.senac.requestfood.controller.table;
 import br.senac.requestfood.dto.mesa.MesaDTO;
 import br.senac.requestfood.projection.mesa.TableProjection;
 import br.senac.requestfood.service.table.TableService;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,4 +42,9 @@ public class TableController {
     public ResponseEntity<TableProjection> getTable(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(tableService.findById(id));
     }
+
+    @GetMapping()
+	public ResponseEntity<List<TableProjection>> getAllDesk() {
+		return ResponseEntity.status(HttpStatus.OK).body(tableService.findAll());
+	}
 }
