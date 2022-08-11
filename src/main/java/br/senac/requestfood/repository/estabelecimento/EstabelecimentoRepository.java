@@ -30,7 +30,7 @@ public interface EstabelecimentoRepository extends JpaRepository<Estabelecimento
 	
 	Optional<EstablishmentWithCommandProjection> findEstablishmentWithCommandById(Long id);
 
-	@Query(value="SELECT e.id_Establishment as id, e.name_Establishment as Name FROM client e)")
+	@Query(value="SELECT e.id_Establishment AS id, e.name_Establishment AS Name FROM client e)")
 	List<EstabelecimentoProjection>findEstablishments();
 
 }

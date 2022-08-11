@@ -21,6 +21,6 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long>{
 
 	Optional<ComandaWithClosureDateProjection> findComandaWithClosureDate(Long id);
 	
-	@Query(value = "SELECT c.id_command AS id, c.id_client AS client, c.data_hora_emissao_command AS data_emissao, c.id_mesa AS mesa, c.id_establishment AS establishment FROM command c")
+	@Query(value = "SELECT c.id_command AS id, c.id_client AS Client, c.data_hora_emissao_command AS DataEmissao, c.id_mesa AS Mesa, c.id_establishment AS Establishment FROM command c")
 	List<ComandaProjection> findCommands();
 }
