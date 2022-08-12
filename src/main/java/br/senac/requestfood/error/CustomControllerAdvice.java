@@ -52,13 +52,13 @@ public class CustomControllerAdvice {
     //Exceptions Consumable
 
     @ExceptionHandler(ConsumableNameRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleConsumivelNameRegisteredException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleConsumableNameRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
 
     }
     @ExceptionHandler(ConsumableNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleConsumivelNotFoundException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleConsumableNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
@@ -73,13 +73,13 @@ public class CustomControllerAdvice {
     }
 
     @ExceptionHandler(ContactEmailRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleContatoEmailRegisteredException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleContactEmailRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
 
     }
     @ExceptionHandler(ContactPhoneRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleContatoTelefoneRegisteredException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleContactPhoneRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
     }
@@ -105,24 +105,24 @@ public class CustomControllerAdvice {
     //Exceptions User
 
     @ExceptionHandler(UserClientNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUsuarioClienteNotFoundException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleUserClientNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
     @ExceptionHandler(UserEstablishmentNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUsuarioEstabelecimentoNotFoundException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleUserEstablishmentNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUsuarioNotFoundException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
     @ExceptionHandler(UserPasswordException.class)
-    public ResponseEntity<ErrorResponse> handleUsuarioPasswordException(Exception exception){
+    public ResponseEntity<ErrorResponse> handleUserPasswordException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
     }
