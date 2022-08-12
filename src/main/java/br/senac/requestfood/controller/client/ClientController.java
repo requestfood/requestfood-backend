@@ -1,4 +1,4 @@
-package br.senac.requestfood.controller.cliente;
+package br.senac.requestfood.controller.client;
 
 import java.util.List;
 

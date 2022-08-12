@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.senac.requestfood.model.command.Command;
-import br.senac.requestfood.projection.command.CommandProjection;
-import br.senac.requestfood.projection.command.CommandWithClosureDateProjection;
-import br.senac.requestfood.projection.command.CommandWithItemProjection;
+import br.senac.requestfood.model.order.Command;
+import br.senac.requestfood.projection.order.CommandProjection;
+import br.senac.requestfood.projection.order.CommandWithClosureDateProjection;
+import br.senac.requestfood.projection.order.CommandWithItemProjection;
 
 @Repository
 public interface CommandRepository extends JpaRepository<Command, Long>{

@@ -1,14 +1,14 @@
-package br.senac.requestfood.service.command;
+package br.senac.requestfood.service.order;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.command.CommandDTO;
-import br.senac.requestfood.exception.command.CommandNotFoundException;
-import br.senac.requestfood.mapper.command.CommandMapper;
-import br.senac.requestfood.model.command.Command;
-import br.senac.requestfood.projection.command.CommandProjection;
-import br.senac.requestfood.projection.command.CommandWithClosureDateProjection;
-import br.senac.requestfood.projection.command.CommandWithItemProjection;
+import br.senac.requestfood.dto.order.CommandDTO;
+import br.senac.requestfood.exception.order.CommandNotFoundException;
+import br.senac.requestfood.mapper.order.CommandMapper;
+import br.senac.requestfood.model.order.Command;
+import br.senac.requestfood.projection.order.CommandProjection;
+import br.senac.requestfood.projection.order.CommandWithClosureDateProjection;
+import br.senac.requestfood.projection.order.CommandWithItemProjection;
 import br.senac.requestfood.repository.command.CommandRepository;
 
 

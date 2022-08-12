@@ -1,11 +1,11 @@
-package br.senac.requestfood.service.command;
+package br.senac.requestfood.service.order;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.command.CommandDTO;
-import br.senac.requestfood.projection.command.CommandProjection;
-import br.senac.requestfood.projection.command.CommandWithClosureDateProjection;
-import br.senac.requestfood.projection.command.CommandWithItemProjection;
+import br.senac.requestfood.dto.order.CommandDTO;
+import br.senac.requestfood.projection.order.CommandProjection;
+import br.senac.requestfood.projection.order.CommandWithClosureDateProjection;
+import br.senac.requestfood.projection.order.CommandWithItemProjection;
 
 public interface CommandService {
 	

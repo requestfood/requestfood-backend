@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.requestfood.enumeration.gender.Gender;
-import br.senac.requestfood.model.command.Command;
+import br.senac.requestfood.model.order.Command;
 import br.senac.requestfood.model.user.User;
 
 @Entity

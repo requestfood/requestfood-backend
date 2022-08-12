@@ -1,4 +1,4 @@
-package br.senac.requestfood.projection.command;
+package br.senac.requestfood.projection.order;
 
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;

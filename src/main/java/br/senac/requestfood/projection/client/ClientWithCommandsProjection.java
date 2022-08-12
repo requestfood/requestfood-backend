@@ -1,7 +1,7 @@
 package br.senac.requestfood.projection.client;
 
 import br.senac.requestfood.enumeration.gender.Gender;
-import br.senac.requestfood.projection.command.CommandProjection;
+import br.senac.requestfood.projection.order.CommandProjection;
 
 import java.time.LocalDate;
 import java.util.List;

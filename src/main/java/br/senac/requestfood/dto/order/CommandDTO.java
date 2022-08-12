@@ -1,4 +1,4 @@
-package br.senac.requestfood.dto.command;
+package br.senac.requestfood.dto.order;
 
 import java.time.LocalDateTime;
 import java.util.List;

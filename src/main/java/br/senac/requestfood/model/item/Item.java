@@ -12,7 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.command.Command;
+import br.senac.requestfood.model.order.Command;
 import br.senac.requestfood.model.consumable.Consumable;
 
 @Entity

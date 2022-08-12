@@ -1,4 +1,4 @@
-package br.senac.requestfood.controller.comanda;
+package br.senac.requestfood.controller.order;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.command.CommandDTO;
-import br.senac.requestfood.projection.command.CommandProjection;
-import br.senac.requestfood.service.command.CommandService;
+import br.senac.requestfood.dto.order.CommandDTO;
+import br.senac.requestfood.projection.order.CommandProjection;
+import br.senac.requestfood.service.order.CommandService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)

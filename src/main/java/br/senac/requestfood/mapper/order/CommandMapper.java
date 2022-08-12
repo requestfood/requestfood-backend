@@ -1,12 +1,12 @@
-package br.senac.requestfood.mapper.command;
+package br.senac.requestfood.mapper.order;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.command.CommandDTO;
-import br.senac.requestfood.model.command.Command;
+import br.senac.requestfood.dto.order.CommandDTO;
+import br.senac.requestfood.model.order.Command;
 
 @Service
 public class CommandMapper {

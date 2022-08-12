@@ -1,4 +1,4 @@
-package br.senac.requestfood.model.command;
+package br.senac.requestfood.model.order;
 
 import java.time.LocalDateTime;
 import java.util.List;

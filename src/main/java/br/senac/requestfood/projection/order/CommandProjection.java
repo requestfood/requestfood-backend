@@ -1,4 +1,4 @@
-package br.senac.requestfood.projection.command;
+package br.senac.requestfood.projection.order;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package br.senac.requestfood.exception.command;
+package br.senac.requestfood.exception.order;
 
 
 public class CommandClientNotFoundException extends RuntimeException{

@@ -11,7 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.command.Command;
+import br.senac.requestfood.model.order.Command;
 import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.User;

@@ -2,7 +2,7 @@ package br.senac.requestfood.projection.establishment;
 
 import java.util.List;
 
-import br.senac.requestfood.projection.command.CommandProjection;
+import br.senac.requestfood.projection.order.CommandProjection;
 
 public interface EstablishmentWithCommandProjection {
 
