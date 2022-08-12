@@ -37,13 +37,13 @@ public class CustomControllerAdvice {
 
     //Exceptions Command
 
-    @ExceptionHandler(CommandClientNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleCommandClientNotFoundException(Exception exception){
+    @ExceptionHandler(OrderClientNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleOrderClientNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
-    @ExceptionHandler(CommandNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleCommandNotFoundException(Exception exception){
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleOrderNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
 
