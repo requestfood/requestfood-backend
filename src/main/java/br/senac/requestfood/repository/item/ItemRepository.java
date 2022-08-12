@@ -9,13 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.projection.item.ItemProjection;
-import br.senac.requestfood.projection.item.ItemWithAdditionalItemProjection;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-	Optional<ItemWithAdditionalItemProjection> findItemWithItemAdditionalById(Long id);
-	
 	Optional<ItemProjection> findItemById(Long id);
 	
 	@Query(value = "SELECT i.id_item AS id, i.id_command AS Command, i.quantity_item AS Quantity, i.id_consumable AS Consumable, i.observation_item AS Observation FROM Item i")

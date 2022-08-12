@@ -13,7 +13,6 @@ import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithTableProjection;
 
 @Repository
 public interface EstablishmentRepository extends JpaRepository<Establishment, Long> {
@@ -23,8 +22,6 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	Optional<EstablishmentProjection> findEstablishmentById(Long id);
 	
 	Optional<EstablishmentWithAllProjection> findEstablishmentWithAllById(Long id);
-	
-	Optional<EstablishmentWithTableProjection> findEstablishmentWithTableById(Long id);
 	
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);
 	
