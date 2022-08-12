@@ -21,6 +21,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Optional<ClientWithCommandsProjection> findClientWithCommandsById(Long id);
     
-    @Query(value = "SELECT c.id_user AS id, c.name_user AS name, c.id_contact AS contact, c.password.user AS password, c.genero_client AS genero, c.data_nascimento_cliente AS data_nascimento FROM cliente c")
+    @Query(value = "SELECT c.id_user AS id, c.name_user AS Name, c.id_contact AS Contact, c.password.user AS Password, c.genre_client AS Genre, c.date_birth_client AS BirthDate FROM client c")
     List<ClientProjection> findClients();
 }

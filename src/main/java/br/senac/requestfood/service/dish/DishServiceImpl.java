@@ -62,6 +62,6 @@ public class DishServiceImpl implements DishService{
 	}
 
 	public List<DishProjection> findAll() {
-		return repository.findDishs();
+		return repository.findDishes();
 	}
 }
