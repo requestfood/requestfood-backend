@@ -17,6 +17,6 @@ public interface DishProjection {
 
 	Byte[] getImage();
 
-	CategoryDish getDishType();
+	CategoryDish getTypeDish();
 
 }

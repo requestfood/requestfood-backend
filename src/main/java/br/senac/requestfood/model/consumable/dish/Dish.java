@@ -15,20 +15,20 @@ public class Dish extends Consumable {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "type_dish", nullable = false)
-    private CategoryDish typoDish;
+    private CategoryDish typeDish;
 
     public Dish() {}
 
-	public Dish(CategoryDish typoDish) {
-		this.typoDish = typoDish;
+	public Dish(CategoryDish typeDish) {
+		this.typeDish = typeDish;
 	}
 
-	public CategoryDish getTypoDish() {
-		return typoDish;
+	public CategoryDish getTypeDish() {
+		return typeDish;
 	}
 
-	public void setTypoDish(CategoryDish typoDish) {
-		this.typoDish = typoDish;
+	public void setTypeDish(CategoryDish typeDish) {
+		this.typeDish = typeDish;
 	}
 
 }

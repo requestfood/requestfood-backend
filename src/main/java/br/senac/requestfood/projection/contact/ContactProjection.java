@@ -8,5 +8,4 @@ public interface ContactProjection {
 	
 	String getEmail();
 
-	
 }

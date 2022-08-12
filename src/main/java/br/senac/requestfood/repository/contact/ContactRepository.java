@@ -22,6 +22,6 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 
     Optional<ContactProjection> findContactById(Long id);
     
-    @Query(value = "SELECT c.id_user AS id, c.name_user AS Name, c.id_contact AS Contact, c.password.user AS Password, c.genre_client AS Genre, c.date_birth_client AS BirthDate FROM Client c")
+    @Query(value = "SELECT c.id_user AS id, c.name_user AS name, c.id_contact AS id, c.phone_contact AS phone, c.email_contact AS email, c.password.user AS password, c.gender_client AS gender, c.date_birth_client AS birthDate FROM Client c")
     List<ContactProjection> findContacts();
 }

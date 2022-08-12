@@ -24,7 +24,7 @@ public class Client extends User {
 	@Column(name = "gender_client", nullable = false)
     private Gender gender;
 	
-	@Column(name = "birth_date_cliente", nullable = false)
+	@Column(name = "birth_date_client", nullable = false)
     private LocalDate birthDate;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.PERSIST)

@@ -15,8 +15,8 @@ public interface ClientProjection {
 
 	String getPassword();
 
-	Gender getGenero();
+	Gender getGender();
 	
-	LocalDate getDataNascimento();
+	LocalDate getBirthDate();
 	
 }

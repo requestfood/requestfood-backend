@@ -51,18 +51,18 @@ public class Item {
 
 
 
-	public boolean equals(Object objeto) {
+	public boolean equals(Object object) {
 
-		if (this == objeto)
+		if (this == object)
 			return true;
 
-		if (objeto == null)
+		if (object == null)
 			return false;
 
-		if (getClass() != objeto.getClass())
+		if (getClass() != object.getClass())
 			return false;
 
-		Item item = ((Item) objeto);
+		Item item = ((Item) object);
 
 		return this.getId() == item.getId() && this.getCommand() == item.getCommand()
 				&& this.getQuantity() == item.getQuantity() && this.getConsumable() == item.getConsumable()

@@ -17,5 +17,5 @@ public interface DrinkProjection {
 
 	Byte[] getImage();
 
-	CategoryDrink getDrinkType();
+	CategoryDrink getTypeDrink();
 }
