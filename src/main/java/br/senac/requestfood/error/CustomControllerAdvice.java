@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.command.CommandClientNotFoundException;
-import br.senac.requestfood.exception.command.CommandDeskRegisteredException;
 import br.senac.requestfood.exception.command.CommandNotFoundException;
 import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -37,12 +36,6 @@ public class CustomControllerAdvice {
     }
 
     //Exceptions Command
-
-    @ExceptionHandler(CommandDeskRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleComandaMesaRegisteredException(Exception exception){
-
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
-    }
 
     @ExceptionHandler(CommandClientNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCommandClientNotFoundException(Exception exception){
