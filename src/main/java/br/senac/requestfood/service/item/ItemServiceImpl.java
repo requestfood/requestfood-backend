@@ -9,7 +9,7 @@ import br.senac.requestfood.exception.item.ItemNotFoundException;
 import br.senac.requestfood.mapper.item.ItemMapper;
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.projection.item.ItemProjection;
-import br.senac.requestfood.projection.item.ItemWithItemAdditionalProjection;
+import br.senac.requestfood.projection.item.ItemWithAdditionalItemProjection;
 import br.senac.requestfood.repository.item.ItemRepository;
 
 @Service
@@ -36,10 +36,10 @@ public class ItemServiceImpl implements ItemService{
 		Item item = repository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item "+ id +" was not found"));		
 		
 		item.setId(itemDTO.id());
-		item.setComanda(itemDTO.comanda());
-		item.setQuantidade(itemDTO.quantidade());
-		item.setConsumivel(itemDTO.consumivel());
-		item.setObservacao(itemDTO.observacao());
+		item.setCommand(itemDTO.command());
+		item.setQuantity(itemDTO.quanity());
+		item.setConsumable(itemDTO.consumable());
+		item.setObservation(itemDTO.observation());
 	}
 
 	public void delete(Long id) {
@@ -56,8 +56,8 @@ public class ItemServiceImpl implements ItemService{
 		return item;
 	}
 
-	public ItemWithItemAdditionalProjection findItemWithItemAdditionalById(Long id) {
-		ItemWithItemAdditionalProjection item = repository.findItemWithItemAdditionalById(id).orElseThrow(() -> new ItemNotFoundException("ItemAddicional " + id + " was not found"));
+	public ItemWithAdditionalItemProjection findItemWithAdditionalItemById(Long id) {
+		ItemWithAdditionalItemProjection item = repository.findItemWithItemAdditionalById(id).orElseThrow(() -> new ItemNotFoundException("ItemAddicional " + id + " was not found"));
 		return item;
 	}
 

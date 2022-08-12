@@ -1,6 +1,6 @@
 package br.senac.requestfood.projection.consumable;
 
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
+import br.senac.requestfood.model.user.establishment.Establishment;
 
 public interface ConsumableProjection {
 
@@ -8,7 +8,7 @@ public interface ConsumableProjection {
 
     String getName();
 
-    Estabelecimento getEstablishment();
+    Establishment getEstablishment();
 
     Float getValue();
 

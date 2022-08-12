@@ -4,49 +4,49 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.estabelecimento.EstabelecimentoDTO;
-import br.senac.requestfood.exception.client.ContactRegisteredExeception;
+import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
-import br.senac.requestfood.mapper.estabelecimento.EstabelecimentoMapper;
-import br.senac.requestfood.model.usuario.estabelecimento.Estabelecimento;
-import br.senac.requestfood.projection.estabelecimento.EstabelecimentoProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithCommandProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithTableProjection;
-import br.senac.requestfood.repository.estabelecimento.EstabelecimentoRepository;
+import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
+import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.projection.establishment.EstablishmentProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithTableProjection;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
 public class EstablishmentServiceImpl implements EstablishmentService {
 	
-	private final EstabelecimentoRepository repository;
-	private final EstabelecimentoMapper mapper;
+	private final EstablishmentRepository repository;
+	private final EstablishmentMapper mapper;
 	
-	public EstablishmentServiceImpl (EstabelecimentoRepository repository, EstabelecimentoMapper mapper) {
+	public EstablishmentServiceImpl (EstablishmentRepository repository, EstablishmentMapper mapper) {
 		this.repository = repository;
 		this.mapper = mapper;
 	}
 	
-	public EstabelecimentoDTO save(EstabelecimentoDTO establishmentDTO) {
+	public EstablishmentDTO save(EstablishmentDTO establishmentDTO) {
 
-		if (repository.existsByContact(establishmentDTO.contato()))
-			throw new ContactRegisteredExeception("Contact " + establishmentDTO.nome() + " is already registered");
+		if (repository.existsByContact(establishmentDTO.contact()))
+			throw new ContactRegisteredException("Contact " + establishmentDTO.name() + " is already registered");
 		
-		Estabelecimento establishment = mapper.toEntity(establishmentDTO);
-		Estabelecimento establishmentSaved = repository.save(establishment);
+		Establishment establishment = mapper.toEntity(establishmentDTO);
+		Establishment establishmentSaved = repository.save(establishment);
 		
 		return mapper.toDTO(establishmentSaved);
 	}
 	
-	public void update(EstabelecimentoDTO establishmentDTO, Long id) {
+	public void update(EstablishmentDTO establishmentDTO, Long id) {
 
-		Estabelecimento establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
-		if (repository.existsByContact(establishmentDTO.contato()))
-			throw new ContactRegisteredExeception("Contact " + establishmentDTO.nome() + " is already registered");
+		if (repository.existsByContact(establishmentDTO.contact()))
+			throw new ContactRegisteredException("Contact " + establishmentDTO.name() + " is already registered");
 		
-		establishment.setNome(establishmentDTO.nome());
-		establishment.setContato(establishmentDTO.contato());
+		establishment.setName(establishmentDTO.name());
+		establishment.setContact(establishmentDTO.contact());
 		
 		repository.save(establishment);
 	}
@@ -59,9 +59,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		repository.deleteById(id);
 	}
 	
-	public EstabelecimentoProjection findById(Long id) {
+	public EstablishmentProjection findById(Long id) {
 
-		EstabelecimentoProjection establishment = repository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		EstablishmentProjection establishment = repository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
 		return establishment;
 	}
@@ -87,14 +87,14 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 	
-	public EstablishmentWithTableProjection findByIdWithTable(Long id) {
+	public EstablishmentWithTableProjection findByIdWithDesk(Long id) {
 
 		EstablishmentWithTableProjection establishment = repository.findEstablishmentWithTableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
 		return establishment;
 	}
 	
-	public List<EstabelecimentoProjection> findAll() {
+	public List<EstablishmentProjection> findAll() {
 
 		return repository.findEstablishments();
 	}

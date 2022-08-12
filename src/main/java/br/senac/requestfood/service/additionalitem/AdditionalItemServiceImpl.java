@@ -4,37 +4,37 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.itemadicional.ItemAdicionalDTO;
-import br.senac.requestfood.exception.itemadicional.AdditionalItemNotFoundException;
-import br.senac.requestfood.mapper.itemadicional.ItemAdicionalMapper;
-import br.senac.requestfood.model.itemadicional.ItemAdicional;
-import br.senac.requestfood.projection.itemAdicional.ItemAdicionalProjection;
-import br.senac.requestfood.repository.itemadicional.ItemAdicionalRepository;
+import br.senac.requestfood.dto.addicionalitem.AdditionalItemDTO;
+import br.senac.requestfood.exception.additionalitem.AdditionalItemNotFoundException;
+import br.senac.requestfood.mapper.addicionalitem.AdditionalItemMapper;
+import br.senac.requestfood.model.addicionalItem.AdditionalItem;
+import br.senac.requestfood.projection.addicionalItem.AddicionalItemProjection;
+import br.senac.requestfood.repository.addicionalitem.AdditionalItemRepository;
 
 @Service
 public class AdditionalItemServiceImpl implements AdditionalItemService{
 	
-	private final ItemAdicionalRepository repository;
-	private final ItemAdicionalMapper mapper;
+	private final AdditionalItemRepository repository;
+	private final AdditionalItemMapper mapper;
 	
-	public AdditionalItemServiceImpl(ItemAdicionalRepository repository, ItemAdicionalMapper mapper) {
+	public AdditionalItemServiceImpl(AdditionalItemRepository repository, AdditionalItemMapper mapper) {
 		this.repository = repository;
 		this.mapper = mapper;
 	}
 
-	public ItemAdicionalDTO save(ItemAdicionalDTO additionalItemDTO) {
+	public AdditionalItemDTO save(AdditionalItemDTO additionalItemDTO) {
 
-		ItemAdicional additionalItem = mapper.toEntity(additionalItemDTO);
-		ItemAdicional additionalItemSaved = repository.save(additionalItem);
+		AdditionalItem additionalItem = mapper.toEntity(additionalItemDTO);
+		AdditionalItem additionalItemSaved = repository.save(additionalItem);
 		
 		return mapper.toDTO(additionalItemSaved);
 	}
 
-	public void update(ItemAdicionalDTO additionalItemDTO, Long id) {
+	public void update(AdditionalItemDTO additionalItemDTO, Long id) {
 
-		ItemAdicional additionalItem = repository.findById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
+		AdditionalItem additionalItem = repository.findById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
 		
-		additionalItem.setNomeAdicional(additionalItemDTO.nomeAdicional());
+		additionalItem.setNomeAdicional(additionalItemDTO.name());
 		
 		repository.save(additionalItem);
 	}
@@ -47,17 +47,15 @@ public class AdditionalItemServiceImpl implements AdditionalItemService{
 		repository.deleteById(id);
 	}
 
-	public ItemAdicionalProjection findById(Long id) {
+	public AddicionalItemProjection findById(Long id) {
 
-		ItemAdicionalProjection additionalItem = repository.findAdditionalItemById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
+		AddicionalItemProjection additionalItem = repository.findAdditionalItemById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
 		
 		return additionalItem;
 	}
 
-	public List<ItemAdicionalProjection> findAll() {
+	public List<AddicionalItemProjection> findAll() {
 		
 		return repository.findAdditionalItens();
 	}
-	
-	
 }

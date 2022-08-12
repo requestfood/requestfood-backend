@@ -2,18 +2,18 @@ package br.senac.requestfood.service.drink;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.bebida.BebidaDTO;
-import br.senac.requestfood.projection.bebida.BebidaProjection;
+import br.senac.requestfood.dto.drink.DrinkDTO;
+import br.senac.requestfood.projection.drink.DrinkProjection;
 
 public interface DrinkService {
 
-	BebidaDTO save(BebidaDTO bebidaDTO);
+	DrinkDTO save(DrinkDTO bebidaDTO);
 
-	void update(BebidaDTO bebidaDTO, Long id);
+	void update(DrinkDTO bebidaDTO, Long id);
 
 	void delete(Long id);
 	
-	BebidaProjection findById(Long id);
+	DrinkProjection findById(Long id);
 	
-	List<BebidaProjection> findAll();
+	List<DrinkProjection> findAll();
 }

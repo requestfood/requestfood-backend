@@ -2,22 +2,22 @@ package br.senac.requestfood.service.establishment;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.estabelecimento.EstabelecimentoDTO;
-import br.senac.requestfood.projection.estabelecimento.EstabelecimentoProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithCommandProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.estabelecimento.EstablishmentWithTableProjection;
+import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.projection.establishment.EstablishmentProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithTableProjection;
 
 public interface EstablishmentService {
 
-	EstabelecimentoDTO save(EstabelecimentoDTO establishmentDTO);
+	EstablishmentDTO save(EstablishmentDTO establishmentDTO);
 	
-	void update(EstabelecimentoDTO establishmentDTO, Long id);
+	void update(EstablishmentDTO establishmentDTO, Long id);
 	
 	void delete(Long id);
 	
-	EstabelecimentoProjection findById(Long id);
+	EstablishmentProjection findById(Long id);
 	
 	EstablishmentWithAllProjection findByIdWithAll(Long id);
 	
@@ -25,7 +25,7 @@ public interface EstablishmentService {
 	
 	EstablishmentWithConsumableProjection findByIdWithComsumable(Long id);
 	
-	EstablishmentWithTableProjection findByIdWithTable(Long id);
+	EstablishmentWithTableProjection findByIdWithDesk(Long id);
 	
-	List<EstabelecimentoProjection> findAll();
+	List<EstablishmentProjection> findAll();
 }

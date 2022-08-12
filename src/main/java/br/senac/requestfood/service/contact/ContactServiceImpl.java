@@ -4,50 +4,50 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.contato.ContatoDTO;
-import br.senac.requestfood.exception.contato.ContactNotFoundException;
-import br.senac.requestfood.exception.contato.ContatoEmailRegisteredException;
-import br.senac.requestfood.exception.contato.ContatoTelefoneRegisteredException;
-import br.senac.requestfood.mapper.contato.ContatoMapper;
-import br.senac.requestfood.model.contato.Contato;
-import br.senac.requestfood.projection.contato.ContatoProjection;
-import br.senac.requestfood.repository.contato.ContatoRepository;
+import br.senac.requestfood.dto.contact.ContactDTO;
+import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
+import br.senac.requestfood.exception.contact.ContactNotFoundException;
+import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
+import br.senac.requestfood.mapper.contact.ContactMapper;
+import br.senac.requestfood.model.contact.Contact;
+import br.senac.requestfood.projection.contact.ContactProjection;
+import br.senac.requestfood.repository.contact.ContactRepository;
 
 @Service
 public class ContactServiceImpl implements ContactService {
 
-	private final ContatoRepository repository;
-	private final ContatoMapper mapper;
+	private final ContactRepository repository;
+	private final ContactMapper mapper;
 	
-	public ContactServiceImpl(ContatoRepository repository, ContatoMapper mapper) {
+	public ContactServiceImpl(ContactRepository repository, ContactMapper mapper) {
 		this.repository = repository;
 		this.mapper = mapper;
 	}
 	
-	public ContatoDTO save(ContatoDTO contactDTO) {
+	public ContactDTO save(ContactDTO contactDTO) {
 		
 		if (repository.existsByEmail(contactDTO.email()))
-			throw new ContatoEmailRegisteredException("Email "+ contactDTO.email() +" is already registered.");
+			throw new ContactEmailRegisteredException("Email "+ contactDTO.email() +" is already registered.");
 		
-		if (repository.existsByTelefone(contactDTO.telefone()))
-			throw new ContatoTelefoneRegisteredException("Telephone "+ contactDTO.telefone() +" is already registered.");
+		if (repository.existsByPhone(contactDTO.phone()))
+			throw new ContactPhoneRegisteredException("Phone "+ contactDTO.phone() +" is already registered.");
 		
-		Contato contact = mapper.toEntity(contactDTO);
-		Contato contactSaved = repository.save(contact);
+		Contact contact = mapper.toEntity(contactDTO);
+		Contact contactSaved = repository.save(contact);
 	
 		
 		return mapper.toDTO(contactSaved);
 	}
 	
-	public void update(ContatoDTO contactDTO, Long id) {
+	public void update(ContactDTO contactDTO, Long id) {
 		
-		Contato contact = repository.findById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
+		Contact contact = repository.findById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
 		
 		if (repository.existsByEmail(contactDTO.email()))
-			throw new ContatoEmailRegisteredException("Email "+ contactDTO.email() +" is already registered");
+			throw new ContactEmailRegisteredException("Email "+ contactDTO.email() +" is already registered");
 		
 		contact.setEmail(contactDTO.email());
-		contact.setTelefone(contactDTO.telefone());
+		contact.setPhone(contactDTO.phone());
 		
 		repository.save(contact);
 	}
@@ -60,14 +60,14 @@ public class ContactServiceImpl implements ContactService {
 		repository.deleteById(id);
 	}
 	
-	public ContatoProjection findById(Long id) {
+	public ContactProjection findById(Long id) {
 
-		ContatoProjection contact = repository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
+		ContactProjection contact = repository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
 		
 		return contact;
 	}
 	
-	public List<ContatoProjection> findAll() {
+	public List<ContactProjection> findAll() {
 
 		return repository.findContacts();
 	}

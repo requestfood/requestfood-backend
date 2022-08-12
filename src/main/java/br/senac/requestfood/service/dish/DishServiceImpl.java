@@ -4,46 +4,46 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.prato.PratoDTO;
-import br.senac.requestfood.exception.consumivel.ConsumivelNameRegisteredException;
-import br.senac.requestfood.exception.consumivel.ConsumivelNotFoundException;
-import br.senac.requestfood.mapper.prato.PratoMapper;
-import br.senac.requestfood.model.consumivel.prato.Prato;
-import br.senac.requestfood.projection.prato.PratoProjection;
-import br.senac.requestfood.repository.prato.PratoRepository;
+import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
+import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
+import br.senac.requestfood.mapper.dish.DishMapper;
+import br.senac.requestfood.model.consumable.dish.Dish;
+import br.senac.requestfood.projection.dish.DishProjection;
+import br.senac.requestfood.repository.dish.DishRepository;
 
 @Service
 public class DishServiceImpl implements DishService{
 
-	private final PratoRepository repository;
-	private final PratoMapper mapper;
+	private final DishRepository repository;
+	private final DishMapper mapper;
 	
-	public DishServiceImpl(PratoRepository repository, PratoMapper mapper) {
+	public DishServiceImpl(DishRepository repository, DishMapper mapper) {
 		this.repository = repository;
 		this.mapper = mapper;
 	}
 
-	public PratoDTO save(PratoDTO dishDTO) {
+	public DishDTO save(DishDTO dishDTO) {
 	
-		if (repository.existsByName(dishDTO.nome()))
-			throw new ConsumivelNameRegisteredException("Prato " + dishDTO.nome() + " is already registered");
+		if (repository.existsByName(dishDTO.name()))
+			throw new ConsumableNameRegisteredException("Prato " + dishDTO.name() + " is already registered");
 
-		Prato dish = mapper.toEntity(dishDTO);
-		Prato dishSaved = repository.save(dish);
+		Dish dish = mapper.toEntity(dishDTO);
+		Dish dishSaved = repository.save(dish);
 
 		return mapper.toDTO(dishSaved);
 	}
 
-	public void update(PratoDTO dishDTO, Long id) {
+	public void update(DishDTO dishDTO, Long id) {
 		
-		Prato dish = repository.findById(id).orElseThrow(() -> new ConsumivelNotFoundException("Dish " + id + " was not found"));
+		Dish dish = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));
 
-		if (!repository.existsByName(dishDTO.nome()))
-			throw new ConsumivelNameRegisteredException("Dish " + dishDTO.nome() + " is already registered");
+		if (!repository.existsByName(dishDTO.name()))
+			throw new ConsumableNameRegisteredException("Dish " + dishDTO.name() + " is already registered");
 
-		dish.setNome(dishDTO.nome());
-		dish.setEstabelecimento(dishDTO.estabelecimento());
-		dish.setValor(dishDTO.valor());
+		dish.setName(dishDTO.name());
+		dish.setEstablishment(dishDTO.establishment());
+		dish.setValue(dishDTO.value());
 
 		repository.save(dish);
 	}
@@ -51,17 +51,17 @@ public class DishServiceImpl implements DishService{
 	public void delete(Long id) {
 
 		if (!repository.existsById(id))
-			throw new ConsumivelNotFoundException("Dish " + id + " was not found");
+			throw new ConsumableNotFoundException("Dish " + id + " was not found");
 
 			repository.deleteById(id);
 	}
 
-	public PratoProjection findById(Long id) {
-		PratoProjection dish = repository.findDishById(id).orElseThrow(() -> new ConsumivelNotFoundException("Dish " + id + " was not found"));
+	public DishProjection findById(Long id) {
+		DishProjection dish = repository.findDishById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));
 		return dish;
 	}
 
-	public List<PratoProjection> findAll() {
-		return repository.findDishes();
+	public List<DishProjection> findAll() {
+		return repository.findDishs();
 	}
 }

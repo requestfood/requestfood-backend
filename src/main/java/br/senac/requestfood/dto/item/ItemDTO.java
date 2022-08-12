@@ -2,8 +2,8 @@ package br.senac.requestfood.dto.item;
 
 import java.util.List;
 
-import br.senac.requestfood.model.comanda.Comanda;
-import br.senac.requestfood.model.consumivel.Consumivel;
-import br.senac.requestfood.model.itemadicional.ItemAdicional;
+import br.senac.requestfood.model.addicionalItem.AdditionalItem;
+import br.senac.requestfood.model.command.Command;
+import br.senac.requestfood.model.consumable.Consumable;
 
-public record ItemDTO( Long id, Comanda comanda, Integer quantidade, Consumivel consumivel, String observacao, List<ItemAdicional> itensAdicionais) {}
+public record ItemDTO( Long id, Command command, Integer quanity, Consumable consumable, String observation, List<AdditionalItem> additionalItems) {}

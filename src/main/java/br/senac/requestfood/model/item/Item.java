@@ -1,6 +1,5 @@
 package br.senac.requestfood.model.item;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,9 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.comanda.Comanda;
-import br.senac.requestfood.model.consumivel.Consumivel;
-import br.senac.requestfood.model.itemadicional.ItemAdicional;
+import br.senac.requestfood.model.addicionalItem.AdditionalItem;
+import br.senac.requestfood.model.command.Command;
+import br.senac.requestfood.model.consumable.Consumable;
 
 @Entity
 @Table(name = "item")
@@ -32,32 +31,34 @@ public class Item {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_command", nullable = false)
-	private Comanda comanda;
+	private Command command;
 
 	@Column(name = "quantity_item", nullable = false)
-	private Integer quantidade;
+	private Integer quantity;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @MapsId
 	@JoinColumn(name = "id_consumable", nullable = false)
-	private Consumivel consumivel;
+	private Consumable consumable;
 
 	@Column(name = "observation_item", length = 100)
 	private String observation;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemAdicional> itemAddicionals;
+	private List<AdditionalItem> additionalItems;
 
 	public Item() {}
 
-	public Item(Long id, Comanda comanda, Integer quantidade, Consumivel consumivel, String observacao) {
-		setId(id);
-		setComanda(comanda);
-		setQuantidade(quantidade);
-		setProduto(consumivel);
-		setObservacao(observacao);
-		itemAddicionals = new ArrayList<>();
+	public Item(Long id, Command command, Integer quantity, Consumable consumable, String observation,List<AdditionalItem> additionalItems) {
+		this.id = id;
+		this.command = command;
+		this.quantity = quantity;
+		this.consumable = consumable;
+		this.observation = observation;
+		this.additionalItems = additionalItems;
 	}
+
+
 
 	public boolean equals(Object objeto) {
 
@@ -72,68 +73,46 @@ public class Item {
 
 		Item item = ((Item) objeto);
 
-		return this.getId() == item.getId() && this.getComanda() == item.getComanda()
-				&& this.getQuantidade() == item.getQuantidade() && this.getProduto() == item.getProduto()
-				&& this.getObservacao().equals(getObservacao());
+		return this.getId() == item.getId() && this.getCommand() == item.getCommand()
+				&& this.getQuantity() == item.getQuantity() && this.getConsumable() == item.getConsumable()
+				&& this.getObservation().equals(getObservation());
 	}
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Comanda getComanda() {
-		return comanda;
+	public Command getCommand() {
+		return command;
 	}
-
-	public void setComanda(Comanda comanda) {
-		this.comanda = comanda;
+	public void setCommand(Command command) {
+		this.command = command;
 	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public Integer getQuantity() {
+		return quantity;
 	}
-
-	public Integer getQuantidade() {
-		return quantidade;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
-
-	public void setProduto(Consumivel consumivel) {
-		this.consumivel = consumivel;
+	public Consumable getConsumable() {
+		return consumable;
 	}
-
-	public Consumivel getProduto() {
-		return consumivel;
+	public void setConsumable(Consumable consumable) {
+		this.consumable = consumable;
 	}
-
-	public Consumivel getConsumivel() {
-		return consumivel;
-	}
-
-	public void setConsumivel(Consumivel consumivel) {
-		this.consumivel = consumivel;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observation = observacao;
-	}
-
-	public String getObservacao() {
+	public String getObservation() {
 		return observation;
 	}
-
-	public List<ItemAdicional> getItensAdicionais() {
-		return itemAddicionals;
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
-
-	public void adicionarItemAdicional(ItemAdicional itemAdicional) {
-		itemAddicionals.add(itemAdicional);
+	public List<AdditionalItem> getAdditionalItems() {
+		return additionalItems;
 	}
-
-	public void removerItemAdicional(ItemAdicional itemAdicional) {
-		itemAddicionals.remove(itemAdicional);
+	public void setAdditionalItems(List<AdditionalItem> additionalItems) {
+		this.additionalItems = additionalItems;
 	}
 }

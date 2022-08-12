@@ -2,18 +2,18 @@ package br.senac.requestfood.service.additionalitem;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.itemadicional.ItemAdicionalDTO;
-import br.senac.requestfood.projection.itemAdicional.ItemAdicionalProjection;
+import br.senac.requestfood.dto.addicionalitem.AdditionalItemDTO;
+import br.senac.requestfood.projection.addicionalItem.AddicionalItemProjection;
 
 public interface AdditionalItemService {
 	
-	ItemAdicionalDTO save(ItemAdicionalDTO additionalItemDTO);
+	AdditionalItemDTO save(AdditionalItemDTO additionalItemDTO);
 
-	void update(ItemAdicionalDTO additionalItemDTO, Long id);
+	void update(AdditionalItemDTO additionalItemDTO, Long id);
 
 	void delete(Long id);
 	
-	ItemAdicionalProjection findById(Long id);
+	AddicionalItemProjection findById(Long id);
 	
-	List<ItemAdicionalProjection> findAll();
+	List<AddicionalItemProjection> findAll();
 }

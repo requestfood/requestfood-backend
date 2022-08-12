@@ -2,18 +2,18 @@ package br.senac.requestfood.service.contact;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.contato.ContatoDTO;
-import br.senac.requestfood.projection.contato.ContatoProjection;
+import br.senac.requestfood.dto.contact.ContactDTO;
+import br.senac.requestfood.projection.contact.ContactProjection;
 
 public interface ContactService {
 	
-	ContatoDTO save(ContatoDTO contactDTO);
+	ContactDTO save(ContactDTO contactDTO);
 	
-	void update(ContatoDTO contactDTO, Long id);
+	void update(ContactDTO contactDTO, Long id);
 	
 	void delete(Long id);
 	
-	ContatoProjection findById(Long id);
+	ContactProjection findById(Long id);
 	
-	List<ContatoProjection> findAll();
+	List<ContactProjection> findAll();
 }

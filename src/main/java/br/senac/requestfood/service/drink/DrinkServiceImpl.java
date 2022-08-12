@@ -4,46 +4,46 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.bebida.BebidaDTO;
-import br.senac.requestfood.exception.consumivel.ConsumivelNameRegisteredException;
-import br.senac.requestfood.exception.consumivel.ConsumivelNotFoundException;
-import br.senac.requestfood.mapper.bebida.BebidaMapper;
-import br.senac.requestfood.model.consumivel.bebida.Bebida;
-import br.senac.requestfood.projection.bebida.BebidaProjection;
-import br.senac.requestfood.repository.bebida.BebidaRepository;
+import br.senac.requestfood.dto.drink.DrinkDTO;
+import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
+import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
+import br.senac.requestfood.mapper.drink.DrinkMapper;
+import br.senac.requestfood.model.consumable.drink.Drink;
+import br.senac.requestfood.projection.drink.DrinkProjection;
+import br.senac.requestfood.repository.drink.DrinkRepository;
 
 @Service
 public class DrinkServiceImpl implements DrinkService{
 
-	private final BebidaRepository repository;
-	private final BebidaMapper mapper;
+	private final DrinkRepository repository;
+	private final DrinkMapper mapper;
 
-	public DrinkServiceImpl(BebidaRepository repository, BebidaMapper mapper) {
+	public DrinkServiceImpl(DrinkRepository repository, DrinkMapper mapper) {
 		this.repository = repository;
 		this.mapper = mapper;
 	}
 	
-	public BebidaDTO save(BebidaDTO bebidaDTO) {
+	public DrinkDTO save(DrinkDTO drinkDTO) {
 
-		if (repository.existsByName(bebidaDTO.nome()))
-			throw new ConsumivelNameRegisteredException("Bebida " + bebidaDTO.nome() + " is already registered");
+		if (repository.existsByName(drinkDTO.name()))
+			throw new ConsumableNameRegisteredException("Bebida " + drinkDTO.name() + " is already registered");
 
-		Bebida drink = mapper.toEntity(bebidaDTO);
-		Bebida drinkSaved = repository.save(drink);
+		Drink drink = mapper.toEntity(drinkDTO);
+		Drink drinkSaved = repository.save(drink);
 
 		return mapper.toDTO(drinkSaved);
 	}
 
-	public void update(BebidaDTO bebidaDTO, Long id) {
+	public void update(DrinkDTO drinkDTO, Long id) {
 
-		Bebida drink = repository.findById(id).orElseThrow(() -> new ConsumivelNotFoundException("Drink " + id + " was not found"));
+		Drink drink = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink " + id + " was not found"));
 
-		if (!repository.existsByName(bebidaDTO.nome()))
-			throw new ConsumivelNameRegisteredException("Bebida " + bebidaDTO.nome() + " is already registered");
+		if (!repository.existsByName(drinkDTO.name()))
+			throw new ConsumableNameRegisteredException("Drink " + drinkDTO.name() + " is already registered");
 
-		drink.setEstabelecimento(bebidaDTO.estabelecimento());
-		drink.setNome(bebidaDTO.nome());
-		drink.setValor(bebidaDTO.valor());
+		drink.setEstablishment(drinkDTO.establishment());
+		drink.setName(drinkDTO.name());
+		drink.setValue(drinkDTO.value());
 
 		repository.save(drink);
 	}
@@ -51,17 +51,17 @@ public class DrinkServiceImpl implements DrinkService{
 	public void delete(Long id) {
 
 		if (!repository.existsById(id))
-			throw new ConsumivelNotFoundException("Drink " + id + " was not found");
+			throw new ConsumableNotFoundException("Drink " + id + " was not found");
 
 			repository.deleteById(id);
 	}
 
-	public BebidaProjection findById(Long id) {
-		BebidaProjection bebida = repository.findDrinkById(id).orElseThrow(() -> new ConsumivelNotFoundException("Drink " + id + " was not found"));
+	public DrinkProjection findById(Long id) {
+		DrinkProjection bebida = repository.findDrinkById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink " + id + " was not found"));
 		return bebida;
 	}
 
-	public List<BebidaProjection> findAll() {
+	public List<DrinkProjection> findAll() {
 		return repository.findDrinks();
 	}
 }

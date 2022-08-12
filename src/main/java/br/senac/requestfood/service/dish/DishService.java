@@ -4,19 +4,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.prato.PratoDTO;
-import br.senac.requestfood.projection.prato.PratoProjection;
+import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.projection.dish.DishProjection;
 
 @Service
 public interface DishService {
 
-	PratoDTO save(PratoDTO pratoDTO);
+	DishDTO save(DishDTO dishDTO);
 	
-	void update(PratoDTO pratoDTO, Long id);
+	void update(DishDTO dishDTO, Long id);
 	
 	void delete(Long id);
 	
-	PratoProjection findById(Long id);
+	DishProjection findById(Long id);
 	
-	List<PratoProjection> findAll();
+	List<DishProjection> findAll();
 }
