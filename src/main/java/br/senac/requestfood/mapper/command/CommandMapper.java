@@ -12,7 +12,7 @@ import br.senac.requestfood.model.command.Command;
 public class CommandMapper {
 
 	public CommandDTO toDTO(Command command) {
-		return new CommandDTO(command.getId(), command.getClient(), command.getDesk(), command.getIssueDate(), command.getClosingDate(), command.getItens(), command.getAmount());
+		return new CommandDTO(command.getId(), command.getClient(), command.getIssueDate(), command.getClosingDate(), command.getItens(), command.getAmount());
 	}
 	
 	public Command toEntity(CommandDTO commandDTO) {

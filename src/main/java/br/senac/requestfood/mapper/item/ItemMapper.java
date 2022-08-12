@@ -13,7 +13,7 @@ import br.senac.requestfood.model.item.Item;
 public class ItemMapper {
 
 	public ItemDTO toDTO(Item item) {
-		return new ItemDTO(item.getId(), item.getCommand(), item.getQuantity(), item.getConsumable(), item.getObservation(), item.getAdditionalItems());
+		return new ItemDTO(item.getId(), item.getCommand(), item.getQuantity(), item.getConsumable(), item.getObservation());
 	}
 	
 	public Item toEntity(ItemDTO itemDTO) {
