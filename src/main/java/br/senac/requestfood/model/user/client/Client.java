@@ -1,6 +1,7 @@
 package br.senac.requestfood.model.user.client;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.requestfood.enumeration.gender.Gender;
+import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.order.Command;
 import br.senac.requestfood.model.user.User;
 
@@ -20,6 +22,9 @@ import br.senac.requestfood.model.user.User;
 @Table(name = "client")
 public class Client extends User {
 
+	@Column(name = "surname_client", length = 20, nullable = false)
+	private String surname;
+	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "gender_client", nullable = false)
     private Gender gender;
@@ -28,14 +33,15 @@ public class Client extends User {
     private LocalDate birthDate;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.PERSIST)
-    private List<Command> commands;
+    private List<Command> commands = new ArrayList<>();
     
 	public Client() {}
 
-	public Client(Gender gender, LocalDate birthDate, List<Command> commands) {
+	public Client(Long id, String name, Contact contact, String password ,String surname, Gender gender, LocalDate birthDate) {
+		super(id, name, contact, password);
+		this.surname = surname;
 		this.gender = gender;
 		this.birthDate = birthDate;
-		this.commands = commands;
 	}
 
 	public Gender getGender() {
@@ -55,5 +61,11 @@ public class Client extends User {
 	}
 	public void setCommands(List<Command> commands) {
 		this.commands = commands;
+	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 }
