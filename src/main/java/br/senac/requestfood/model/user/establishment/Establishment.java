@@ -33,16 +33,16 @@ public class Establishment extends User {
     @Column(name = "cep_establishment", length = 9, nullable = false)
     private String cep;
     
-    @Column(name = "biography_establishment", length = 200, nullable = true)
-    private String biography;
+    @Column(name = "description_establishment", length = 200, nullable = true)
+    private String description;
 
     public Establishment() {}
 
-	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String cep,String biography) {
+	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String cep,String description) {
 		super(id, nome, contact, password);
 		this.image = image;
 		this.cep = cep;
-		this.biography = biography;
+		this.description = description;
 	}
 
 	public List<Consumable> getConsumables() {
@@ -66,10 +66,10 @@ public class Establishment extends User {
 	public void setImage(Byte[] image) {
 		this.image = image;
 	}
-	public String getBiography() {
-		return biography;
+	public String getDescription() {
+		return description;
 	}
-	public void setBiography(String biography) {
-		this.biography = biography;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

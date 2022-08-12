@@ -12,11 +12,11 @@ import br.senac.requestfood.model.user.establishment.Establishment;
 public class EstablishmentMapper {
 	
 	public EstablishmentDTO toDTO(Establishment establishment) {
-		return new EstablishmentDTO(establishment.getId(), establishment.getName(), establishment.getContact(), establishment.getPassword(), establishment.getImage(), establishment.getCep(),establishment.getBiography());
+		return new EstablishmentDTO(establishment.getId(), establishment.getName(), establishment.getContact(), establishment.getPassword(), establishment.getImage(), establishment.getCep(),establishment.getDescription());
 	}
 	
 	public Establishment toEntity(EstablishmentDTO establishmentDTO) {
-		return new Establishment(establishmentDTO.id(), establishmentDTO.name(), establishmentDTO.contact(), establishmentDTO.password(), establishmentDTO.image(), establishmentDTO.cep(),establishmentDTO.biography());
+		return new Establishment(establishmentDTO.id(), establishmentDTO.name(), establishmentDTO.contact(), establishmentDTO.password(), establishmentDTO.image(), establishmentDTO.cep(),establishmentDTO.description());
 	}
 
 	public List<EstablishmentDTO> toDTO(List<Establishment> establiments){
