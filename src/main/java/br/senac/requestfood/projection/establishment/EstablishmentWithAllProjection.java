@@ -10,6 +10,12 @@ public interface EstablishmentWithAllProjection {
 	Long getId();
 
 	String getName();
+	
+	String getImage();
+	
+	String getCep();
+	
+	String getBiography();
 
 	List<ConsumableProjection> getConsumables();
 

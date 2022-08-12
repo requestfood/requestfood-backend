@@ -5,5 +5,11 @@ public interface EstablishmentProjection {
 	Long getId();
 
 	String getName();
+	
+	String getImage();
+	
+	String getCep();
+	
+	String getBiography();
 
 }
