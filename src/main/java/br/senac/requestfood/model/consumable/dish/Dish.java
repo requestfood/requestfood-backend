@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.model.consumable.Consumable;
-import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Entity
 @Table(name="dish")

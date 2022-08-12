@@ -1,8 +1,5 @@
 package br.senac.requestfood.model.item;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.addicionalItem.AdditionalItem;
 import br.senac.requestfood.model.command.Command;
 import br.senac.requestfood.model.consumable.Consumable;
 
@@ -44,18 +39,14 @@ public class Item {
 	@Column(name = "observation_item", length = 100)
 	private String observation;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<AdditionalItem> additionalItems;
-
 	public Item() {}
 
-	public Item(Long id, Command command, Integer quantity, Consumable consumable, String observation,List<AdditionalItem> additionalItems) {
+	public Item(Long id, Command command, Integer quantity, Consumable consumable, String observation) {
 		this.id = id;
 		this.command = command;
 		this.quantity = quantity;
 		this.consumable = consumable;
 		this.observation = observation;
-		this.additionalItems = additionalItems;
 	}
 
 
@@ -108,11 +99,5 @@ public class Item {
 	}
 	public void setObservation(String observation) {
 		this.observation = observation;
-	}
-	public List<AdditionalItem> getAdditionalItems() {
-		return additionalItems;
-	}
-	public void setAdditionalItems(List<AdditionalItem> additionalItems) {
-		this.additionalItems = additionalItems;
 	}
 }

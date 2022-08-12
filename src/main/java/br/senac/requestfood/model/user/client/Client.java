@@ -1,7 +1,6 @@
 package br.senac.requestfood.model.user.client;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,7 +14,6 @@ import javax.persistence.Table;
 
 import br.senac.requestfood.enumeration.gender.Gender;
 import br.senac.requestfood.model.command.Command;
-import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.User;
 
 @Entity

@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.senac.requestfood.model.item.Item;
-import br.senac.requestfood.model.table.Desk;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
@@ -47,21 +46,16 @@ public class Command {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "command", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itens;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_desk")
-    private Desk desk;
-
     @Transient
     private Double amount;
 
-	public Command(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, List<Item> itens, Desk desk, Double amount) {
+	public Command(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, List<Item> itens, Double amount) {
 		this.id = id;
 		this.establishment = establishment;
 		this.client = client;
 		this.IssueDate = issueDate;
 		this.closingDate = closingDate;
 		this.itens = itens;
-		this.desk = desk;
 		this.amount = amount;
 	}
 
@@ -83,7 +77,6 @@ public class Command {
                 && this.getIssueDate().equals(command.getIssueDate())
                 && this.getClosingDate().equals(command.getClosingDate())
                 && this.getItens().equals(command.getItens())
-                && this.getDesk().equals(command.getDesk())
                 && this.getAmount() == command.getAmount();
     }
 
@@ -123,12 +116,7 @@ public class Command {
 	public void setItens(List<Item> itens) {
 		this.itens = itens;
 	}
-	public Desk getDesk() {
-		return desk;
-	}
-	public void setDesk(Desk desk) {
-		this.desk = desk;
-	}
+
 	public Double getAmount() {
 		return amount;
 	}
