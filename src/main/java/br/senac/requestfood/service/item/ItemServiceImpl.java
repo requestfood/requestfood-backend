@@ -9,7 +9,6 @@ import br.senac.requestfood.exception.item.ItemNotFoundException;
 import br.senac.requestfood.mapper.item.ItemMapper;
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.projection.item.ItemProjection;
-import br.senac.requestfood.projection.item.ItemWithAdditionalItemProjection;
 import br.senac.requestfood.repository.item.ItemRepository;
 
 @Service
@@ -53,11 +52,6 @@ public class ItemServiceImpl implements ItemService{
 	public ItemProjection findById(Long id) {
 
 		ItemProjection item = repository.findItemById(id).orElseThrow(() -> new ItemNotFoundException("Item " + id + " was not found"));
-		return item;
-	}
-
-	public ItemWithAdditionalItemProjection findItemWithAdditionalItemById(Long id) {
-		ItemWithAdditionalItemProjection item = repository.findItemWithItemAdditionalById(id).orElseThrow(() -> new ItemNotFoundException("ItemAddicional " + id + " was not found"));
 		return item;
 	}
 

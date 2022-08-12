@@ -7,9 +7,9 @@ import br.senac.requestfood.projection.drink.DrinkProjection;
 
 public interface DrinkService {
 
-	DrinkDTO save(DrinkDTO bebidaDTO);
+	DrinkDTO save(DrinkDTO drinkDTO);
 
-	void update(DrinkDTO bebidaDTO, Long id);
+	void update(DrinkDTO drinkDTO, Long id);
 
 	void delete(Long id);
 	

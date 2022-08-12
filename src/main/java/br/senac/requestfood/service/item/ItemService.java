@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.senac.requestfood.dto.item.ItemDTO;
 import br.senac.requestfood.projection.item.ItemProjection;
-import br.senac.requestfood.projection.item.ItemWithAdditionalItemProjection;
 
 public interface ItemService {
 
@@ -15,8 +14,6 @@ public interface ItemService {
 	void delete(Long id);
 	
 	ItemProjection findById(Long id);
-	
-	ItemWithAdditionalItemProjection findItemWithAdditionalItemById(Long id);
 	
 	List<ItemProjection> findAll();
 }

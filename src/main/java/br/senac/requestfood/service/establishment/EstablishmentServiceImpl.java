@@ -13,7 +13,6 @@ import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithTableProjection;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
@@ -83,13 +82,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public EstablishmentWithConsumableProjection findByIdWithComsumable(Long id) {
 
 		EstablishmentWithConsumableProjection establishment = repository.findEstablishmentWithConsumableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
-		return establishment;
-	}
-	
-	public EstablishmentWithTableProjection findByIdWithDesk(Long id) {
-
-		EstablishmentWithTableProjection establishment = repository.findEstablishmentWithTableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
 		return establishment;
 	}

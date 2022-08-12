@@ -35,7 +35,6 @@ public class ContactServiceImpl implements ContactService {
 		Contact contact = mapper.toEntity(contactDTO);
 		Contact contactSaved = repository.save(contact);
 	
-		
 		return mapper.toDTO(contactSaved);
 	}
 	

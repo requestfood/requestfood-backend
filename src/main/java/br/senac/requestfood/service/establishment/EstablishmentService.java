@@ -7,7 +7,6 @@ import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithTableProjection;
 
 public interface EstablishmentService {
 
@@ -24,8 +23,6 @@ public interface EstablishmentService {
 	EstablishmentWithCommandProjection findByIdWithCommand(Long id);
 	
 	EstablishmentWithConsumableProjection findByIdWithComsumable(Long id);
-	
-	EstablishmentWithTableProjection findByIdWithDesk(Long id);
 	
 	List<EstablishmentProjection> findAll();
 }

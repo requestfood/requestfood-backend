@@ -35,7 +35,6 @@ public class ComandaServiceImpl implements CommandService{
 		Command command = repository.findById(id).orElseThrow(() -> new CommandNotFoundException("Command " + id + " was not found"));
 		
 		command.setClient(comandaDTO.client());
-		command.setDesk(comandaDTO.desk());
 		command.setIssueDate(comandaDTO.issueDate());
 		command.setClosingDate(comandaDTO.closingDate());
 		command.setAmount(comandaDTO.value());
