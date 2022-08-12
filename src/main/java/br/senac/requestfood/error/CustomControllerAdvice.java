@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.senac.requestfood.exception.additionalitem.AdditionalItemNameRegisteredException;
-import br.senac.requestfood.exception.additionalitem.AdditionalItemNotFoundException;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.command.CommandClientNotFoundException;
@@ -18,7 +16,6 @@ import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.exception.item.ItemNotFoundException;
-import br.senac.requestfood.exception.table.DeskNotFoundException;
 import br.senac.requestfood.exception.user.UserClientNotFoundException;
 import br.senac.requestfood.exception.user.UserEstablishmentNotFoundException;
 import br.senac.requestfood.exception.user.UserNotFoundException;
@@ -110,29 +107,6 @@ public class CustomControllerAdvice {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
 
-    }
-
-    //Exceptions AdditionalItem
-
-    @ExceptionHandler(AdditionalItemNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleAdditionalItemNotFoundException(Exception exception){
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
-
-    }
-
-    @ExceptionHandler(AdditionalItemNameRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleItemAdicionalNomeRegisteredException(Exception exception){
-
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
-    }
-    
-    //Exceptions Desk
-
-    @ExceptionHandler(DeskNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleTableNotFoundException(Exception exception){
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
     //Exceptions User
