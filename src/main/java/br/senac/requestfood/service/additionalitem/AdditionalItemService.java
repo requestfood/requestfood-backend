@@ -3,7 +3,7 @@ package br.senac.requestfood.service.additionalitem;
 import java.util.List;
 
 import br.senac.requestfood.dto.addicionalitem.AdditionalItemDTO;
-import br.senac.requestfood.projection.addicionalItem.AddicionalItemProjection;
+import br.senac.requestfood.projection.addicionalItem.AdditionalItemProjection;
 
 public interface AdditionalItemService {
 	
@@ -13,7 +13,7 @@ public interface AdditionalItemService {
 
 	void delete(Long id);
 	
-	AddicionalItemProjection findById(Long id);
+	AdditionalItemProjection findById(Long id);
 	
-	List<AddicionalItemProjection> findAll();
+	List<AdditionalItemProjection> findAll();
 }

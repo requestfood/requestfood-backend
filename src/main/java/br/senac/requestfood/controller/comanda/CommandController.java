@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.comanda.ComandaDTO;
-import br.senac.requestfood.projection.comanda.ComandaProjection;
-import br.senac.requestfood.service.comanda.ComandaService;
+import br.senac.requestfood.dto.command.CommandDTO;
+import br.senac.requestfood.projection.command.CommandProjection;
+import br.senac.requestfood.service.command.CommandService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/command")
 
-public class ComandaController {
+public class CommandController {
     
-    private final ComandaService commandService;
+    private final CommandService commandService;
 
-    public ComandaController(ComandaService comandaService) {
-		this.commandService = comandaService;
+    public CommandController(CommandService commandService) {
+		this.commandService = commandService;
 	}
 
 	@PostMapping
-	public ResponseEntity<ComandaDTO> addCommand(@RequestBody ComandaDTO comandaDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(commandService.save(comandaDTO));
+	public ResponseEntity<CommandDTO> addCommand(@RequestBody CommandDTO commandDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(commandService.save(commandDTO));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedCommand(@RequestBody ComandaDTO comandaDTO, @PathVariable(value = "id") Long id) {
-		commandService.update(comandaDTO, id);
+	public ResponseEntity<String> updatedCommand(@RequestBody CommandDTO commandDTO, @PathVariable(value = "id") Long id) {
+		commandService.update(commandDTO, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Command updated successfully");
 	}
 
@@ -48,12 +48,12 @@ public class ComandaController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ComandaProjection> getComanda(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<CommandProjection> getCommand(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(commandService.findById(id));
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ComandaProjection>> getAllCommand() {
+	public ResponseEntity<List<CommandProjection>> getAllCommand() {
 		return ResponseEntity.status(HttpStatus.OK).body(commandService.findAll());
 	}
 }

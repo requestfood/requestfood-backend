@@ -1,29 +1,28 @@
 package br.senac.requestfood.error;
 
-import br.senac.requestfood.exception.client.ClientNotFoundException;
-import br.senac.requestfood.exception.client.ContactRegisteredException;
-import br.senac.requestfood.exception.comanda.ComandaMesaRegisteredException;
-import br.senac.requestfood.exception.comanda.CommandClientNotFoundException;
-import br.senac.requestfood.exception.comanda.CommandNotFoundException;
-import br.senac.requestfood.exception.consumivel.ConsumivelNameRegisteredException;
-import br.senac.requestfood.exception.consumivel.ConsumivelNotFoundException;
-import br.senac.requestfood.exception.contato.ContactNotFoundException;
-import br.senac.requestfood.exception.contato.ContatoEmailRegisteredException;
-import br.senac.requestfood.exception.contato.ContatoTelefoneRegisteredException;
-import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
-import br.senac.requestfood.exception.item.ItemNotFoundException;
-import br.senac.requestfood.exception.itemadicional.AdditionalItemNotFoundException;
-import br.senac.requestfood.exception.itemadicional.ItemAdicionalNomeRegisteredException;
-import br.senac.requestfood.exception.mesa.TableNotFoundException;
-import br.senac.requestfood.exception.usuario.UsuarioClienteNotFoundException;
-import br.senac.requestfood.exception.usuario.UsuarioEstabelecimentoNotFoundException;
-import br.senac.requestfood.exception.usuario.UsuarioNotFoundException;
-import br.senac.requestfood.exception.usuario.UsuarioPasswordException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.persistence.Table;
+import br.senac.requestfood.exception.additionalitem.AdditionalItemNameRegisteredException;
+import br.senac.requestfood.exception.additionalitem.AdditionalItemNotFoundException;
+import br.senac.requestfood.exception.client.ClientNotFoundException;
+import br.senac.requestfood.exception.client.ContactRegisteredException;
+import br.senac.requestfood.exception.command.CommandClientNotFoundException;
+import br.senac.requestfood.exception.command.CommandDeskRegisteredException;
+import br.senac.requestfood.exception.command.CommandNotFoundException;
+import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
+import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
+import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
+import br.senac.requestfood.exception.contact.ContactNotFoundException;
+import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
+import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
+import br.senac.requestfood.exception.item.ItemNotFoundException;
+import br.senac.requestfood.exception.table.DeskNotFoundException;
+import br.senac.requestfood.exception.user.UserClientNotFoundException;
+import br.senac.requestfood.exception.user.UserEstablishmentNotFoundException;
+import br.senac.requestfood.exception.user.UserNotFoundException;
+import br.senac.requestfood.exception.user.UserPasswordException;
 
 public class CustomControllerAdvice {
 
@@ -40,9 +39,9 @@ public class CustomControllerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
-    //Exceptions Comanda
+    //Exceptions Command
 
-    @ExceptionHandler(ComandaMesaRegisteredException.class)
+    @ExceptionHandler(CommandDeskRegisteredException.class)
     public ResponseEntity<ErrorResponse> handleComandaMesaRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
@@ -62,13 +61,13 @@ public class CustomControllerAdvice {
 
     //Exceptions Consumable
 
-    @ExceptionHandler(ConsumivelNameRegisteredException.class)
+    @ExceptionHandler(ConsumableNameRegisteredException.class)
     public ResponseEntity<ErrorResponse> handleConsumivelNameRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
 
     }
-    @ExceptionHandler(ConsumivelNotFoundException.class)
+    @ExceptionHandler(ConsumableNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleConsumivelNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
@@ -83,13 +82,13 @@ public class CustomControllerAdvice {
 
     }
 
-    @ExceptionHandler(ContatoEmailRegisteredException.class)
+    @ExceptionHandler(ContactEmailRegisteredException.class)
     public ResponseEntity<ErrorResponse> handleContatoEmailRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
 
     }
-    @ExceptionHandler(ContatoTelefoneRegisteredException.class)
+    @ExceptionHandler(ContactPhoneRegisteredException.class)
     public ResponseEntity<ErrorResponse> handleContatoTelefoneRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
@@ -122,15 +121,15 @@ public class CustomControllerAdvice {
 
     }
 
-    @ExceptionHandler(ItemAdicionalNomeRegisteredException.class)
+    @ExceptionHandler(AdditionalItemNameRegisteredException.class)
     public ResponseEntity<ErrorResponse> handleItemAdicionalNomeRegisteredException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
     }
+    
+    //Exceptions Desk
 
-    //Exceptions Table
-
-    @ExceptionHandler(TableNotFoundException.class)
+    @ExceptionHandler(DeskNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleTableNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
@@ -138,24 +137,24 @@ public class CustomControllerAdvice {
 
     //Exceptions User
 
-    @ExceptionHandler(UsuarioClienteNotFoundException.class)
+    @ExceptionHandler(UserClientNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUsuarioClienteNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
-    @ExceptionHandler(UsuarioEstabelecimentoNotFoundException.class)
+    @ExceptionHandler(UserEstablishmentNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUsuarioEstabelecimentoNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
-    @ExceptionHandler(UsuarioNotFoundException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUsuarioNotFoundException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
-    @ExceptionHandler(UsuarioPasswordException.class)
+    @ExceptionHandler(UserPasswordException.class)
     public ResponseEntity<ErrorResponse> handleUsuarioPasswordException(Exception exception){
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));

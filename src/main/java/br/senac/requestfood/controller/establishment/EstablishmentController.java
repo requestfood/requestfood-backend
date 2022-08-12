@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.estabelecimento.EstabelecimentoDTO;
-import br.senac.requestfood.projection.estabelecimento.EstabelecimentoProjection;
+import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 
 @RestController
@@ -31,12 +31,12 @@ public class EstablishmentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<EstabelecimentoDTO> Establishment(@RequestBody EstabelecimentoDTO establishmentDTO) {
+	public ResponseEntity<EstablishmentDTO> Establishment(@RequestBody EstablishmentDTO establishmentDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(establishmentService.save(establishmentDTO));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedEstablishmentDTO(@RequestBody EstabelecimentoDTO establishmentDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedEstablishmentDTO(@RequestBody EstablishmentDTO establishmentDTO, @PathVariable(value = "id") Long id) {
 		establishmentService.update(establishmentDTO, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment update successfully");
 	}
@@ -48,12 +48,12 @@ public class EstablishmentController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EstabelecimentoProjection> getEstablishment(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<EstablishmentProjection> getEstablishment(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(establishmentService.findById(id));
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<EstabelecimentoProjection>> getAllEstablishment() {
+	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
 		return ResponseEntity.status(HttpStatus.OK).body(establishmentService.findAll());
 	}
 }

@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.cliente.ClienteDTO;
-import br.senac.requestfood.projection.cliente.ClienteProjection;
-import br.senac.requestfood.service.cliente.ClientService;
+import br.senac.requestfood.dto.client.ClientDTO;
+import br.senac.requestfood.projection.client.ClientProjection;
+import br.senac.requestfood.service.client.ClientService;
 
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/client")
 
-public class ClienteController {
+public class ClientController {
 
     private final ClientService clientService;
 
-	public ClienteController(ClientService clientService) {
+	public ClientController(ClientService clientService) {
 		this.clientService = clientService;
 	}
 
 	@PostMapping
-	public ResponseEntity<ClienteDTO> addClient(@RequestBody ClienteDTO clientDTO) {
+	public ResponseEntity<ClientDTO> addClient(@RequestBody ClientDTO clientDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(clientDTO));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedClient(@RequestBody ClienteDTO clientDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedClient(@RequestBody ClientDTO clientDTO, @PathVariable(value = "id") Long id) {
 		clientService.update(clientDTO, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully");
 	}
@@ -49,12 +49,12 @@ public class ClienteController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ClienteProjection> getClient(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<ClientProjection> getClient(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(clientService.findById(id));
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ClienteProjection>> getAllClient() {
+	public ResponseEntity<List<ClientProjection>> getAllClient() {
 		return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
 	}
 }

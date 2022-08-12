@@ -1,14 +1,22 @@
 package br.senac.requestfood.controller.dish;
 
-import br.senac.requestfood.dto.prato.PratoDTO;
-import br.senac.requestfood.projection.prato.PratoProjection;
-import br.senac.requestfood.service.dish.DishService;
-
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.projection.dish.DishProjection;
+import br.senac.requestfood.service.dish.DishService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -22,13 +30,13 @@ public class DishController {
     }
 
     @PostMapping
-    public ResponseEntity<PratoDTO> dish(@RequestBody PratoDTO pratoDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(dishService.save(pratoDTO));
+    public ResponseEntity<DishDTO> dish(@RequestBody DishDTO dishDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(dishService.save(dishDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatedDish(@RequestBody PratoDTO pratoDTO, @PathVariable(value = "id") Long id) {
-        dishService.update(pratoDTO, id);
+    public ResponseEntity<String> updatedDish(@RequestBody DishDTO dishDTO, @PathVariable(value = "id") Long id) {
+        dishService.update(dishDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body("Dish updated successfully");
     }
 
@@ -39,12 +47,12 @@ public class DishController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PratoProjection> getDish(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<DishProjection> getDish(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(dishService.findById(id));
     }
 
     @GetMapping()
-	public ResponseEntity<List<PratoProjection>> getAllDish() {
+	public ResponseEntity<List<DishProjection>> getAllDish() {
 		return ResponseEntity.status(HttpStatus.OK).body(dishService.findAll());
 	}
 }

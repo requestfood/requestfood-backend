@@ -1,5 +1,7 @@
 package br.senac.requestfood.controller.additionalItem;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import br.senac.requestfood.dto.itemadicional.ItemAdicionalDTO;
-import br.senac.requestfood.projection.itemAdicional.ItemAdicionalProjection;
+import br.senac.requestfood.dto.addicionalitem.AdditionalItemDTO;
+import br.senac.requestfood.projection.addicionalItem.AdditionalItemProjection;
 import br.senac.requestfood.service.additionalitem.AdditionalItemService;
 
 @RestController
@@ -31,12 +31,12 @@ public class AdditionalItemController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ItemAdicionalDTO> addAdditionalItem(@RequestBody ItemAdicionalDTO additionalItemDTO) {
+	public ResponseEntity<AdditionalItemDTO> addAdditionalItem(@RequestBody AdditionalItemDTO additionalItemDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(additionalItemService.save(additionalItemDTO));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedAdditionalItem(@RequestBody ItemAdicionalDTO additionalItemDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedAdditionalItem(@RequestBody AdditionalItemDTO additionalItemDTO, @PathVariable(value = "id") Long id) {
 		additionalItemService.update(additionalItemDTO, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Additional Item update successfully");
 	}
@@ -48,12 +48,12 @@ public class AdditionalItemController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ItemAdicionalProjection> getItemAdditional(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<AdditionalItemProjection> getAdditionalItem(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(additionalItemService.findById(id));
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ItemAdicionalProjection>> getAllAddictionalItem() {
+	public ResponseEntity<List<AdditionalItemProjection>> getAllAddictionalItem() {
 		return ResponseEntity.status(HttpStatus.OK).body(additionalItemService.findAll());
 	}
 }

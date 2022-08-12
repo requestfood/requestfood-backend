@@ -8,7 +8,7 @@ import br.senac.requestfood.dto.addicionalitem.AdditionalItemDTO;
 import br.senac.requestfood.exception.additionalitem.AdditionalItemNotFoundException;
 import br.senac.requestfood.mapper.addicionalitem.AdditionalItemMapper;
 import br.senac.requestfood.model.addicionalItem.AdditionalItem;
-import br.senac.requestfood.projection.addicionalItem.AddicionalItemProjection;
+import br.senac.requestfood.projection.addicionalItem.AdditionalItemProjection;
 import br.senac.requestfood.repository.addicionalitem.AdditionalItemRepository;
 
 @Service
@@ -34,7 +34,7 @@ public class AdditionalItemServiceImpl implements AdditionalItemService{
 
 		AdditionalItem additionalItem = repository.findById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
 		
-		additionalItem.setNomeAdicional(additionalItemDTO.name());
+		additionalItem.setName(additionalItemDTO.name());
 		
 		repository.save(additionalItem);
 	}
@@ -47,14 +47,14 @@ public class AdditionalItemServiceImpl implements AdditionalItemService{
 		repository.deleteById(id);
 	}
 
-	public AddicionalItemProjection findById(Long id) {
+	public AdditionalItemProjection findById(Long id) {
 
-		AddicionalItemProjection additionalItem = repository.findAdditionalItemById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
+		AdditionalItemProjection additionalItem = repository.findAdditionalItemById(id).orElseThrow(() -> new AdditionalItemNotFoundException("Additional item"+ id +" was not found."));
 		
 		return additionalItem;
 	}
 
-	public List<AddicionalItemProjection> findAll() {
+	public List<AdditionalItemProjection> findAll() {
 		
 		return repository.findAdditionalItens();
 	}

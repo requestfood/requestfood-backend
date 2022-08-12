@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.contato.ContatoDTO;
-import br.senac.requestfood.projection.contato.ContatoProjection;
+import br.senac.requestfood.dto.contact.ContactDTO;
+import br.senac.requestfood.projection.contact.ContactProjection;
 import br.senac.requestfood.service.contact.ContactService;
 
 @RestController
@@ -31,12 +31,12 @@ public class ContactController {
 	}
 
     @PostMapping
-	public ResponseEntity<ContatoDTO> addContact(@RequestBody ContatoDTO contactDTO) {
+	public ResponseEntity<ContactDTO> addContact(@RequestBody ContactDTO contactDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(contactDTO));
 	}
 
     @PutMapping("/{id}")
-	public ResponseEntity<String> updatedContact(@RequestBody ContatoDTO contactDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedContact(@RequestBody ContactDTO contactDTO, @PathVariable(value = "id") Long id) {
 		contactService.update(contactDTO, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Contact updated successfully");
 	}
@@ -48,12 +48,12 @@ public class ContactController {
 	}
 
     @GetMapping("/{id}")
-	public ResponseEntity<ContatoProjection> getContact(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<ContactProjection> getContact(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(contactService.findById(id));
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ContatoProjection>> getAllContact() {
+	public ResponseEntity<List<ContactProjection>> getAllContact() {
 		return ResponseEntity.status(HttpStatus.OK).body(contactService.findAll());
 	}
 }
