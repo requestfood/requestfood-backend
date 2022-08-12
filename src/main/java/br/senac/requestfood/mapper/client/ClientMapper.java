@@ -12,12 +12,11 @@ import br.senac.requestfood.model.user.client.Client;
 public class ClientMapper {
 	
 	public ClientDTO toDTO(Client client) {
-		return new ClientDTO(client.getId(), client.getName(), client.getContact());
+		return new ClientDTO(client.getId(), client.getName(), client.getContact(), client.getPassword(), client.getSurname(), client.getGender(), client.getBirthDate());
 	}
 	
 	public Client toEntity(ClientDTO clientDTO) {
-	//Not Completed, waiting response for Front-End
-		return null;
+		return new Client(clientDTO.id(), clientDTO.name(), clientDTO.contact(), clientDTO.password(), clientDTO.surname(), clientDTO.gender(), clientDTO.birthDate());
 	}
 
 	public List<ClientDTO> toDTO(List<Client> clients){

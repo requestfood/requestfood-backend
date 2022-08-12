@@ -9,6 +9,12 @@ public interface EstablishmentWithCommandProjection {
 	Long getId();
 
 	String getName();
+	
+	String getImage();
+	
+	String getCep();
+	
+	String getBiography();
 
 	List<CommandProjection> getCommands();
 

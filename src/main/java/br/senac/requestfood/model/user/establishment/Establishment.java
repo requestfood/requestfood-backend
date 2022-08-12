@@ -11,9 +11,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.order.Command;
 import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.model.contact.Contact;
+import br.senac.requestfood.model.order.Command;
 import br.senac.requestfood.model.user.User;
 
 @Entity
@@ -30,19 +30,29 @@ public class Establishment extends User {
 	@Column(name = "image_establishment")
 	private Byte[] image;
     
-    @Column(name = "biography_establishment", length = 200, nullable = false)
+    @Column(name = "cep_establishment", length = 9, nullable = false)
+    private String cep;
+    
+    @Column(name = "biography_establishment", length = 200, nullable = true)
     private String biography;
 
     public Establishment() {}
 
-	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String biography) {
+	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String cep,String biography) {
 		super(id, nome, contact, password);
 		this.image = image;
+		this.cep = cep;
 		this.biography = biography;
 	}
 
 	public List<Consumable> getConsumables() {
 		return consumables;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 	public List<Command> getCommands() {
 		return commands;
