@@ -1,5 +1,6 @@
 package br.senac.requestfood.model.user.establishment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 
 import br.senac.requestfood.model.command.Command;
 import br.senac.requestfood.model.consumable.Consumable;
+import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.User;
 
 @Entity
@@ -19,20 +21,24 @@ import br.senac.requestfood.model.user.User;
 public class Establishment extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Consumable> consumables;
+    private List<Consumable> consumables = new ArrayList<>();
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Command> commands;
+    private List<Command> commands = new ArrayList<>() ;
     
     @Lob
 	@Column(name = "image_establishment")
 	private Byte[] image;
+    
+    @Column(name = "biography_establishment", length = 200, nullable = false)
+    private String biography;
 
     public Establishment() {}
-    
-	public Establishment(List<Consumable> consumable, List<Command> commands) {
-		this.consumables = consumable;
-		this.commands = commands;
+
+	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String biography) {
+		super(id, nome, contact, password);
+		this.image = image;
+		this.biography = biography;
 	}
 
 	public List<Consumable> getConsumables() {
@@ -50,5 +56,10 @@ public class Establishment extends User {
 	public void setImage(Byte[] image) {
 		this.image = image;
 	}
-	
+	public String getBiography() {
+		return biography;
+	}
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
 }
