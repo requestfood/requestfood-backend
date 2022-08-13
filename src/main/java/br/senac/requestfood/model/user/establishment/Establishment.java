@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.model.contact.Contact;
-import br.senac.requestfood.model.order.Command;
+import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.User;
 
 @Entity
@@ -24,7 +24,7 @@ public class Establishment extends User {
     private List<Consumable> consumables = new ArrayList<>();
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Command> commands = new ArrayList<>() ;
+    private List<Order> orders = new ArrayList<>() ;
     
     @Lob
 	@Column(name = "image_establishment")
@@ -54,11 +54,11 @@ public class Establishment extends User {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public List<Command> getCommands() {
-		return commands;
+	public List<Order> getOrders() {
+		return orders;
 	}
-	public void setCommands(List<Command> commands) {
-		this.commands = commands;
+	public void setCommands(List<Order> orders) {
+		this.orders = orders;
 	}
 	public Byte[] getImage() {
 		return image;

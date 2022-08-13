@@ -1,13 +1,13 @@
 package br.senac.requestfood.error;
 
+import br.senac.requestfood.exception.order.OrderNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.client.ContactRegisteredException;
-import br.senac.requestfood.exception.order.CommandClientNotFoundException;
-import br.senac.requestfood.exception.order.CommandNotFoundException;
+import br.senac.requestfood.exception.order.OrderClientNotFoundException;
 import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;

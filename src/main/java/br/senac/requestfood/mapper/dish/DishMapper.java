@@ -20,11 +20,11 @@ public class DishMapper {
 		return null;
 	}
 
-	public List<DishDTO> toDTO(List<Dish> dishs){
+	public List<DishDTO> toDTO(List<Dish> dishes){
 		
 		final List<DishDTO> dishDTOs = new ArrayList<>();
 		
-		for (Dish dish : dishs) {
+		for (Dish dish : dishes) {
 			dishDTOs.add(toDTO(dish));
 		}
 		
@@ -33,12 +33,12 @@ public class DishMapper {
 	
 	public List<Dish> toEntity(List<DishDTO> dishDTOs) {
 		
-		final List<Dish> pratos= new ArrayList<>();
+		final List<Dish> dishes= new ArrayList<>();
 		
 		for (DishDTO dishDTO : dishDTOs) {
-			pratos.add(toEntity(dishDTO));
+			dishes.add(toEntity(dishDTO));
 		}
 		
-		return pratos;
+		return dishes;
 	}
 }

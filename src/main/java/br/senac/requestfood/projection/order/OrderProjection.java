@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
-public interface CommandProjection {
+public interface OrderProjection {
 
 	Long getId();
 	

@@ -12,7 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.order.Command;
+import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.consumable.Consumable;
 
 @Entity
@@ -25,8 +25,8 @@ public class Item {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_command", nullable = false)
-	private Command command;
+	@JoinColumn(name = "id_order", nullable = false)
+	private Order order;
 
 	@Column(name = "quantity_item", nullable = false)
 	private Integer quantity;
@@ -41,9 +41,9 @@ public class Item {
 
 	public Item() {}
 
-	public Item(Long id, Command command, Integer quantity, Consumable consumable, String observation) {
+	public Item(Long id, Order order, Integer quantity, Consumable consumable, String observation) {
 		this.id = id;
-		this.command = command;
+		this.order = order;
 		this.quantity = quantity;
 		this.consumable = consumable;
 		this.observation = observation;
@@ -64,7 +64,7 @@ public class Item {
 
 		Item item = ((Item) object);
 
-		return this.getId() == item.getId() && this.getCommand() == item.getCommand()
+		return this.getId() == item.getId() && this.getOrder() == item.getOrder()
 				&& this.getQuantity() == item.getQuantity() && this.getConsumable() == item.getConsumable()
 				&& this.getObservation().equals(getObservation());
 	}
@@ -76,11 +76,11 @@ public class Item {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Command getCommand() {
-		return command;
+	public Order getOrder() {
+		return order;
 	}
-	public void setCommand(Command command) {
-		this.command = command;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	public Integer getQuantity() {
 		return quantity;

@@ -19,11 +19,11 @@ public class EstablishmentMapper {
 		return new Establishment(establishmentDTO.id(), establishmentDTO.name(), establishmentDTO.contact(), establishmentDTO.password(), establishmentDTO.image(), establishmentDTO.cep(),establishmentDTO.description());
 	}
 
-	public List<EstablishmentDTO> toDTO(List<Establishment> establiments){
+	public List<EstablishmentDTO> toDTO(List<Establishment> establishments){
 		
 		final List<EstablishmentDTO> establishmentDTOs = new ArrayList<>();
 		
-		for (Establishment establishment : establiments) {
+		for (Establishment establishment : establishments) {
 			establishmentDTOs.add(toDTO(establishment));
 		}
 		

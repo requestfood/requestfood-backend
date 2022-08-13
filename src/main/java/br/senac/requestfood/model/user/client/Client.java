@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import br.senac.requestfood.enumeration.gender.Gender;
 import br.senac.requestfood.model.contact.Contact;
-import br.senac.requestfood.model.order.Command;
+import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.User;
 
 @Entity
@@ -33,11 +33,11 @@ public class Client extends User {
     private LocalDate birthDate;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.PERSIST)
-    private List<Command> commands = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
     
 	public Client() {}
 
-	public Client(Long id, String name, Contact contact, String password ,String surname, Gender gender, LocalDate birthDate) {
+	public Client(Long id, String name, Contact contact, String password, String surname, Gender gender, LocalDate birthDate) {
 		super(id, name, contact, password);
 		this.surname = surname;
 		this.gender = gender;
@@ -56,11 +56,11 @@ public class Client extends User {
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
-	public List<Command> getCommands() {
-		return commands;
+	public List<Order> getOrders() {
+		return orders;
 	}
-	public void setCommands(List<Command> commands) {
-		this.commands = commands;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	public String getSurname() {
 		return surname;

@@ -5,7 +5,7 @@ import java.util.List;
 import br.senac.requestfood.dto.establishment.EstablishmentDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 
 public interface EstablishmentService {
@@ -20,9 +20,9 @@ public interface EstablishmentService {
 	
 	EstablishmentWithAllProjection findByIdWithAll(Long id);
 	
-	EstablishmentWithCommandProjection findByIdWithCommand(Long id);
+	EstablishmentWithOrderProjection findByIdWithOrder(Long id);
 	
-	EstablishmentWithConsumableProjection findByIdWithComsumable(Long id);
+	EstablishmentWithConsumableProjection findByIdWithConsumable(Long id);
 	
 	List<EstablishmentProjection> findAll();
 }

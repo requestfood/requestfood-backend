@@ -35,8 +35,8 @@ public class ItemServiceImpl implements ItemService{
 		Item item = repository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item "+ id +" was not found"));		
 		
 		item.setId(itemDTO.id());
-		item.setCommand(itemDTO.command());
-		item.setQuantity(itemDTO.quanity());
+		item.setOrder(itemDTO.order());
+		item.setQuantity(itemDTO.quantity());
 		item.setConsumable(itemDTO.consumable());
 		item.setObservation(itemDTO.observation());
 	}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.senac.requestfood.dto.client.ClientDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
-import br.senac.requestfood.projection.client.ClientWithCommandsProjection;
+import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 
 public interface ClientService {
 	
@@ -16,7 +16,7 @@ public interface ClientService {
 	
 	ClientProjection findById(Long id);
 	
-	ClientWithCommandsProjection findByidWithComandas(Long id);
+	ClientWithOrdersProjection findByIdWithOrders(Long id);
 	
 	List<ClientProjection> findAll();
 	

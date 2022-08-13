@@ -2,9 +2,9 @@ package br.senac.requestfood.projection.establishment;
 
 import java.util.List;
 
-import br.senac.requestfood.projection.order.CommandProjection;
+import br.senac.requestfood.projection.order.OrderProjection;
 
-public interface EstablishmentWithCommandProjection {
+public interface EstablishmentWithOrderProjection {
 
 	Long getId();
 
@@ -16,6 +16,6 @@ public interface EstablishmentWithCommandProjection {
 	
 	String getBiography();
 
-	List<CommandProjection> getCommands();
+	List<OrderProjection> getOrders();
 
 }

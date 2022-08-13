@@ -1,19 +1,21 @@
 package br.senac.requestfood.projection.order;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.item.ItemProjection;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-public interface CommandWithItemProjection {
+public interface OrderWithClosureDateProjection {
 
     Long getId();
 
-    Client getClient();
+    Client getCliente();
 
     LocalDateTime getIssueDate();
+
+    LocalDateTime getClosingDate();
 
     List<ItemProjection> getItens();
 

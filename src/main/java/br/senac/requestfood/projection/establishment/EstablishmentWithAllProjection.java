@@ -2,7 +2,7 @@ package br.senac.requestfood.projection.establishment;
 
 import java.util.List;
 
-import br.senac.requestfood.projection.order.CommandProjection;
+import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 
 public interface EstablishmentWithAllProjection {
@@ -19,5 +19,5 @@ public interface EstablishmentWithAllProjection {
 
 	List<ConsumableProjection> getConsumables();
 
-	List<CommandProjection> getCommands();
+	List<OrderProjection> getOrders();
 }

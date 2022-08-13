@@ -13,7 +13,7 @@ import br.senac.requestfood.model.item.Item;
 public class ItemMapper {
 
 	public ItemDTO toDTO(Item item) {
-		return new ItemDTO(item.getId(), item.getCommand(), item.getQuantity(), item.getConsumable(), item.getObservation());
+		return new ItemDTO(item.getId(), item.getOrder(), item.getQuantity(), item.getConsumable(), item.getObservation());
 	}
 	
 	public Item toEntity(ItemDTO itemDTO) {
@@ -34,7 +34,7 @@ public class ItemMapper {
 	
 	public List<Item> toEntity(List<ItemDTO> itemDTOs) {
 		
-		final List<Item> items= new ArrayList<>();
+		final List<Item> items = new ArrayList<>();
 		
 		for (ItemDTO itemDTO : itemDTOs) {
 			items.add(toEntity(itemDTO));

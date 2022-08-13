@@ -11,7 +11,7 @@ import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
@@ -75,14 +75,14 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 	
-	public EstablishmentWithCommandProjection findByIdWithCommand(Long id) {
+	public EstablishmentWithOrderProjection findByIdWithOrder(Long id) {
 
-		EstablishmentWithCommandProjection establishment = repository.findEstablishmentWithCommandById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		EstablishmentWithOrderProjection establishment = repository.findEstablishmentWithCommandById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
 		return establishment;
 	}
 	
-	public EstablishmentWithConsumableProjection findByIdWithComsumable(Long id) {
+	public EstablishmentWithConsumableProjection findByIdWithConsumable(Long id) {
 
 		EstablishmentWithConsumableProjection establishment = repository.findEstablishmentWithConsumableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		

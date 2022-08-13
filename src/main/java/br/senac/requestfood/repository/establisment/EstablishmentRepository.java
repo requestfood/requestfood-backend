@@ -11,7 +11,7 @@ import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithCommandProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 
 @Repository
@@ -25,7 +25,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);
 	
-	Optional<EstablishmentWithCommandProjection> findEstablishmentWithCommandById(Long id);
+	Optional<EstablishmentWithOrderProjection> findEstablishmentWithCommandById(Long id);
 
 	@Query(value="SELECT e.id_establishment as id, e.name_establishment as name FROM Establishment e)")
 	List<EstablishmentProjection>findEstablishments();

@@ -10,7 +10,7 @@ import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.mapper.client.ClientMapper;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.projection.client.ClientProjection;
-import br.senac.requestfood.projection.client.ClientWithCommandsProjection;
+import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 import br.senac.requestfood.repository.client.ClientRepository;
 
 @Service
@@ -62,10 +62,10 @@ public class ClientServiceImpl implements ClientService {
 		
 		return client;
 	}
-	
-	public ClientWithCommandsProjection findByidWithComandas(Long id) {
 
-		ClientWithCommandsProjection client = repository.findClientWithCommandsById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+	public ClientWithOrdersProjection findByIdWithOrders(Long id) {
+
+		ClientWithOrdersProjection client = repository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		return client;
 	}

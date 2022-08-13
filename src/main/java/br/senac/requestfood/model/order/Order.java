@@ -21,12 +21,12 @@ import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Entity
-@Table(name = "command")
-public class Command {
+@Table(name = "order")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_command")
+    @Column(name = "id_order")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,29 +37,27 @@ public class Command {
     @JoinColumn(name = "id_client")
     private Client client;
 
-    @Column(name = "issue_date_command", nullable = false)
+    @Column(name = "issue_date_order", nullable = false)
     private LocalDateTime IssueDate;
 
-    @Column(name = "closing_date_command")
+    @Column(name = "closing_date_order")
     private LocalDateTime closingDate;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "command", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itens;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> items;
 
     @Transient
     private Double amount;
 
-	public Command(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, List<Item> itens, Double amount) {
+	public Order(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, List<Item> itens, Double amount) {
 		this.id = id;
 		this.establishment = establishment;
 		this.client = client;
 		this.IssueDate = issueDate;
 		this.closingDate = closingDate;
-		this.itens = itens;
+		this.items = items;
 		this.amount = amount;
 	}
-
-	public Command() {}
     
     public boolean equals(Object object) {
         
@@ -70,14 +68,14 @@ public class Command {
         if (this.getClass() != object.getClass())
             return false;
         
-        Command command = ((Command) object);
-        return this.getId() == command.getId()
-                && this.getEstablishment().equals(command.getEstablishment())
-                && this.getClient().equals(command.getClient())
-                && this.getIssueDate().equals(command.getIssueDate())
-                && this.getClosingDate().equals(command.getClosingDate())
-                && this.getItens().equals(command.getItens())
-                && this.getAmount() == command.getAmount();
+        Order order = ((Order) object);
+        return this.getId() == order.getId()
+                && this.getEstablishment().equals(order.getEstablishment())
+                && this.getClient().equals(order.getClient())
+                && this.getIssueDate().equals(order.getIssueDate())
+                && this.getClosingDate().equals(order.getClosingDate())
+                && this.getItems().equals(order.getItems())
+                && this.getAmount() == order.getAmount();
     }
 
 	public Long getId() {
@@ -110,11 +108,11 @@ public class Command {
 	public void setClosingDate(LocalDateTime closingDate) {
 		this.closingDate = closingDate;
 	}
-	public List<Item> getItens() {
-		return itens;
+	public List<Item> getItems() {
+		return items;
 	}
-	public void setItens(List<Item> itens) {
-		this.itens = itens;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 	public Double getAmount() {
@@ -123,4 +121,5 @@ public class Command {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+
 }
