@@ -7,5 +7,4 @@ public interface ContactProjection {
 	String getPhone();
 	
 	String getEmail();
-
 }

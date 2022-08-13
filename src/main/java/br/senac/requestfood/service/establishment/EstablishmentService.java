@@ -5,8 +5,8 @@ import java.util.List;
 import br.senac.requestfood.dto.establishment.EstablishmentDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 
 public interface EstablishmentService {
 

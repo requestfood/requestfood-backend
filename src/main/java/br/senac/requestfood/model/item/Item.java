@@ -12,8 +12,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.consumable.Consumable;
+import br.senac.requestfood.model.order.Order;
 
 @Entity
 @Table(name = "item")

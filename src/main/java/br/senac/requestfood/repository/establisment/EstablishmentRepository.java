@@ -11,8 +11,8 @@ import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 
 @Repository
 public interface EstablishmentRepository extends JpaRepository<Establishment, Long> {

@@ -14,5 +14,4 @@ public interface OrderProjection {
 	LocalDateTime getIssueDate();
 	
 	Establishment getEstablishment();
-	
 }

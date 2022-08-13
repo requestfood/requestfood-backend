@@ -1,6 +1,7 @@
 package br.senac.requestfood.model.order;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Entity
-@Table(name = "order")
+@Table(name = "tb_order")
 public class Order {
 
     @Id
@@ -44,18 +45,17 @@ public class Order {
     private LocalDateTime closingDate;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     @Transient
     private Double amount;
 
-	public Order(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, List<Item> itens, Double amount) {
+	public Order(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, Double amount) {
 		this.id = id;
 		this.establishment = establishment;
 		this.client = client;
 		this.IssueDate = issueDate;
 		this.closingDate = closingDate;
-		this.items = items;
 		this.amount = amount;
 	}
     
@@ -111,10 +111,6 @@ public class Order {
 	public List<Item> getItems() {
 		return items;
 	}
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
 	public Double getAmount() {
 		return amount;
 	}

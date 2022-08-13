@@ -57,9 +57,6 @@ public class Establishment extends User {
 	public List<Order> getOrders() {
 		return orders;
 	}
-	public void setCommands(List<Order> orders) {
-		this.orders = orders;
-	}
 	public Byte[] getImage() {
 		return image;
 	}
