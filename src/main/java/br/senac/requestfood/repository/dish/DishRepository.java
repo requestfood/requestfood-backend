@@ -17,7 +17,6 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
 
     Optional<DishProjection> findDishById(Long id);
 
-    @Query(value = "SELECT d.id_consumable AS id, d.name_consumable AS name, d.id_user AS establishment, d.value_consumable AS value, d.description_consumable AS description, d.image_consumable AS image, d.type_dish AS typeDish FROM Dish d")
+    @Query(value = "SELECT d.id AS id, d.name AS name, d.establishment AS establishment, d.value AS value, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
     List<DishProjection> findDishes();
-    
 }
