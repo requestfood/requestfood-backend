@@ -21,6 +21,6 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
 	Optional<OrderWithClosureDateProjection> findOrderWithClosureDate(Long id);
 	
-	@Query(value = "SELECT c.id AS id, c.client AS client, c.IssueDate AS issueDate, c.closingDate AS closingDate FROM Order c")
+	@Query(value = "SELECT c.id AS id, c.establishment AS establishment, c.client AS client, c.IssueDate AS issueDate, c.closingDate AS closingDate FROM Order c")
 	List<OrderProjection> findOrders();
 }
