@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public OrderWithClosingDateProjection findByIdWithClosingDate(Long id) {
-        OrderWithClosingDateProjection order = repository.findOrderWithClosingDate(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
+        OrderWithClosingDateProjection order = repository.findOrderWithClosingDateById(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
         return order;
     }
 
