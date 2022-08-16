@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.projection.order.OrderProjection;
-import br.senac.requestfood.projection.order.OrderWithClosureDateProjection;
+import br.senac.requestfood.projection.order.OrderWithClosingDateProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
 
 public interface OrderService {
@@ -21,7 +21,7 @@ public interface OrderService {
 	
 	OrderWithItemProjection findByIdWithItem(Long id);
 	
-	OrderWithClosureDateProjection findByIdWithClosureDate(Long id);
+	OrderWithClosingDateProjection findByIdWithClosingDate(Long id);
 	
 	List<OrderProjection> findAll();
 

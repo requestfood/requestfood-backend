@@ -27,7 +27,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentWithOrderProjection> findEstablishmentWithCommandById(Long id);
 
-	@Query(value="SELECT e.id as id, e.name AS name, e.contact AS contact, e.password AS password, e.image AS image, e.cep AS cep, e.description AS description FROM Establishment e)")
+	@Query(value="SELECT e.id as id, e.name AS name, e.contact AS contact, e.password AS password, e.image AS image, e.cep AS cep, e.description AS description FROM Establishment e")
 	List<EstablishmentProjection>findEstablishments();
 
 }

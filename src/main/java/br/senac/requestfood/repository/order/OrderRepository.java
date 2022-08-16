@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.projection.order.OrderProjection;
-import br.senac.requestfood.projection.order.OrderWithClosureDateProjection;
+import br.senac.requestfood.projection.order.OrderWithClosingDateProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
 
 @Repository
@@ -19,8 +19,8 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
 	Optional<OrderWithItemProjection> findOrderWithItemById(Long id);
 
-	Optional<OrderWithClosureDateProjection> findOrderWithClosureDate(Long id);
+	Optional<OrderWithClosingDateProjection> findOrderWithClosingDate(Long id);
 	
-	@Query(value = "SELECT c.id AS id, c.establishment AS establishment, c.client AS client, c.IssueDate AS issueDate, c.closingDate AS closingDate FROM Order c")
+	@Query(value = "SELECT o.id AS id, o.establishment AS establishment, o.client AS client, o.issueDate AS issueDate, o.closingDate AS closingDate FROM Order o")
 	List<OrderProjection> findOrders();
 }

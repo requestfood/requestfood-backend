@@ -10,5 +10,5 @@ public interface EstablishmentProjection {
 	
 	String getCep();
 	
-	String getBiography();
+	String getDescription();
 }

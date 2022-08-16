@@ -39,7 +39,7 @@ public class Order {
     private Client client;
 
     @Column(name = "issue_date_order", nullable = false)
-    private LocalDateTime IssueDate;
+    private LocalDateTime issueDate;
 
     @Column(name = "closing_date_order")
     private LocalDateTime closingDate;
@@ -50,11 +50,13 @@ public class Order {
     @Transient
     private Double amount;
 
+    public Order() {}
+    
 	public Order(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, Double amount) {
 		this.id = id;
 		this.establishment = establishment;
 		this.client = client;
-		this.IssueDate = issueDate;
+		this.issueDate = issueDate;
 		this.closingDate = closingDate;
 		this.amount = amount;
 	}
@@ -97,10 +99,10 @@ public class Order {
 		this.client = client;
 	}
 	public LocalDateTime getIssueDate() {
-		return IssueDate;
+		return issueDate;
 	}
 	public void setIssueDate(LocalDateTime issueDate) {
-		IssueDate = issueDate;
+		this.issueDate = issueDate;
 	}
 	public LocalDateTime getClosingDate() {
 		return closingDate;

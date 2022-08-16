@@ -9,9 +9,11 @@ public interface OrderProjection {
 
 	Long getId();
 	
+	Establishment getEstablishment();
+	
 	Client getClient();
 
 	LocalDateTime getIssueDate();
 	
-	Establishment getEstablishment();
+	LocalDateTime getClosingDate();
 }

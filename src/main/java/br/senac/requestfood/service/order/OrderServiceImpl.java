@@ -2,16 +2,18 @@ package br.senac.requestfood.service.order;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.projection.order.OrderProjection;
-import br.senac.requestfood.projection.order.OrderWithClosureDateProjection;
+import br.senac.requestfood.projection.order.OrderWithClosingDateProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
 import br.senac.requestfood.repository.order.OrderRepository;
 
-
+@Service
 public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository repository;
@@ -58,8 +60,8 @@ public class OrderServiceImpl implements OrderService{
         return order;
     }
 
-    public OrderWithClosureDateProjection findByIdWithClosureDate(Long id) {
-        OrderWithClosureDateProjection order = repository.findOrderWithClosureDate(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
+    public OrderWithClosingDateProjection findByIdWithClosingDate(Long id) {
+        OrderWithClosingDateProjection order = repository.findOrderWithClosingDate(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
         return order;
     }
 

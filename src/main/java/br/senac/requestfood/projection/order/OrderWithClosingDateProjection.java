@@ -7,7 +7,7 @@ import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.item.ItemProjection;
 
-public interface OrderWithClosureDateProjection {
+public interface OrderWithClosingDateProjection {
 
     Long getId();
 

@@ -12,6 +12,4 @@ public interface ItemProjection {
 	Integer getQuantity();
 
 	Consumable getConsumable();
-	
-	String getDescription();
 }
