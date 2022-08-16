@@ -16,8 +16,7 @@ public class ContactMapper {
 	}
 	
 	public Contact toEntity(ContactDTO contactDTO) {
-		// Not completed, waiting response for Front-End
-		return null;
+		return new Contact(contactDTO.id(), contactDTO.phone(), contactDTO.email());
 	}
 	
 	public List<ContactDTO> toDTO(List<Contact> contacts){
