@@ -43,6 +43,19 @@ public abstract class Consumable {
 	private Byte[] image;
 
 	protected Consumable() {}
+	
+	
+
+	protected Consumable(Long id, Establishment establishment, String name, Double value, String description,Byte[] image) {
+		this.id = id;
+		this.establishment = establishment;
+		this.name = name;
+		this.value = value;
+		this.description = description;
+		this.image = image;
+	}
+
+
 
 	public boolean equals(Object object) {
 		if (object == null)
