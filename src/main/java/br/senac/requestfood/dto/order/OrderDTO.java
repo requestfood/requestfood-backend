@@ -5,5 +5,6 @@ import java.util.List;
 
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.model.user.client.Client;
+import br.senac.requestfood.model.user.establishment.Establishment;
 
-public record OrderDTO(Long id, Client client, LocalDateTime issueDate, LocalDateTime closingDate, List<Item> items, Double value) {}
+public record OrderDTO(Long id, Establishment establishment, Client client, LocalDateTime issueDate, LocalDateTime closingDate, List<Item> items, Double amount) {}
