@@ -16,8 +16,7 @@ public class DrinkMapper {
 	}
 	
 	public Drink toEntity(DrinkDTO drinkDTO) {
-		// Not completed, waiting response for Front-End
-		return null;
+		return new Drink(drinkDTO.id(), drinkDTO.name(), drinkDTO.establishment(), drinkDTO.value(), drinkDTO.description(), drinkDTO.image(), drinkDTO.alcoholic(), drinkDTO.typeDrink());
 	}
 	
 	public List<DrinkDTO> toDTO(List<Drink> drinks){

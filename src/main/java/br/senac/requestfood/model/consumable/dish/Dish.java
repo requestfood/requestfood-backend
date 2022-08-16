@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.model.consumable.Consumable;
+import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Entity
 @Table(name="dish")
@@ -19,7 +20,8 @@ public class Dish extends Consumable {
 
     public Dish() {}
 
-	public Dish(CategoryDish typeDish) {
+	public Dish(Long id, String name, Establishment establishment, Double value, String description, Byte[] image, CategoryDish typeDish) {
+		super(id, name, establishment, value, description, image);
 		this.typeDish = typeDish;
 	}
 

@@ -46,7 +46,7 @@ public abstract class Consumable {
 	
 	
 
-	protected Consumable(Long id, Establishment establishment, String name, Double value, String description,Byte[] image) {
+	protected Consumable(Long id, String name, Establishment establishment, Double value, String description,Byte[] image) {
 		this.id = id;
 		this.establishment = establishment;
 		this.name = name;
