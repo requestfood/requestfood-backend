@@ -12,7 +12,7 @@ import br.senac.requestfood.model.consumable.drink.Drink;
 public class DrinkMapper {
 
 	public DrinkDTO toDTO(Drink drink) {
-		return new DrinkDTO(drink.getId(), drink.getName(), drink.getEstablishment(),drink.getValue());
+		return new DrinkDTO(drink.getId(), drink.getName(), drink.getEstablishment(),drink.getValue(), drink.getDescription(), drink.getImage(), drink.getAlcoholic(), drink.getTypeDrink());
 	}
 	
 	public Drink toEntity(DrinkDTO drinkDTO) {
