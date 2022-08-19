@@ -1,5 +1,6 @@
 package br.senac.requestfood.model.user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,8 +29,7 @@ public abstract class User {
 	@Column(name = "name_user", nullable = false, length = 45)
 	private String name;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_contact", nullable = false)
 	private Contact contact;
 	

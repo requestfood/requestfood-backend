@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.senac.requestfood.dto.client.ClientRegisterDTO;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.projection.client.ClientProjection;
@@ -15,12 +16,10 @@ import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
   
-    boolean existsByContact (Contact contact);
-    
     Optional<ClientProjection> findClientById(Long id);
 
     Optional<ClientWithOrdersProjection> findClientWithOrdersById(Long id);
     
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.contact AS contact, c.password AS password, c.surname AS surname, c.gender AS gender, c.birthDate AS birthdate FROM Client c")
+    @Query(value = "SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, c.surname AS surname, c.gender AS gender, c.birthDate AS birthdate FROM User u JOIN Client c ON u.id = c.id")
     List<ClientProjection> findClients();
 }

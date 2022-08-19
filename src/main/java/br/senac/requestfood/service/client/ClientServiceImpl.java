@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.client.ClientDTO;
+import br.senac.requestfood.dto.client.ClientRegisterDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
-import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.mapper.client.ClientMapper;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.projection.client.ClientProjection;
@@ -24,26 +23,22 @@ public class ClientServiceImpl implements ClientService {
 		this.mapper = mapper;
 	}
 	
-	public ClientDTO save(ClientDTO clientDTO) {
+	public ClientRegisterDTO save(ClientRegisterDTO dto) {
 		
-		if (repository.existsByContact(clientDTO.contact()))
-			throw new ContactRegisteredException("Contact " + clientDTO.name() + " is already registered");
-		
-		Client client = mapper.toEntity(clientDTO);
+		Client client = mapper.RegisterToEntity(dto);
 		Client clientSaved = repository.save(client);
 		
-		return mapper.toDTO(clientSaved);
+		return mapper.RegisterToDTO(clientSaved);
 	}
 	
-	public void update(ClientDTO clientDTO, Long id) {
+	public void update(ClientRegisterDTO dto, Long id) {
 		
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
-		if (repository.existsByContact(clientDTO.contact()))
-			throw new ContactRegisteredException("Contact " + clientDTO.name() + " is already registered");
-		
-		client.setName(clientDTO.name());
-		client.setContact(clientDTO.contact());
+		client.setName(dto.name());
+		client.setGender(dto.gender());
+		client.getContact().setPhone(dto.phone());
+		client.getContact().setEmail(dto.email());
 		
 		repository.save(client);
 	}

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.client.ClientDTO;
+import br.senac.requestfood.dto.client.ClientRegisterDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -25,36 +26,36 @@ import br.senac.requestfood.service.client.ClientService;
 
 public class ClientController {
 
-    private final ClientService clientService;
+    private final ClientService service;
 
 	public ClientController(ClientService clientService) {
-		this.clientService = clientService;
+		this.service = clientService;
 	}
 
 	@PostMapping
-	public ResponseEntity<ClientDTO> addClient(@RequestBody ClientDTO clientDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(clientDTO));
+	public ResponseEntity<ClientRegisterDTO> addClientRegister(@RequestBody ClientRegisterDTO dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedClient(@RequestBody ClientDTO clientDTO, @PathVariable(value = "id") Long id) {
-		clientService.update(clientDTO, id);
+	public ResponseEntity<String> updatedClient(@RequestBody ClientRegisterDTO dto, @PathVariable(value = "id") Long id) {
+		service.update(dto, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully");
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletedClient(@PathVariable(value = "id") Long id) {
-		clientService.delete(id);
+		service.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Client deleted successfully");
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ClientProjection> getClient(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(clientService.findById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 
 	@GetMapping()
 	public ResponseEntity<List<ClientProjection>> getAllClient() {
-		return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 }
