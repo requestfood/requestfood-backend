@@ -10,7 +10,7 @@ public interface EstablishmentWithOrderProjection {
 
 	String getName();
 	
-	String getImage();
+	Byte[] getImage();
 	
 	String getCep();
 	

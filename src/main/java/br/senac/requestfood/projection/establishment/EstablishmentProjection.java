@@ -1,14 +1,20 @@
 package br.senac.requestfood.projection.establishment;
 
+import br.senac.requestfood.model.contact.Contact;
+
 public interface EstablishmentProjection {
 
 	Long getId();
 
 	String getName();
 	
-	String getImage();
+	Byte[] getImage();
 	
 	String getCep();
 	
 	String getDescription();
+	
+	String getPassword();
+	
+	Contact getContact();
 }

@@ -10,7 +10,7 @@ public interface EstablishmentWithConsumableProjection {
 
 	String getName();
 	
-	String getImage();
+	Byte[] getImage();
 	
 	String getCep();
 	

@@ -11,7 +11,7 @@ public interface EstablishmentWithAllProjection {
 
 	String getName();
 	
-	String getImage();
+	Byte[] getImage();
 	
 	String getCep();
 	
