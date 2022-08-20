@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
 import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
@@ -26,29 +27,25 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		this.mapper = mapper;
 	}
 	
-	public EstablishmentDTO save(EstablishmentDTO establishmentDTO) {
+	public EstablishmentRegisterDTO save(EstablishmentRegisterDTO dto) {
 
-		if (repository.existsByContact(establishmentDTO.contact()))
-			throw new ContactRegisteredException("Contact " + establishmentDTO.name() + " is already registered");
-		
-		Establishment establishment = mapper.toEntity(establishmentDTO);
+		Establishment establishment = mapper.RegisterToEntity(dto);
 		Establishment establishmentSaved = repository.save(establishment);
 		
-		return mapper.toDTO(establishmentSaved);
+		return mapper.RegisterToDTO(establishmentSaved);
 	}
 	
-	public void update(EstablishmentDTO establishmentDTO, Long id) {
+	public void update(EstablishmentRegisterDTO dto, Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
-		if (repository.existsByContact(establishmentDTO.contact()))
-			throw new ContactRegisteredException("Contact " + establishmentDTO.name() + " is already registered");
-		
-		establishment.setName(establishmentDTO.name());
-		establishment.setContact(establishmentDTO.contact());
-		establishment.setCep(establishmentDTO.cep());
-		establishment.setDescription(establishmentDTO.description());
-		establishment.setImage(establishmentDTO.image());
+		establishment.setName(dto.name());
+		establishment.getContact().setEmail(dto.email());
+		establishment.getContact().setPhone(dto.phone());
+		establishment.setCep(dto.cep());
+		establishment.setDescription(dto.description());
+		establishment.setImage(dto.image());
+		establishment.setPassword(dto.password());
 		
 		repository.save(establishment);
 	}
@@ -64,33 +61,28 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public EstablishmentProjection findById(Long id) {
 
 		EstablishmentProjection establishment = repository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
 		return establishment;
 	}
 	
 	public EstablishmentWithAllProjection findByIdWithAll(Long id) {
 
 		EstablishmentWithAllProjection establishment = repository.findEstablishmentWithAllById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
 		return establishment;
 	}
 	
 	public EstablishmentWithOrderProjection findByIdWithOrder(Long id) {
 
 		EstablishmentWithOrderProjection establishment = repository.findEstablishmentWithCommandById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
 		return establishment;
 	}
 	
 	public EstablishmentWithConsumableProjection findByIdWithConsumable(Long id) {
 
 		EstablishmentWithConsumableProjection establishment = repository.findEstablishmentWithConsumableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
 		return establishment;
 	}
 	
 	public List<EstablishmentProjection> findAll() {
-
 		return repository.findEstablishments();
 	}
 }

@@ -15,7 +15,7 @@ public interface EstablishmentWithAllProjection {
 	
 	String getCep();
 	
-	String getBiography();
+	String getDescription();
 
 	List<ConsumableProjection> getConsumables();
 

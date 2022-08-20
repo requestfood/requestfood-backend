@@ -17,8 +17,6 @@ import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProje
 @Repository
 public interface EstablishmentRepository extends JpaRepository<Establishment, Long> {
 
-	boolean existsByContact (Contact contact);
-	
 	Optional<EstablishmentProjection> findEstablishmentById(Long id);
 	
 	Optional<EstablishmentWithAllProjection> findEstablishmentWithAllById(Long id);
@@ -27,7 +25,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentWithOrderProjection> findEstablishmentWithCommandById(Long id);
 
-	@Query(value="SELECT e.id as id, e.name AS name, e.contact AS contact, e.password AS password, e.image AS image, e.cep AS cep, e.description AS description FROM Establishment e")
+	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.cep AS cep, e.description AS description, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
 	List<EstablishmentProjection>findEstablishments();
 
 }

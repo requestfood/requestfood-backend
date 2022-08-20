@@ -38,7 +38,7 @@ public class Establishment extends User {
 
     public Establishment() {}
 
-	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String cep,String description) {
+	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String cep, String description) {
 		super(id, nome, contact, password);
 		this.image = image;
 		this.cep = cep;

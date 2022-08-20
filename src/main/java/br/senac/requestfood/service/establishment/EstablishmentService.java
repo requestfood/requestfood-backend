@@ -2,7 +2,7 @@ package br.senac.requestfood.service.establishment;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
@@ -10,9 +10,9 @@ import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProje
 
 public interface EstablishmentService {
 
-	EstablishmentDTO save(EstablishmentDTO establishmentDTO);
+	EstablishmentRegisterDTO save(EstablishmentRegisterDTO establishmentDTO);
 	
-	void update(EstablishmentDTO establishmentDTO, Long id);
+	void update(EstablishmentRegisterDTO establishmentDTO, Long id);
 	
 	void delete(Long id);
 	

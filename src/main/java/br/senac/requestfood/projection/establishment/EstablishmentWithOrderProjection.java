@@ -14,7 +14,7 @@ public interface EstablishmentWithOrderProjection {
 	
 	String getCep();
 	
-	String getBiography();
+	String getDescription();
 
 	List<OrderProjection> getOrders();
 

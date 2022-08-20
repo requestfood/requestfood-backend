@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 
@@ -24,36 +25,36 @@ import br.senac.requestfood.service.establishment.EstablishmentService;
 
 public class EstablishmentController {
     
-    private final EstablishmentService establishmentService;
+    private final EstablishmentService service;
 
     public EstablishmentController(EstablishmentService establishmentService) {
-		this.establishmentService = establishmentService;
+		this.service = establishmentService;
 	}
 
 	@PostMapping
-	public ResponseEntity<EstablishmentDTO> Establishment(@RequestBody EstablishmentDTO establishmentDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(establishmentService.save(establishmentDTO));
+	public ResponseEntity<EstablishmentRegisterDTO> addEstablishment(@RequestBody EstablishmentRegisterDTO dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedEstablishmentDTO(@RequestBody EstablishmentDTO establishmentDTO, @PathVariable(value = "id") Long id) {
-		establishmentService.update(establishmentDTO, id);
+	public ResponseEntity<String> updatedEstablishmentDTO(@RequestBody EstablishmentRegisterDTO dto, @PathVariable(value = "id") Long id) {
+		service.update(dto, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment update successfully");
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletedEstablishment(@PathVariable(value = "id") Long id) {
-		establishmentService.delete(id);
+		service.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment deleted successfully");
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<EstablishmentProjection> getEstablishment(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(establishmentService.findById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 
 	@GetMapping()
 	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
-		return ResponseEntity.status(HttpStatus.OK).body(establishmentService.findAll());
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 }
