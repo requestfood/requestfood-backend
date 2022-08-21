@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
+import br.senac.requestfood.dto.establishment.AllEstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
@@ -25,25 +26,32 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		this.mapper = mapper;
 	}
 	
-	public EstablishmentRegisterDTO save(EstablishmentRegisterDTO dto) {
+	public AllEstablishmentDTO save(AllEstablishmentDTO dto) {
 
-		Establishment establishment = mapper.RegisterToEntity(dto);
+		Establishment establishment = mapper.AllToEntity(dto);
 		Establishment establishmentSaved = repository.save(establishment);
 		
-		return mapper.RegisterToDTO(establishmentSaved);
+		return mapper.AllToDTO(establishmentSaved);
 	}
 	
-	public void update(EstablishmentRegisterDTO dto, Long id) {
+	public void update(AllEstablishmentDTO dto, Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
 		establishment.setName(dto.name());
-		establishment.getContact().setEmail(dto.email());
 		establishment.getContact().setPhone(dto.phone());
 		establishment.setCep(dto.cep());
 		establishment.setDescription(dto.description());
 		establishment.setImage(dto.image());
-		establishment.setPassword(dto.password());
+		
+		repository.save(establishment);
+	}
+	
+	public void updatePassword(EstablishmentPasswordDTO dto, Long id) {
+
+		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		
+		establishment.setPassword(dto.newPassword());
 		
 		repository.save(establishment);
 	}

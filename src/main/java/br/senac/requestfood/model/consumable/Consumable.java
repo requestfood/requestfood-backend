@@ -43,8 +43,6 @@ public abstract class Consumable {
 	private Byte[] image;
 
 	protected Consumable() {}
-	
-	
 
 	protected Consumable(Long id, String name, Establishment establishment, Double value, String description,Byte[] image) {
 		this.id = id;

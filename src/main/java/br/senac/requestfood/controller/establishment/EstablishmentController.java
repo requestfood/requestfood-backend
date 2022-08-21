@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
+import br.senac.requestfood.dto.establishment.AllEstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 
@@ -31,16 +32,22 @@ public class EstablishmentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<EstablishmentRegisterDTO> addEstablishment(@RequestBody EstablishmentRegisterDTO dto) {
+	public ResponseEntity<AllEstablishmentDTO> addEstablishment(@RequestBody AllEstablishmentDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedEstablishmentDTO(@RequestBody EstablishmentRegisterDTO dto, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedEstablishment(@RequestBody AllEstablishmentDTO dto, @PathVariable(value = "id") Long id) {
 		service.update(dto, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment update successfully");
 	}
 
+	@PutMapping("/{id}/password")
+	public ResponseEntity<String> updatedPasswordEstablishment(@RequestBody EstablishmentPasswordDTO dto, @PathVariable(value = "id") Long id) {
+		service.updatePassword(dto, id);
+		return ResponseEntity.status(HttpStatus.OK).body("Password update successfully");
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletedEstablishment(@PathVariable(value = "id") Long id) {
 		service.delete(id);
