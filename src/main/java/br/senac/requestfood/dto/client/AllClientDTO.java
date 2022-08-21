@@ -4,6 +4,6 @@ import java.time.LocalDate;
 
 import br.senac.requestfood.enumeration.gender.Gender;
 
-public record ClientRegisterDTO(Long id, String name, String phone, String email, 
+public record AllClientDTO(Long id, String name, String phone, String email, 
 		String password, String surname, Gender gender, 
 		LocalDate birthDate) {}

@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.client.ClientRegisterDTO;
+import br.senac.requestfood.dto.client.AllClientDTO;
+import br.senac.requestfood.dto.client.ClientPasswordDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.mapper.client.ClientMapper;
 import br.senac.requestfood.model.user.client.Client;
@@ -23,22 +24,31 @@ public class ClientServiceImpl implements ClientService {
 		this.mapper = mapper;
 	}
 	
-	public ClientRegisterDTO save(ClientRegisterDTO dto) {
+	public AllClientDTO save(AllClientDTO dto) {
 		
-		Client client = mapper.RegisterToEntity(dto);
+		Client client = mapper.AllToEntity(dto);
 		Client clientSaved = repository.save(client);
 		
-		return mapper.RegisterToDTO(clientSaved);
+		return mapper.AllToDTO(clientSaved);
 	}
 	
-	public void update(ClientRegisterDTO dto, Long id) {
+	public void update(AllClientDTO dto, Long id) {
 		
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		client.setName(dto.name());
+		client.setSurname(dto.surname());
 		client.setGender(dto.gender());
 		client.getContact().setPhone(dto.phone());
-		client.getContact().setEmail(dto.email());
+		
+		repository.save(client);
+	}
+	
+	public void updatePassword(ClientPasswordDTO dto, Long id) {
+		
+		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+
+		client.setPassword(dto.newPassword());
 		
 		repository.save(client);
 	}
