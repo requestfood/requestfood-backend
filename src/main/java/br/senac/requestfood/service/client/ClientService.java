@@ -2,7 +2,6 @@ package br.senac.requestfood.service.client;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.client.ClientDTO;
 import br.senac.requestfood.dto.client.ClientRegisterDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.projection.client.ClientWithOrdersProjection;

@@ -5,11 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.client.ClientRegisterDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
 import br.senac.requestfood.model.contact.Contact;
-import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Service

@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.establishment.EstablishmentDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentRegisterDTO;
-import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
