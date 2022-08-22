@@ -18,6 +18,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Optional<ClientWithOrdersProjection> findClientWithOrdersById(Long id);
     
-    @Query(value = "SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, c.surname AS surname, c.gender AS gender, c.birthDate AS birthdate FROM User u JOIN Client c ON u.id = c.id")
+    @Query(value = "SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, c.surname AS surname, c.gender AS gender, c.birthDate AS birthDate FROM User u JOIN Client c ON u.id = c.id")
     List<ClientProjection> findClients();
 }
