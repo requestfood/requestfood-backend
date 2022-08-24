@@ -12,11 +12,11 @@ import br.senac.requestfood.model.order.Order;
 public class OrderMapper {
 
 	public OrderDTO toDTO(Order order) {
-		return new OrderDTO(order.getId(),order.getEstablishment() ,order.getClient(), order.getIssueDate(), order.getClosingDate(), order.getItems(), order.getAmount());
+		return new OrderDTO(order.getId(),order.getEstablishment() ,order.getClient(), order.getIssueDate(), order.getClosingDate(), order.getItems(), order.getOrderStatus(), order.getAmount());
 	}
 	
 	public Order toEntity(OrderDTO orderDTO) {
-		return new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), orderDTO.issueDate(), orderDTO.closingDate(), orderDTO.amount());
+		return new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), orderDTO.issueDate(), orderDTO.closingDate(), orderDTO.orderStatus(), orderDTO.amount());
 	}
 
 	public List<OrderDTO> toDTO(List<Order> orders){
