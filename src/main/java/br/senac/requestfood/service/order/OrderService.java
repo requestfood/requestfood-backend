@@ -15,8 +15,6 @@ public interface OrderService {
 	
 	void delete(Long id);
 	
-	//Double valorTotal(Double valor); falar com o professor
-	
 	OrderProjection findById(Long id);
 	
 	OrderWithItemProjection findByIdWithItem(Long id);
