@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import br.senac.requestfood.enumeration.orderStatus.OrderStatus;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
