@@ -113,11 +113,14 @@ public class Order {
 	public List<Item> getItems() {
 		return items;
 	}
+	
 	public Double getAmount() {
-		return amount;
-	}
-	public void setAmount(Double amount) {
-		this.amount = amount;
+
+		Double sum = 0.0;
+		for(Item item : items) {
+			sum += item.getSubTotal();
+		}
+		return sum;
 	}
 
 }

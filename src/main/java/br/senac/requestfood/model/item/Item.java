@@ -49,8 +49,6 @@ public class Item {
 		this.observation = observation;
 	}
 
-
-
 	public boolean equals(Object object) {
 
 		if (this == object)
@@ -99,5 +97,9 @@ public class Item {
 	}
 	public void setObservation(String observation) {
 		this.observation = observation;
+	}
+	
+	public Double getSubTotal() {
+		return quantity * consumable.getValue();
 	}
 }
