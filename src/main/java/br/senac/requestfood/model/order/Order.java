@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.senac.requestfood.enumeration.orderStatus.OrderStatus;
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
@@ -60,7 +61,7 @@ public class Order {
 		this.client = client;
 		this.issueDate = issueDate;
 		this.closingDate = closingDate;
-		this.orderStatus = PREPARING;
+		this.orderStatus = OrderStatus.PREPARING;
 		this.amount = amount;
 	}
     
