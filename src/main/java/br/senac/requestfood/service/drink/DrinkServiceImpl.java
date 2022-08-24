@@ -43,7 +43,7 @@ public class DrinkServiceImpl implements DrinkService{
 
 		drink.setEstablishment(drinkDTO.establishment());
 		drink.setName(drinkDTO.name());
-		drink.setValue(drinkDTO.value());
+		drink.setPrice(drinkDTO.price());
 
 		repository.save(drink);
 	}

@@ -11,7 +11,7 @@ public interface DrinkProjection {
 
 	Establishment getEstablishment();
 
-	Double getValue();
+	Double getPrice();
 
 	String getDescription();
 

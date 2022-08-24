@@ -11,7 +11,7 @@ public interface DishProjection {
 
 	Establishment getEstablishment();
 
-	Float getValue();
+	Double getPrice();
 
 	String getDescription();
 

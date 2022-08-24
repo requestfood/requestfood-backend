@@ -43,7 +43,7 @@ public class DishServiceImpl implements DishService{
 
 		dish.setName(dishDTO.name());
 		dish.setEstablishment(dishDTO.establishment());
-		dish.setValue(dishDTO.value());
+		dish.setPrice(dishDTO.price());
 
 		repository.save(dish);
 	}

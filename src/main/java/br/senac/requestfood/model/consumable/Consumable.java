@@ -32,8 +32,8 @@ public abstract class Consumable {
 	@Column(name = "name_consumable", length = 45, nullable = false)
 	private String name;
 
-	@Column(name = "value_consumable", nullable = false)
-	private Double value;
+	@Column(name = "price_consumable", nullable = false)
+	private Double price;
 
 	@Column(name = "description_consumable", length = 200)
 	private String description;
@@ -44,11 +44,11 @@ public abstract class Consumable {
 
 	protected Consumable() {}
 
-	protected Consumable(Long id, String name, Establishment establishment, Double value, String description,Byte[] image) {
+	protected Consumable(Long id, String name, Establishment establishment, Double price, String description,Byte[] image) {
 		this.id = id;
 		this.establishment = establishment;
 		this.name = name;
-		this.value = value;
+		this.price = price;
 		this.description = description;
 		this.image = image;
 	}
@@ -66,7 +66,7 @@ public abstract class Consumable {
 		Consumable consumable = ((Consumable) object);
 		
 		return this.getId() == consumable.getId() && this.getEstablishment().equals(consumable.getEstablishment())
-				&& this.getName().equals(consumable.getName()) && this.getValue() == consumable.getValue()
+				&& this.getName().equals(consumable.getName()) && this.getPrice() == consumable.getPrice()
 				&& this.getDescription().equals(consumable.getDescription())
 				&& this.getImage().equals(consumable.getImage());
 	}
@@ -89,11 +89,11 @@ public abstract class Consumable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Double getValue() {
-		return value;
+	public Double getPrice() {
+		return price;
 	}
-	public void setValue(Double value) {
-		this.value = value;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 	public String getDescription() {
 		return description;

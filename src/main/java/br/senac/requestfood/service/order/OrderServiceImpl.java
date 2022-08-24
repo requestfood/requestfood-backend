@@ -39,7 +39,6 @@ public class OrderServiceImpl implements OrderService{
         order.setClient(orderDTO.client());
         order.setIssueDate(orderDTO.issueDate());
         order.setClosingDate(orderDTO.closingDate());
-        order.setAmount(orderDTO.amount());
 
         repository.save(order);
     }

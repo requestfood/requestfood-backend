@@ -12,11 +12,11 @@ import br.senac.requestfood.model.consumable.dish.Dish;
 public class DishMapper {
 
 	public DishDTO toDTO(Dish dish) {
-		return new DishDTO(dish.getId(), dish.getEstablishment(), dish.getName(), dish.getDescription(), dish.getImage(), dish.getValue(), dish.getTypeDish());
+		return new DishDTO(dish.getId(), dish.getEstablishment(), dish.getName(), dish.getDescription(), dish.getImage(), dish.getPrice(), dish.getTypeDish());
 	}
 	
 	public Dish toEntity(DishDTO dishDTO) {
-		return new Dish(dishDTO.id(), dishDTO.establishment(), dishDTO.name(), dishDTO.value(), dishDTO.description(), dishDTO.image(),  dishDTO.typeDish());
+		return new Dish(dishDTO.id(), dishDTO.establishment(), dishDTO.name(), dishDTO.price(), dishDTO.description(), dishDTO.image(),  dishDTO.typeDish());
 	}
 
 	public List<DishDTO> toDTO(List<Dish> dishes){

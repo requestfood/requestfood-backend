@@ -100,6 +100,6 @@ public class Item {
 	}
 	
 	public Double getSubTotal() {
-		return quantity * consumable.getValue();
+		return quantity * consumable.getPrice();
 	}
 }
