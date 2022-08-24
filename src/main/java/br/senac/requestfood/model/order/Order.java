@@ -47,6 +47,8 @@ public class Order {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
+    private OrderStatus orderStatus;
+    
     @Transient
     private Double amount;
 
@@ -58,6 +60,7 @@ public class Order {
 		this.client = client;
 		this.issueDate = issueDate;
 		this.closingDate = closingDate;
+		this.orderStatus = PREPARING;
 		this.amount = amount;
 	}
     
@@ -113,7 +116,14 @@ public class Order {
 	public List<Item> getItems() {
 		return items;
 	}
-	
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
 	public Double getAmount() {
 
 		Double sum = 0.0;
