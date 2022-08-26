@@ -51,7 +51,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
-		establishment.setPassword(dto.newPassword());
+		establishment.setPassword(dto.password());
 		
 		repository.save(establishment);
 	}

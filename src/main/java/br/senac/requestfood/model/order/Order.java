@@ -124,7 +124,7 @@ public class Order {
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-
+	
 	public Double getAmount() {
 
 		Double sum = 0.0;
@@ -133,5 +133,14 @@ public class Order {
 		}
 		return sum;
 	}
-
+	
+	public void cancelOrder() {
+		this.setOrderStatus(orderStatus.CANCELED);
+	}
+	public void finishOrder() {
+		this.setOrderStatus(orderStatus.FINISHED);
+	}
+	public void PreparOrder() {
+		this.setOrderStatus(orderStatus.PREPARING);
+	}
 }

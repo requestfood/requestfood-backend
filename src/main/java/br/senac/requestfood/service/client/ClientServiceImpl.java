@@ -48,7 +48,7 @@ public class ClientServiceImpl implements ClientService {
 		
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 
-		client.setPassword(dto.newPassword());
+		client.setPassword(dto.password());
 		
 		repository.save(client);
 	}
