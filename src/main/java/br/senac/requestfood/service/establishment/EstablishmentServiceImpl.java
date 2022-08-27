@@ -87,8 +87,13 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		EstablishmentWithConsumableProjection establishment = repository.findEstablishmentWithConsumableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		return establishment;
 	}
-	
+
+	public List<EstablishmentProjection> findEstablishmentByName(String name) {
+		return repository.findByNameContainingIgnoreCase(name);
+	}
+
 	public List<EstablishmentProjection> findAll() {
 		return repository.findEstablishments();
 	}
+
 }

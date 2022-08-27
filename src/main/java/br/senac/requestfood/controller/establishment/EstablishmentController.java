@@ -59,6 +59,11 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 
+	@GetMapping("/search-name/{name}")
+	public ResponseEntity<List<EstablishmentProjection>> getEstablishmentByName(@PathVariable(value = "name") String name) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findEstablishmentByName(name));
+	}
+	
 	@GetMapping()
 	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
