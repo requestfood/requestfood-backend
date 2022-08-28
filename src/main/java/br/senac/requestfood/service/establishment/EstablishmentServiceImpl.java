@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.establishment.AllEstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
@@ -26,7 +26,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		this.mapper = mapper;
 	}
 	
-	public AllEstablishmentDTO save(AllEstablishmentDTO dto) {
+	public EstablishmentAllDTO save(EstablishmentAllDTO dto) {
 
 		Establishment establishment = mapper.AllToEntity(dto);
 		Establishment establishmentSaved = repository.save(establishment);
@@ -34,7 +34,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return mapper.AllToDTO(establishmentSaved);
 	}
 	
-	public void update(AllEstablishmentDTO dto, Long id) {
+	public void update(EstablishmentAllDTO dto, Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		

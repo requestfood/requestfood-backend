@@ -2,7 +2,7 @@ package br.senac.requestfood.service.establishment;
 
 import java.util.List;
 
-import br.senac.requestfood.dto.establishment.AllEstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
@@ -11,9 +11,9 @@ import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProje
 
 public interface EstablishmentService {
 
-	AllEstablishmentDTO save(AllEstablishmentDTO establishmentDTO);
+	EstablishmentAllDTO save(EstablishmentAllDTO establishmentDTO);
 	
-	void update(AllEstablishmentDTO establishmentDTO, Long id);
+	void update(EstablishmentAllDTO establishmentDTO, Long id);
 	
 	void updatePassword(EstablishmentPasswordDTO establishmentDTO, Long id);
 	

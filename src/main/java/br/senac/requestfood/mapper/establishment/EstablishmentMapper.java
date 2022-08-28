@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.establishment.AllEstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
@@ -17,19 +18,25 @@ public class EstablishmentMapper {
 		return new EstablishmentDTO(establishment.getId(), establishment.getName(), establishment.getContact(), establishment.getImage(), establishment.getCep(),establishment.getDescription());
 	}
 	
-	public Establishment toEntity(AllEstablishmentDTO establishmentDTO) {
+	public Establishment toEntity(EstablishmentAllDTO establishmentDTO) {
 		Contact contact = new Contact(establishmentDTO.id(), establishmentDTO.phone(), establishmentDTO.email());
 		return new Establishment(establishmentDTO.id(), establishmentDTO.name(), contact, establishmentDTO.password(), establishmentDTO.image(), establishmentDTO.cep(),establishmentDTO.description());
 	}
 
 	
-	public AllEstablishmentDTO AllToDTO(Establishment establishment) {
-		return new AllEstablishmentDTO(establishment.getId(), establishment.getName(), establishment.getCep(), establishment.getContact().getEmail(), establishment.getContact().getPhone(), establishment.getPassword(), establishment.getDescription(), establishment.getImage());
+	public EstablishmentAllDTO AllToDTO(Establishment establishment) {
+		return new EstablishmentAllDTO(establishment.getId(), establishment.getName(), establishment.getCep(), establishment.getContact().getEmail(), establishment.getContact().getPhone(), establishment.getPassword(), establishment.getDescription(), establishment.getImage());
 	}
 	
-	public Establishment AllToEntity(AllEstablishmentDTO dto) {	
+	public Establishment AllToEntity(EstablishmentAllDTO dto) {	
 		Contact contact = new Contact(dto.id(), dto.phone(), dto.email());
 		return new Establishment(dto.id(), dto.name(), contact, dto.password(), dto.image(), dto.cep(), dto.description());
+	}
+	
+	public EstablishmentWithConsumablesDTO toConsumables(Establishment entity) {
+		
+		EstablishmentWithConsumablesDTO dto = new EstablishmentWithConsumablesDTO(entity.getId(), entity.getName(), entity.getConsumables());
+		return dto;
 	}
 	
 	public List<EstablishmentDTO> toDTO(List<Establishment> establishments){
@@ -43,11 +50,11 @@ public class EstablishmentMapper {
 		return establishmentDTOs;
 	}
 	
-	public List<Establishment> toEntity(List<AllEstablishmentDTO> establishmentDTOs) {
+	public List<Establishment> toEntity(List<EstablishmentAllDTO> establishmentDTOs) {
 		
 		final List<Establishment> establishments= new ArrayList<>();
 		
-		for (AllEstablishmentDTO establishmentDTO : establishmentDTOs) {
+		for (EstablishmentAllDTO establishmentDTO : establishmentDTOs) {
 			establishments.add(AllToEntity(establishmentDTO));
 		}
 		
