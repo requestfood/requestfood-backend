@@ -14,7 +14,15 @@ public interface OrderService {
 	void update(OrderDTO orderDTO, Long id);
 	
 	void delete(Long id);
+
+	void waitOrder(Long id);
+
+	void preparOrder(Long id);
 	
+	void finishOrder(Long id);
+	
+	void cancelOrder(Long id);
+		
 	OrderProjection findById(Long id);
 	
 	OrderWithItemProjection findByIdWithItem(Long id);

@@ -29,13 +29,12 @@ public class EstablishmentMapper {
 	}
 	
 	public Establishment AllToEntity(EstablishmentAllDTO dto) {	
-		Contact contact = new Contact(dto.id(), dto.phone(), dto.email());
+		final Contact contact = new Contact(dto.id(), dto.phone(), dto.email());
 		return new Establishment(dto.id(), dto.name(), contact, dto.password(), dto.image(), dto.cep(), dto.description());
 	}
 	
 	public EstablishmentWithConsumablesDTO toConsumables(Establishment entity) {
-		
-		EstablishmentWithConsumablesDTO dto = new EstablishmentWithConsumablesDTO(entity.getId(), entity.getName(), entity.getConsumables());
+		final EstablishmentWithConsumablesDTO dto = new EstablishmentWithConsumablesDTO(entity.getId(), entity.getName(), entity.getConsumables());
 		return dto;
 	}
 	

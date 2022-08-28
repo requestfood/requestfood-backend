@@ -134,13 +134,17 @@ public class Order {
 		return sum;
 	}
 	
+
+	public void waitingOrder() {
+		this.setOrderStatus(OrderStatus.WAITING);
+	}
 	public void cancelOrder() {
-		this.setOrderStatus(orderStatus.CANCELED);
+		this.setOrderStatus(OrderStatus.CANCELED);
 	}
 	public void finishOrder() {
-		this.setOrderStatus(orderStatus.FINISHED);
+		this.setOrderStatus(OrderStatus.FINISHED);
 	}
-	public void PreparOrder() {
-		this.setOrderStatus(orderStatus.PREPARING);
+	public void preparOrder() {
+		this.setOrderStatus(OrderStatus.PREPARING);
 	}
 }

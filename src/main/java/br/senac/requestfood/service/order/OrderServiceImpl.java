@@ -69,4 +69,21 @@ public class OrderServiceImpl implements OrderService{
         return repository.findOrders();
     }
 
+	public void waitOrder(Long id) {
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		order.waitingOrder();
+	}
+	public void preparOrder(Long id) {
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		order.preparOrder();		
+	}
+	public void finishOrder(Long id) {
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		order.finishOrder();		
+	}
+	public void cancelOrder(Long id) {
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		order.cancelOrder();
+	}	
+
 }
