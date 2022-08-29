@@ -14,7 +14,9 @@ public interface ConsumableRepository extends JpaRepository<Consumable, Long>{
 	
     Optional<ConsumableProjection> findConsumableById(Long id);
 
-    Optional<ConsumableProjection> findByName(String name);
+    Optional<ConsumableProjection> findByNameContainingIgnoreCase(String name);
+    
+    Optional<ConsumableProjection> findCById(Long id);
     
     @Query(value = "SELECT c.id AS id, c.name AS name, c.establishment AS establishment, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
     List<DishProjection> findDishes();
