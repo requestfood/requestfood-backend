@@ -90,7 +90,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 
-	public List<EstablishmentProjection> findEstablishmentByName(String name) {
+	public List<EstablishmentProjection> findByName(String name) {
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 

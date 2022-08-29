@@ -30,7 +30,7 @@ public interface EstablishmentService {
 	
 	EstablishmentWithConsumableProjection findByIdWithConsumable(Long id);
 	
-	List<EstablishmentProjection> findEstablishmentByName(String name);
+	List<EstablishmentProjection> findByName(String name);
 	
 	Page<EstablishmentProjection> findAll(Pageable pageable);
 	
