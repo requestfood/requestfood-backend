@@ -2,6 +2,8 @@ package br.senac.requestfood.service.establishment;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
@@ -92,8 +94,11 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 
+	public Page<EstablishmentProjection> findAll(Pageable pageable) {
+		return repository.findEstablishments(pageable);
+	}
+
 	public List<EstablishmentProjection> findAll() {
 		return repository.findEstablishments();
 	}
-
 }

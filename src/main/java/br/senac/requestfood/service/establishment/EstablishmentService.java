@@ -2,6 +2,9 @@ package br.senac.requestfood.service.establishment;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
@@ -28,6 +31,8 @@ public interface EstablishmentService {
 	EstablishmentWithConsumableProjection findByIdWithConsumable(Long id);
 	
 	List<EstablishmentProjection> findEstablishmentByName(String name);
+	
+	Page<EstablishmentProjection> findAll(Pageable pageable);
 	
 	List<EstablishmentProjection> findAll();
 }

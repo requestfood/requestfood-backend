@@ -2,6 +2,8 @@ package br.senac.requestfood.controller.establishment;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,6 +64,11 @@ public class EstablishmentController {
 	@GetMapping("/search-name/{name}")
 	public ResponseEntity<List<EstablishmentProjection>> getEstablishmentByName(@PathVariable(value = "name") String name) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findEstablishmentByName(name));
+	}
+	
+	@GetMapping("/page")
+	public ResponseEntity<Page<EstablishmentProjection>> getAllEstablishment(Pageable page) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(page));
 	}
 	
 	@GetMapping()
