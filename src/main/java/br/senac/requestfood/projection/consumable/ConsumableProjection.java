@@ -10,7 +10,7 @@ public interface ConsumableProjection {
 
     Establishment getEstablishment();
 
-    Float getValue();
+    Double getPrice();
 
     String getDescription();
 
