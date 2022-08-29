@@ -36,7 +36,7 @@ public class ConsumableServiceImpl implements ConsumableService{
 
 	public List<ConsumableProjection> findAll() {
 
-		return null;
+		return repository.findConsumables();
 	}
 
 
