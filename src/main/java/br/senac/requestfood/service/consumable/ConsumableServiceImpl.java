@@ -1,7 +1,7 @@
 package br.senac.requestfood.service.consumable;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -30,13 +30,12 @@ public class ConsumableServiceImpl implements ConsumableService{
 		return consumable;
 	}
 	
-	public List<ConsumableProjection> findByName(String name) {
-		return repository.findByNameContainingIgnoreCase(name);
+	public Page<ConsumableProjection> findByName(String name, Pageable pageable) {
+		return repository.findByNameContainingIgnoreCase(name, pageable);
 	}
 
-	public List<ConsumableProjection> findAll() {
-
-		return repository.findConsumables();
+	public Page<ConsumableProjection> findAll(Pageable pageable) {
+		return repository.findConsumables(pageable);
 	}
 
 

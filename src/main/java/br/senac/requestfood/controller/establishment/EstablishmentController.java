@@ -24,7 +24,6 @@ import br.senac.requestfood.service.establishment.EstablishmentService;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/establishment")
-
 public class EstablishmentController {
     
     private final EstablishmentService service;
@@ -63,7 +62,7 @@ public class EstablishmentController {
 
 	@GetMapping("/search-name/{name}")
 	public ResponseEntity<List<EstablishmentProjection>> getEstablishmentByName(@PathVariable(value = "name") String name) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findEstablishmentByName(name));
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
 	}
 	
 	@GetMapping("/page")

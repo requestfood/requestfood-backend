@@ -1,23 +1,21 @@
 package br.senac.requestfood.controller.consumable;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.client.ClientPasswordDTO;
-import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentProjection;
-import br.senac.requestfood.service.client.ClientService;
+import br.senac.requestfood.service.consumable.ConsumableService;
 
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/consumable")
 public class ConsumableController {
 	
 	private final ConsumableService service;
@@ -32,12 +30,12 @@ public class ConsumableController {
 	}
 
 	@GetMapping("/search-name/{name}")
-	public ResponseEntity<List<ConsumableProjection>> getConsumableByName(@PathVariable(value = "name") String name) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findConsumableByName(name));
+	public ResponseEntity<Page<ConsumableProjection>> getConsumableByName(@PathVariable(value = "name") String name, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<ConsumableProjection>> getAllConsumable() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+	public ResponseEntity<Page<ConsumableProjection>> getAllConsumable(Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
 	}
 }
