@@ -1,5 +1,6 @@
 package br.senac.requestfood.repository.consumable;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +19,4 @@ public interface ConsumableRepository extends JpaRepository<Consumable, Long>{
 
     Page<ConsumableProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);
     
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.establishment AS establishment, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
-    Page<ConsumableProjection> findConsumables(Pageable pageable);
 }

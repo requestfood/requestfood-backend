@@ -26,7 +26,7 @@ public abstract class Consumable {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_user", nullable = false)
+	@JoinColumn(name = "id_user")
 	private Establishment establishment;
 
 	@Column(name = "name_consumable", length = 45, nullable = false)

@@ -1,5 +1,7 @@
 package br.senac.requestfood.service.consumable;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,4 +15,5 @@ public interface ConsumableService {
 	
 	Page<ConsumableProjection> findAll(Pageable pageable);
 
+	List<ConsumableProjection> findAll();
 }

@@ -1,5 +1,7 @@
 package br.senac.requestfood.controller.consumable;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -34,8 +36,13 @@ public class ConsumableController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
 	}
 	
-	@GetMapping()
+	@GetMapping("/page")
 	public ResponseEntity<Page<ConsumableProjection>> getAllConsumable(Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
+	}
+	
+	@GetMapping()
+	public ResponseEntity<List<ConsumableProjection>> getAllConsumable() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 }
