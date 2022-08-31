@@ -65,9 +65,9 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
 	}
 	
-	@GetMapping("/page")
-	public ResponseEntity<Page<EstablishmentProjection>> getAllEstablishment(Pageable page) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(page));
+	@GetMapping("/page/{page}")
+	public ResponseEntity<Page<EstablishmentProjection>> getAllEstablishment(Pageable pageable,@PathVariable(value = "page") Integer page) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
 	}
 	
 	@GetMapping()

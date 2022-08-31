@@ -32,7 +32,7 @@ public interface EstablishmentService {
 	
 	List<EstablishmentProjection> findByName(String name);
 	
-	Page<EstablishmentProjection> findAll(Pageable pageable);
+	Page<EstablishmentProjection> findAll(Pageable pageable, Integer page);
 	
 	List<EstablishmentProjection> findAll();
 }
