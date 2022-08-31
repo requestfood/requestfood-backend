@@ -36,13 +36,13 @@ public class ConsumableController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
 	}
 	
-	@GetMapping("/page")
-	public ResponseEntity<Page<ConsumableProjection>> getAllConsumable(Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
+	@GetMapping("/page/{page}")
+	public ResponseEntity<Page<ConsumableProjection>> getAllConsumable(Pageable pageable,@PathVariable(value = "page") Integer page) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<ConsumableProjection>> getAllConsumable() {
+	public ResponseEntity<List<ConsumableProjection>> getAllConsumables() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 }

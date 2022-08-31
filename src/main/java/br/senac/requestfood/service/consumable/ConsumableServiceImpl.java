@@ -3,6 +3,7 @@ package br.senac.requestfood.service.consumable;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,10 @@ public class ConsumableServiceImpl implements ConsumableService{
 		return repository.findByNameContainingIgnoreCase(name, pageable);
 	}
 
-	public Page<ConsumableProjection> findAll(Pageable pageable) {
+	public Page<ConsumableProjection> findAll(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size);
 		return repository.findConsumables(pageable);
 	}
 	public List<ConsumableProjection> findAll() {

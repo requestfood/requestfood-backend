@@ -13,7 +13,7 @@ public interface ConsumableService {
 	
 	Page<ConsumableProjection> findByName(String name, Pageable pageable);
 	
-	Page<ConsumableProjection> findAll(Pageable pageable);
+	Page<ConsumableProjection> findAll(Pageable pageable, Integer page);
 
 	List<ConsumableProjection> findAll();
 }

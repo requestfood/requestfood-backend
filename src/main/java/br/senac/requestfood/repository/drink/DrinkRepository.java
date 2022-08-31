@@ -17,6 +17,6 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
     Optional<DrinkProjection> findDrinkById(Long id);
 
-    @Query(value = "SELECT d.id AS id, d.name AS name, d.establishment AS establishment, d.price AS price, d.description AS description, d.image AS image, d.typeDrink AS typeDrink, d.alcoholic AS alcoholic FROM Drink d")
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.establishment AS establishment, c.price AS price, c.description AS description, c.image AS image, d.typeDrink AS typeDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
     List<DrinkProjection> findDrinks();
 }
