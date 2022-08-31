@@ -10,23 +10,28 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
+import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
+import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
+import br.senac.requestfood.repository.contact.ContactRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
 public class EstablishmentServiceImpl implements EstablishmentService {
 	
 	private final EstablishmentRepository repository;
+	private final ContactRepository contactRepository;
 	private final EstablishmentMapper mapper;
 	
-	public EstablishmentServiceImpl (EstablishmentRepository repository, EstablishmentMapper mapper) {
+	public EstablishmentServiceImpl (EstablishmentRepository repository, ContactRepository repositoryContact,EstablishmentMapper mapper) {
 		this.repository = repository;
+		this.contactRepository = repositoryContact;
 		this.mapper = mapper;
 	}
 	
@@ -41,6 +46,12 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public void update(EstablishmentAllDTO dto, Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+
+		
+		
+		if (contactRepository.existsByPhone(establishment.getContact().getPhone())) 
+			throw new ContactEmailRegisteredException("Phone "+ establishment.getContact().getPhone() +" is already registered");
+		
 		
 		establishment.setName(dto.name());
 		establishment.getContact().setPhone(dto.phone());
