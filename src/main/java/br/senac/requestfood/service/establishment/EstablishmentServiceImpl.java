@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
+import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
-import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
@@ -47,15 +47,18 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 
-		
-		if(dto.phone() != establishment.getContact().getPhone()) {			
+		if(!dto.phone().equals(establishment.getContact().getPhone())) {			
 			if (contactRepository.existsByPhone(dto.phone())) 
-				throw new ContactEmailRegisteredException("Phone "+ establishment.getContact().getPhone() +" is already registered");
-			
+				throw new ContactPhoneRegisteredException("Phone "+ dto.phone() +" is already registered");
+		}
+		if(!dto.email().equals(establishment.getContact().getEmail())) {			
+			if (contactRepository.existsByEmail(dto.email())) 
+				throw new ContactEmailRegisteredException("Email "+ dto.email() +" is already registered");
 		}
 		
 		establishment.setName(dto.name());
 		establishment.getContact().setPhone(dto.phone());
+		establishment.getContact().setEmail(dto.email());
 		establishment.setCep(dto.cep());
 		establishment.setDescription(dto.description());
 		establishment.setImage(dto.image());
