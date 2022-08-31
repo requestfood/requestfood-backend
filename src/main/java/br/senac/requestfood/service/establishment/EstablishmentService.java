@@ -31,6 +31,10 @@ public interface EstablishmentService {
 	EstablishmentWithConsumableProjection findByIdWithConsumable(Long id);
 	
 	List<EstablishmentProjection> findByName(String name);
+
+	Page<EstablishmentProjection> findNameByOrderByAsc(Pageable pageable, Integer page);
+	
+	Page<EstablishmentProjection> findNameByOrderByDesc(Pageable pageable, Integer page);
 	
 	Page<EstablishmentProjection> findAll(Pageable pageable, Integer page);
 	

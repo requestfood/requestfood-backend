@@ -65,6 +65,16 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
 	}
 	
+	@GetMapping("/name/a-z/{page}")
+	public ResponseEntity<Page<EstablishmentProjection>> getEstablishmentByNameByOrderByAsc(Pageable pageable,@PathVariable(value = "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findNameByOrderByAsc(pageable, page));
+	}
+	
+	@GetMapping("/name/z-a/{page}")
+	public ResponseEntity<Page<EstablishmentProjection>> getEstablishmentByNameByOrderByDesc(Pageable pageable,@PathVariable(value = "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findNameByOrderByDesc(pageable, page));
+	}
+	
 	@GetMapping("/page/{page}")
 	public ResponseEntity<Page<EstablishmentProjection>> getAllEstablishment(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));

@@ -29,7 +29,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	List<EstablishmentProjection> findByNameContainingIgnoreCase(String name);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.cep AS cep, e.description AS description, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
-	Page<EstablishmentProjection>findEstablishments(Pageable page);
+	Page<EstablishmentProjection>findEstablishments(Pageable pageable);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.cep AS cep, e.description AS description, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
 	List<EstablishmentProjection>findEstablishments();

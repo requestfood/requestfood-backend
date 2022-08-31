@@ -96,8 +96,22 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 
+	public Page<EstablishmentProjection> findNameByOrderByAsc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
+		return repository.findEstablishments(pageable);
+	}
+	
+	public Page<EstablishmentProjection> findNameByOrderByDesc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "name");
+		return repository.findEstablishments(pageable);
+	}
+	
 	public Page<EstablishmentProjection> findAll(Pageable pageable, Integer page) {
-		int size = 2;
+		int size = 4;
 		
 		pageable = PageRequest.of(page,size);
 		return repository.findEstablishments(pageable);
@@ -106,4 +120,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public List<EstablishmentProjection> findAll() {
 		return repository.findEstablishments();
 	}
+
+	
 }
