@@ -18,11 +18,11 @@ public interface ConsumableRepository extends JpaRepository<Consumable, Long>{
     Optional<ConsumableProjection> findConsumableById(Long id);
 
     Page<ConsumableProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);
-    
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.establishment AS establishment, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
-    List<ConsumableProjection> findConsumables();
-    
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.establishment AS establishment, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
+        
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
     Page<ConsumableProjection> findConsumables(Pageable page);
+    
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
+    List<ConsumableProjection> findConsumables();
     
 }

@@ -6,9 +6,9 @@ public interface ConsumableProjection {
 
     Long getId();
 
-    String getName();
-
     Establishment getEstablishment();
+
+    String getName();
 
     Double getPrice();
 
