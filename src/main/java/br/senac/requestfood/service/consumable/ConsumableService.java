@@ -13,6 +13,10 @@ public interface ConsumableService {
 	
 	Page<ConsumableProjection> findByName(String name, Pageable pageable);
 	
+	Page<ConsumableProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page);
+	
+	Page<ConsumableProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page);
+	
 	Page<ConsumableProjection> findAll(Pageable pageable, Integer page);
 
 	List<ConsumableProjection> findAll();

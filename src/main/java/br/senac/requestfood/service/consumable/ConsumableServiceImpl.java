@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -44,12 +45,27 @@ public class ConsumableServiceImpl implements ConsumableService{
 		return repository.findByNameContainingIgnoreCase(name, pageable);
 	}
 
+	public Page<ConsumableProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
+		return repository.findConsumables(pageable);
+	}
+	
+	public Page<ConsumableProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
+		return repository.findConsumables(pageable);
+	}
+	
 	public Page<ConsumableProjection> findAll(Pageable pageable, Integer page) {
 		int size = 4;
 		
 		pageable = PageRequest.of(page,size);
 		return repository.findConsumables(pageable);
 	}
+	
 	public List<ConsumableProjection> findAll() {
 		return repository.findConsumables();
 	}
