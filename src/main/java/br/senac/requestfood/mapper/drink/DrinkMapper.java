@@ -12,11 +12,11 @@ import br.senac.requestfood.model.consumable.drink.Drink;
 public class DrinkMapper {
 
 	public DrinkDTO toDTO(Drink drink) {
-		return new DrinkDTO(drink.getId(), drink.getName(), drink.getEstablishment(),drink.getPrice(), drink.getDescription(), drink.getImage(), drink.getAlcoholic(), drink.getTypeDrink());
+		return new DrinkDTO(drink.getId(), drink.getName(), drink.getEstablishment(),drink.getPrice(), drink.getDescription(), drink.getImage(), drink.getAlcoholic(), drink.getCategoryDrink());
 	}
 	
 	public Drink toEntity(DrinkDTO drinkDTO) {
-		return new Drink(drinkDTO.id(), drinkDTO.name(), drinkDTO.establishment(), drinkDTO.price(), drinkDTO.description(), drinkDTO.image(), drinkDTO.alcoholic(), drinkDTO.typeDrink());
+		return new Drink(drinkDTO.id(), drinkDTO.name(), drinkDTO.establishment(), drinkDTO.price(), drinkDTO.description(), drinkDTO.image(), drinkDTO.alcoholic(), drinkDTO.categoryDrink());
 	}
 	
 	public List<DrinkDTO> toDTO(List<Drink> drinks){

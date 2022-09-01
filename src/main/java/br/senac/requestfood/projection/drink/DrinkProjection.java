@@ -9,7 +9,6 @@ public interface DrinkProjection {
 
 	String getName();
 
-	Establishment getEstablishment();
 
 	Double getPrice();
 
@@ -17,5 +16,5 @@ public interface DrinkProjection {
 
 	Byte[] getImage();
 
-	CategoryDrink getTypeDrink();
+	CategoryDrink getCategoryDrink();
 }

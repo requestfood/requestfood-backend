@@ -19,14 +19,14 @@ public class Drink extends Consumable {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "type_drink", nullable = false)
-    private CategoryDrink typeDrink;
+    private CategoryDrink categoryDrink;
 
 	public Drink() {}
 	
-	public Drink(Long id, String name, Establishment establishment, Double price, String description, Byte[] image, Boolean alcoholic, CategoryDrink typeDrink){
+	public Drink(Long id, String name, Establishment establishment, Double price, String description, Byte[] image, Boolean alcoholic, CategoryDrink categoryDrink){
 		super(id, name, establishment, price, description, image);
 		this.alcoholic = alcoholic;
-		this.typeDrink = typeDrink;
+		this.categoryDrink = categoryDrink;
 	}
 
 	public Boolean getAlcoholic() {
@@ -35,10 +35,10 @@ public class Drink extends Consumable {
 	public void setAlcoholic(Boolean alcoholic) {
 		this.alcoholic = alcoholic;
 	}
-	public CategoryDrink getTypeDrink() {
-		return typeDrink;
+	public CategoryDrink getCategoryDrink() {
+		return categoryDrink;
 	}
-	public void setTypeDrink(CategoryDrink typeDrink) {
-		this.typeDrink = typeDrink;
+	public void setCategoryDrink(CategoryDrink categoryDrink) {
+		this.categoryDrink = categoryDrink;
 	}
 }

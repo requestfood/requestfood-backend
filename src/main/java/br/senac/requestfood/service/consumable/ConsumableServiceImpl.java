@@ -20,18 +20,9 @@ import br.senac.requestfood.repository.drink.DrinkRepository;
 public class ConsumableServiceImpl implements ConsumableService{
 
 	private final ConsumableRepository repository;
-	private final DishRepository dishRepository;
-	private final DrinkRepository drinkRepository;
-	
-	private final DishMapper dishMapper;
-	private final DrinkMapper drinkMapper;
 	
 	public ConsumableServiceImpl(ConsumableRepository repository, DishRepository dishRepository, DrinkRepository drinkRepository, DishMapper dishMapper, DrinkMapper drinkMapper) {
 		this.repository = repository;
-		this.dishRepository = dishRepository;
-		this.drinkRepository = drinkRepository;
-		this.dishMapper = dishMapper;
-		this.drinkMapper = drinkMapper;
 	}
 
 	public ConsumableProjection findById(Long id) {
