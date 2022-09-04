@@ -2,6 +2,7 @@ package br.senac.requestfood.service.order;
 
 import java.util.List;
 
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.projection.order.OrderWithClosingDateProjection;
@@ -9,12 +10,12 @@ import br.senac.requestfood.projection.order.OrderWithItemProjection;
 
 public interface OrderService {
 	
-	OrderDTO save(OrderDTO orderDTO);
+	OrderDTO save(CreateOrderDTO orderDTO);
 	
 	void update(OrderDTO orderDTO, Long id);
 	
 	void delete(Long id);
-
+	
 	void waitOrder(Long id);
 
 	void preparOrder(Long id);

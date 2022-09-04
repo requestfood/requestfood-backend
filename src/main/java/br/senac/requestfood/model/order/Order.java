@@ -55,14 +55,13 @@ public class Order {
 
     public Order() {}
     
-	public Order(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, OrderStatus orderStatus ,Double amount) {
+	public Order(Long id, Establishment establishment, Client client, LocalDateTime issueDate,LocalDateTime closingDate, OrderStatus orderStatus) {
 		this.id = id;
 		this.establishment = establishment;
 		this.client = client;
 		this.issueDate = issueDate;
 		this.closingDate = closingDate;
 		this.orderStatus = orderStatus;
-		this.amount = amount;
 	}
     
     public boolean equals(Object object) {

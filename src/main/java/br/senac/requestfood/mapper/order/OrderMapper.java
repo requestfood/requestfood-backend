@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.model.order.Order;
 
@@ -16,9 +17,9 @@ public class OrderMapper {
 	}
 	
 	public Order toEntity(OrderDTO orderDTO) {
-		return new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), orderDTO.issueDate(), orderDTO.closingDate(), orderDTO.orderStatus(), orderDTO.amount());
+		return new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), orderDTO.issueDate(), orderDTO.closingDate(), orderDTO.orderStatus());
 	}
-
+	
 	public List<OrderDTO> toDTO(List<Order> orders){
 		
 		final List<OrderDTO> orderDTOS = new ArrayList<>();

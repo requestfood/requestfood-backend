@@ -1,10 +1,13 @@
 package br.senac.requestfood.service.order;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.order.Order;
@@ -24,14 +27,18 @@ public class OrderServiceImpl implements OrderService{
         this.mapper = mapper;
     }
 
-    public OrderDTO save(OrderDTO orderDTO) {
+    public OrderDTO save(CreateOrderDTO orderDTO) {
+		
+		final LocalDateTime issueDate = LocalDateTime.now();
+		
+		Order order = new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), issueDate, null, OrderStatus.WAITING);
+		Order orderSaved = repository.save(order);
+		
+		return mapper.toDTO(orderSaved);
+		
+	}	
 
-        Order order = mapper.toEntity(orderDTO);
-        Order orderSaved = repository.save(order);
-
-        return mapper.toDTO(orderSaved);
-    }
-
+    
     public void update(OrderDTO orderDTO, Long id) {
 
         Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
@@ -44,12 +51,11 @@ public class OrderServiceImpl implements OrderService{
         repository.save(order);
     }
 
-
     public void delete(Long id) {
         if(!repository.existsById(id))
             throw new OrderNotFoundException("Order " + id + " was not found");
     }
-
+    
     public OrderProjection findById(Long id) {
         OrderProjection order = repository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
         return order;
@@ -84,6 +90,6 @@ public class OrderServiceImpl implements OrderService{
 	public void cancelOrder(Long id) {
 		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
 		order.cancelOrder();
-	}	
+	}
 
 }

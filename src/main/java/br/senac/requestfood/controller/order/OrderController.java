@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.service.order.OrderService;
@@ -31,7 +32,7 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO orderDTO) {
+	public ResponseEntity<OrderDTO> addOrder(@RequestBody CreateOrderDTO orderDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(orderService.save(orderDTO));
 	}
 
