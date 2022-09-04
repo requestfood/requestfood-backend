@@ -2,6 +2,8 @@ package br.senac.requestfood.controller.dish;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,36 +25,56 @@ import br.senac.requestfood.service.dish.DishService;
 @RequestMapping("/dish")
 public class DishController {
 
-    private final DishService dishService;
+    private final DishService service;
 
-    public DishController(DishService dishService) {
-        this.dishService = dishService;
+    public DishController(DishService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<DishDTO> dish(@RequestBody DishDTO dishDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(dishService.save(dishDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dishDTO));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updatedDish(@RequestBody DishDTO dishDTO, @PathVariable(value = "id") Long id) {
-        dishService.update(dishDTO, id);
+        service.update(dishDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body("Dish updated successfully");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletedDish(@PathVariable(value = "id") Long id) {
-        dishService.delete(id);
+        service.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Dish deleted successfully");
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DishProjection> getDish(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(dishService.findById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
+    
+    @GetMapping("/search-name/{name}")
+	public ResponseEntity<Page<DishProjection>> getConsumableByName(@PathVariable(value = "name") String name, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
+	}
+	
+	@GetMapping("/price/minor-to-major/{page}")
+	public ResponseEntity<Page<DishProjection>> getAllConsumableByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByAsc(pageable, page));
+	}
+	
+	@GetMapping("/price/major-to-minor/{page}")
+	public ResponseEntity<Page<DishProjection>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByDesc(pageable, page));
+	}
+    
+    @GetMapping("/page/{page}")
+	public ResponseEntity<Page<DishProjection>> getAllConsumable(Pageable pageable,@PathVariable(value = "page") Integer page) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
+	}
 
     @GetMapping()
 	public ResponseEntity<List<DishProjection>> getAllDish() {
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findAll());
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 }

@@ -2,6 +2,10 @@ package br.senac.requestfood.service.drink;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
@@ -61,7 +65,33 @@ public class DrinkServiceImpl implements DrinkService{
 		return bebida;
 	}
 
+	public Page<DrinkProjection> findByName(String name, Pageable pageable) {
+		return repository.findByNameContainingIgnoreCase(name, pageable);
+	}
+	
+	public Page<DrinkProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
+		return repository.findDrinks(pageable);
+	}
+	
+	public Page<DrinkProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
+		return repository.findDrinks(pageable);
+	}
+	
+	public Page<DrinkProjection> findAll(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size);
+		return repository.findDrinks(pageable);
+	}
+	
 	public List<DrinkProjection> findAll() {
 		return repository.findDrinks();
 	}
+
 }

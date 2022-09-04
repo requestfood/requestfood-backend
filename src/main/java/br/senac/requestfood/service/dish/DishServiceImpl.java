@@ -2,6 +2,10 @@ package br.senac.requestfood.service.dish;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
@@ -60,8 +64,34 @@ public class DishServiceImpl implements DishService{
 		DishProjection dish = repository.findDishById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));
 		return dish;
 	}
+	
+	public Page<DishProjection> findByName(String name, Pageable pageable) {
+		return repository.findByNameContainingIgnoreCase(name, pageable);
+	}
+	
+	public Page<DishProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
+		return repository.findDishes(pageable);
+	}
+	
+	public Page<DishProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
+		return repository.findDishes(pageable);
+	}
+	
+	public Page<DishProjection> findAll(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size);
+		return repository.findDishes(pageable);
+	}
 
 	public List<DishProjection> findAll() {
 		return repository.findDishes();
 	}
+
 }
