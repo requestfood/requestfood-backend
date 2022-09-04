@@ -12,9 +12,7 @@ public interface EstablishmentWithConsumableProjection {
 	
 	Byte[] getImage();
 	
-	String getCep();
-	
-	String getBiography();
+	String getDescription();
 
 	List<ConsumableProjection> getConsumables();
 }

@@ -36,8 +36,14 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	}
 	
 	public EstablishmentAllDTO save(EstablishmentAllDTO dto) {
-
+		
+		if (contactRepository.existsByPhone(dto.phone())) 
+			throw new ContactPhoneRegisteredException("Phone "+ dto.phone() +" is already registered");
+		if (contactRepository.existsByEmail(dto.email())) 
+			throw new ContactEmailRegisteredException("Email "+ dto.email() +" is already registered");
+		
 		Establishment establishment = mapper.AllToEntity(dto);
+		
 		Establishment establishmentSaved = repository.save(establishment);
 		
 		return mapper.AllToDTO(establishmentSaved);
@@ -59,7 +65,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		establishment.setName(dto.name());
 		establishment.getContact().setPhone(dto.phone());
 		establishment.getContact().setEmail(dto.email());
-		establishment.setCep(dto.cep());
 		establishment.setDescription(dto.description());
 		establishment.setImage(dto.image());
 		

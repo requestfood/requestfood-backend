@@ -13,8 +13,6 @@ public interface EstablishmentWithAllProjection {
 	
 	Byte[] getImage();
 	
-	String getCep();
-	
 	String getDescription();
 
 	List<ConsumableProjection> getConsumables();

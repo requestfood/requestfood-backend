@@ -12,8 +12,6 @@ public interface EstablishmentWithOrderProjection {
 	
 	Byte[] getImage();
 	
-	String getCep();
-	
 	String getDescription();
 
 	List<OrderProjection> getOrders();

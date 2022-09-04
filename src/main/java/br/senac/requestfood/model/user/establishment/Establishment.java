@@ -30,29 +30,19 @@ public class Establishment extends User {
 	@Column(name = "image_establishment")
 	private Byte[] image;
     
-    @Column(name = "cep_establishment", length = 9, nullable = false)
-    private String cep;
-    
     @Column(name = "description_establishment", length = 200, nullable = true)
     private String description;
 
     public Establishment() {}
 
-	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String cep, String description) {
+	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, String description) {
 		super(id, nome, contact, password);
 		this.image = image;
-		this.cep = cep;
 		this.description = description;
 	}
 
 	public List<Consumable> getConsumables() {
 		return consumables;
-	}
-	public String getCep() {
-		return cep;
-	}
-	public void setCep(String cep) {
-		this.cep = cep;
 	}
 	public List<Order> getOrders() {
 		return orders;

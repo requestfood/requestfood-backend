@@ -15,22 +15,22 @@ import br.senac.requestfood.model.user.establishment.Establishment;
 public class EstablishmentMapper {
 	
 	public EstablishmentDTO toDTO(Establishment establishment) {
-		return new EstablishmentDTO(establishment.getId(), establishment.getName(), establishment.getContact(), establishment.getImage(), establishment.getCep(),establishment.getDescription());
+		return new EstablishmentDTO(establishment.getId(), establishment.getName(), establishment.getContact(), establishment.getImage(), establishment.getDescription());
 	}
 	
 	public Establishment toEntity(EstablishmentAllDTO establishmentDTO) {
 		Contact contact = new Contact(establishmentDTO.id(), establishmentDTO.phone(), establishmentDTO.email());
-		return new Establishment(establishmentDTO.id(), establishmentDTO.name(), contact, establishmentDTO.password(), establishmentDTO.image(), establishmentDTO.cep(),establishmentDTO.description());
+		return new Establishment(establishmentDTO.id(), establishmentDTO.name(), contact, establishmentDTO.password(), establishmentDTO.image(),establishmentDTO.description());
 	}
 
 	
 	public EstablishmentAllDTO AllToDTO(Establishment establishment) {
-		return new EstablishmentAllDTO(establishment.getId(), establishment.getName(), establishment.getCep(), establishment.getContact().getEmail(), establishment.getContact().getPhone(), establishment.getPassword(), establishment.getDescription(), establishment.getImage());
+		return new EstablishmentAllDTO(establishment.getId(), establishment.getName(), establishment.getContact().getEmail(), establishment.getContact().getPhone(), establishment.getPassword(), establishment.getDescription(), establishment.getImage());
 	}
 	
 	public Establishment AllToEntity(EstablishmentAllDTO dto) {	
 		final Contact contact = new Contact(dto.id(), dto.phone(), dto.email());
-		return new Establishment(dto.id(), dto.name(), contact, dto.password(), dto.image(), dto.cep(), dto.description());
+		return new Establishment(dto.id(), dto.name(), contact, dto.password(), dto.image(), dto.description());
 	}
 	
 	public EstablishmentWithConsumablesDTO toConsumables(Establishment entity) {

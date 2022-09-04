@@ -10,8 +10,6 @@ public interface EstablishmentProjection {
 	
 	Byte[] getImage();
 	
-	String getCep();
-	
 	String getDescription();
 	
 	String getPassword();
