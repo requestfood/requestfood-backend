@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
+import br.senac.requestfood.enumeration.drink.CategoryDrink;
+import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 import br.senac.requestfood.service.drink.DrinkService;
 
@@ -66,6 +68,11 @@ public class DrinkController {
 	@GetMapping("/price/major-to-minor/{page}")
 	public ResponseEntity<Page<DrinkProjection>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByDesc(pageable, page));
+	}
+	
+	@GetMapping("/category/{categoryDrink}")
+	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByCategoryDrink(@PathVariable(value = "categoryDrink") CategoryDrink categoryDrink, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByCategoryDrink(categoryDrink, pageable));
 	}
 	
 	@GetMapping("/page/{page}")

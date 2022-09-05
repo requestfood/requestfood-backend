@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
+import br.senac.requestfood.enumeration.drink.CategoryDrink;
+import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 
 public interface DrinkService {
@@ -23,6 +25,8 @@ public interface DrinkService {
 	Page<DrinkProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page);
 	
 	Page<DrinkProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page);
+	
+	Page<DrinkProjection> findByCategoryDrink(CategoryDrink categoryDrink, Pageable pageable);
 	
 	Page<DrinkProjection> findAll(Pageable pageable, Integer page);
 	

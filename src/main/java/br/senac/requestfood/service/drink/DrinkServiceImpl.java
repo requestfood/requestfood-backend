@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
+import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.mapper.drink.DrinkMapper;
@@ -92,6 +93,15 @@ public class DrinkServiceImpl implements DrinkService{
 	
 	public List<DrinkProjection> findAll() {
 		return repository.findDrinks();
+	}
+	
+	public Page<DrinkProjection> findByCategoryDrink(CategoryDrink categoryDrink, Pageable pageable) {
+		int size = 4;
+		int page = 0;
+		
+		pageable = PageRequest.of(page,size);
+		
+		return repository.findDrinkByCategoryDrink(pageable, categoryDrink);
 	}
 
 }
