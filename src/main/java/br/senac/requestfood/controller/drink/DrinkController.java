@@ -56,17 +56,17 @@ public class DrinkController {
     }
     
     @GetMapping("/search-name/{name}")
-	public ResponseEntity<Page<DrinkProjection>> getConsumableByName(@PathVariable(value = "name") String name, Pageable pageable) {
+	public ResponseEntity<Page<DrinkProjection>> getDrinkByName(@PathVariable(value = "name") String name, Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
 	}
 	
 	@GetMapping("/price/minor-to-major/{page}")
-	public ResponseEntity<Page<DrinkProjection>> getAllConsumableByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
+	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByAsc(pageable, page));
 	}
 	
 	@GetMapping("/price/major-to-minor/{page}")
-	public ResponseEntity<Page<DrinkProjection>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
+	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByDesc(pageable, page));
 	}
 	

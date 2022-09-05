@@ -140,6 +140,4 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public List<EstablishmentProjection> findAll() {
 		return repository.findEstablishments();
 	}
-
-	
 }
