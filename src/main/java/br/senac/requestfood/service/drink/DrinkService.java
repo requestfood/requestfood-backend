@@ -26,6 +26,8 @@ public interface DrinkService {
 	
 	Page<DrinkProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page);
 	
+	Page<DrinkProjection> findByAlcoholic(Pageable pageable, Boolean alcoholic);
+	
 	Page<DrinkProjection> findByCategoryDrink(CategoryDrink categoryDrink, Pageable pageable);
 	
 	Page<DrinkProjection> findAll(Pageable pageable, Integer page);

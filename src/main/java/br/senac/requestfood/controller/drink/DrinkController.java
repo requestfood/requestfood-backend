@@ -75,6 +75,12 @@ public class DrinkController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByCategoryDrink(categoryDrink, pageable));
 	}
 	
+	@GetMapping("/alcoholic/{alcoholic}")
+	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByAlcoholic(Pageable pageable, @PathVariable(value = "alcoholic") Boolean alcoholic) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByAlcoholic(pageable, alcoholic));
+	}
+	
+	
 	@GetMapping("/page/{page}")
 	public ResponseEntity<Page<DrinkProjection>> getAllConsumable(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));

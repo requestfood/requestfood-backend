@@ -35,7 +35,6 @@ public class OrderServiceImpl implements OrderService{
 		Order orderSaved = repository.save(order);
 		
 		return mapper.toDTO(orderSaved);
-		
 	}	
 
     
@@ -44,7 +43,6 @@ public class OrderServiceImpl implements OrderService{
         Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
 
         order.setClient(orderDTO.client());
-        order.setIssueDate(orderDTO.issueDate());
         order.setClosingDate(orderDTO.closingDate());
         order.setOrderStatus(orderDTO.orderStatus());
 

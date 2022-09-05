@@ -104,4 +104,13 @@ public class DrinkServiceImpl implements DrinkService{
 		return repository.findDrinkByCategoryDrink(pageable, categoryDrink);
 	}
 
+	public Page<DrinkProjection> findByAlcoholic(Pageable pageable, Boolean alcoholic) {
+		int size = 4;
+		int page = 0;
+		
+		pageable = PageRequest.of(page, size);
+		
+		return repository.findDrinkByAlcoholic(pageable, alcoholic);
+	}
+
 }

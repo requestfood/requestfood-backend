@@ -21,6 +21,8 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
     Optional<DrinkProjection> findDrinkById(Long id);
     
+    Page<DrinkProjection> findDrinkByAlcoholic(Pageable pageable, Boolean alcoholic);
+    
     Page<DrinkProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);
     
     Page<DrinkProjection> findDrinkByCategoryDrink(Pageable pageable, CategoryDrink categoryDrink);
