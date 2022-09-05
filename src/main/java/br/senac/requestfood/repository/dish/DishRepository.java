@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.model.consumable.dish.Dish;
-import br.senac.requestfood.projection.consumable.ConsumableProjection;
 import br.senac.requestfood.projection.dish.DishProjection;
 
 @Repository
@@ -20,11 +20,13 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
 
     Optional<DishProjection> findDishById(Long id);
     
-    Page<DishProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);    
+    Page<DishProjection> findByNameContainingIgnoreCase(String name, Pageable pageable); 
+    
+    Page<DishProjection> findDishByTypeDish(Pageable pageable, CategoryDish typeDish);
 
-    @Query(value = "SELECT d.id AS id, d.name AS name, d.establishment AS establishment, d.price AS price, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
+    @Query(value = "SELECT d.id AS id, d.name AS name, d.price AS price, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
     Page<DishProjection> findDishes(Pageable pageable);
     
-    @Query(value = "SELECT d.id AS id, d.name AS name, d.establishment AS establishment, d.price AS price, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
+    @Query(value = "SELECT d.id AS id, d.name AS name, d.price AS price, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
     List<DishProjection> findDishes();
 }

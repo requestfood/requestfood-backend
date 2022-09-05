@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.mapper.dish.DishMapper;
@@ -92,6 +93,15 @@ public class DishServiceImpl implements DishService{
 
 	public List<DishProjection> findAll() {
 		return repository.findDishes();
+	}
+
+	public Page<DishProjection> findByTypeDish(CategoryDish typeDish, Pageable pageable) {
+		int size = 4;
+		int page = 0;
+		
+		pageable = PageRequest.of(page,size);
+		
+		return repository.findDishByTypeDish(pageable, typeDish);
 	}
 
 }

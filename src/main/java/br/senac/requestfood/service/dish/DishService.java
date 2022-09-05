@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.projection.dish.DishProjection;
 
 @Service
@@ -25,6 +26,8 @@ public interface DishService {
 	Page<DishProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page);
 	
 	Page<DishProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page);
+	
+	Page<DishProjection> findByTypeDish(CategoryDish typeDish, Pageable pageable);
 	
 	Page<DishProjection> findAll(Pageable pageable, Integer page);
 	
