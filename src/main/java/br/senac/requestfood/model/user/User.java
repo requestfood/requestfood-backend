@@ -31,7 +31,7 @@ public abstract class User {
 	@JoinColumn(name = "id_contact", nullable = false)
 	private Contact contact;
 	
-	@Column(name = "password_user", nullable = false, length = 8)
+	@Column(name = "password_user", nullable = false)
 	private String password;
 
 	protected User() {}

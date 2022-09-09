@@ -17,6 +17,8 @@ public interface ClientService {
 	
 	void delete(Long id);
 	
+	AllClientDTO encodePassword (AllClientDTO clientDTO);
+	
 	ClientProjection findById(Long id);
 	
 	ClientWithOrdersProjection findByIdWithOrders(Long id);

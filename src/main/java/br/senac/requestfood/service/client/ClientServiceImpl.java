@@ -2,6 +2,7 @@ package br.senac.requestfood.service.client;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
@@ -18,10 +19,12 @@ public class ClientServiceImpl implements ClientService {
 
 	private final ClientRepository repository;
 	private final ClientMapper mapper;
+	private final PasswordEncoder encoder;
 	
-	public ClientServiceImpl (ClientRepository repository, ClientMapper mapper) {
+	public ClientServiceImpl (ClientRepository repository, ClientMapper mapper, PasswordEncoder encoder) {
 		this.repository = repository;
 		this.mapper = mapper;
+		this.encoder = encoder;
 	}
 	
 	public AllClientDTO save(AllClientDTO dto) {
@@ -79,4 +82,16 @@ public class ClientServiceImpl implements ClientService {
 		
 		return repository.findClients();
 	}
+
+	public AllClientDTO encodePassword(AllClientDTO clientDTO) {
+		
+		Client client = mapper.AllToEntity(clientDTO);
+		
+		client.setPassword(encoder.encode(client.getPassword()));
+		
+		return mapper.AllToDTO(client);
+		
+	}
+
+	
 }
