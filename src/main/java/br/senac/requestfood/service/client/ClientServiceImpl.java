@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
+import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.mapper.client.ClientMapper;
 import br.senac.requestfood.model.user.client.Client;
@@ -34,14 +35,13 @@ public class ClientServiceImpl implements ClientService {
 		return mapper.AllToDTO(clientSaved);
 	}
 	
-	public void update(AllClientDTO dto, Long id) {
+	public void update(ClientUpdateDTO dto, Long id) {
 		
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		client.setName(dto.name());
 		client.setSurname(dto.surname());
 		client.setGender(dto.gender());
-		client.getContact().setPhone(dto.phone());
 		
 		repository.save(client);
 	}

@@ -42,10 +42,13 @@ public class ContactServiceImpl implements ContactService {
 		
 		Contact contact = repository.findById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
 		
-		if (repository.existsByPhone(contactDTO.phone())) {
-			throw new ContactEmailRegisteredException("Phone "+ contactDTO.phone() +" is already registered");
-		}
+		if (repository.existsByEmail(contactDTO.email()))
+			throw new ContactEmailRegisteredException("Email "+ contactDTO.email() +" is already registered.");
+		
+		if (repository.existsByPhone(contactDTO.phone()))
+			throw new ContactPhoneRegisteredException("Phone "+ contactDTO.phone() +" is already registered.");
 			
+		contact.setEmail(contactDTO.email());
 		contact.setPhone(contactDTO.phone());
 		
 		repository.save(contact);
