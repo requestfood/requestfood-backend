@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.client.ClientPasswordDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -34,7 +33,6 @@ public class ClientController {
 
 	@PostMapping
 	public ResponseEntity<AllClientDTO> addClientRegister(@RequestBody AllClientDTO dto) {
-		dto = service.encodePassword(dto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
 
@@ -44,12 +42,6 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully");
 	}
 	
-	@PutMapping("/{id}/password")
-	public ResponseEntity<String> updatedPasswordClient(@RequestBody ClientPasswordDTO dto, @PathVariable(value = "id") Long id) {
-		service.updatePassword(dto, id);
-		return ResponseEntity.status(HttpStatus.OK).body("Password updated successfully");
-	}
-
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletedClient(@PathVariable(value = "id") Long id) {
 		service.delete(id);

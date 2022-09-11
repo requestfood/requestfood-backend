@@ -9,12 +9,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
@@ -67,15 +67,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		establishment.getContact().setEmail(dto.email());
 		establishment.setDescription(dto.description());
 		establishment.setImage(dto.image());
-		
-		repository.save(establishment);
-	}
-	
-	public void updatePassword(EstablishmentPasswordDTO dto, Long id) {
-
-		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
-		establishment.setPassword(dto.password());
 		
 		repository.save(establishment);
 	}
@@ -140,4 +131,16 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public List<EstablishmentProjection> findAll() {
 		return repository.findEstablishments();
 	}
+
+	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size);
+		return repository.findEstablishmentsCard(pageable);
+	}
 }
+
+
+
+
+

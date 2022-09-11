@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
@@ -31,7 +32,12 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.description AS description, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
 	Page<EstablishmentProjection>findEstablishments(Pageable pageable);
 	
+	@Query(value="SELECT u.id AS id, u.name AS name, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
+	Page<EstablishmentCardProjection>findEstablishmentsCard(Pageable pageable);
+	
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.description AS description, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
 	List<EstablishmentProjection>findEstablishments();
+	
+	
 
 }

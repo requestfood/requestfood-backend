@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.user.LoginUserDTO;
 import br.senac.requestfood.dto.user.UserDTO;
+import br.senac.requestfood.dto.user.UserPasswordDTO;
 import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.user.UserNotFoundException;
 import br.senac.requestfood.exception.user.UserPasswordException;
@@ -47,5 +48,11 @@ public class UserServiceImpl implements UserService{
 		}
 			
 		return new UserDTO(user.getId(), user.getName(), user.getContact(), user.getPassword());
+	}
+
+	@Override
+	public void updatePassword(UserPasswordDTO establishmentDTO, Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

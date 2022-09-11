@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
+import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
@@ -17,8 +17,6 @@ public interface EstablishmentService {
 	EstablishmentAllDTO save(EstablishmentAllDTO establishmentDTO);
 	
 	void update(EstablishmentAllDTO establishmentDTO, Long id);
-	
-	void updatePassword(EstablishmentPasswordDTO establishmentDTO, Long id);
 	
 	void delete(Long id);
 	
@@ -37,6 +35,8 @@ public interface EstablishmentService {
 	Page<EstablishmentProjection> findNameByOrderByDesc(Pageable pageable, Integer page);
 	
 	Page<EstablishmentProjection> findAll(Pageable pageable, Integer page);
+	
+	Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page);
 	
 	List<EstablishmentProjection> findAll();
 }

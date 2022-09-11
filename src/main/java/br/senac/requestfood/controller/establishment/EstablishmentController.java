@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentPasswordDTO;
+import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 
@@ -43,12 +43,6 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment update successfully");
 	}
 
-	@PutMapping("/{id}/password")
-	public ResponseEntity<String> updatedPasswordEstablishment(@RequestBody EstablishmentPasswordDTO dto, @PathVariable(value = "id") Long id) {
-		service.updatePassword(dto, id);
-		return ResponseEntity.status(HttpStatus.OK).body("Password update successfully");
-	}
-	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletedEstablishment(@PathVariable(value = "id") Long id) {
 		service.delete(id);
@@ -78,6 +72,11 @@ public class EstablishmentController {
 	@GetMapping("/page/{page}")
 	public ResponseEntity<Page<EstablishmentProjection>> getAllEstablishment(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
+	}
+	
+	@GetMapping("/card/{page}")
+	public ResponseEntity<Page<EstablishmentCardProjection>> getAllEstablishmentCard(Pageable pageable,@PathVariable(value = "page") Integer page) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAllToCard(pageable, page));
 	}
 	
 	@GetMapping()
