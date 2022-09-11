@@ -9,6 +9,7 @@ import br.senac.requestfood.dto.user.UserPasswordDTO;
 import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.user.UserNotFoundException;
 import br.senac.requestfood.exception.user.UserPasswordException;
+import br.senac.requestfood.model.user.User;
 import br.senac.requestfood.projection.contact.ContactProjection;
 import br.senac.requestfood.projection.user.UserProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
@@ -30,17 +31,12 @@ public class UserServiceImpl implements UserService{
 
 	public UserDTO findByUser(LoginUserDTO dto) {
 		
-		
-					
 		if(!contactRepository.existsByEmail(dto.email())) {
 			throw new ContactNotFoundException("Email " + dto.email() + " was not found");
 		}
 	
 		ContactProjection contact = contactRepository.findByEmailContainsIgnoreCase(dto.email()).orElseThrow(() -> new UserNotFoundException("User with " + dto.email() + " was not found"));
-		
 		UserProjection user = repository.findUserByContactId(contact.getId()).orElseThrow(() -> new ContactNotFoundException("Contact " + contact.getId() + " was not found"));
-		
-		
 		
 		if(!dto.password().equals(user.getPassword())) {
 			System.out.println(encoder.encode(dto.password()));
@@ -50,9 +46,11 @@ public class UserServiceImpl implements UserService{
 		return new UserDTO(user.getId(), user.getName(), user.getContact(), user.getPassword());
 	}
 
-	@Override
-	public void updatePassword(UserPasswordDTO establishmentDTO, Long id) {
-		// TODO Auto-generated method stub
+	public void updatePassword(UserPasswordDTO dto, Long id) {
+
+		User user = repository.findById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+		user.setPassword(dto.password());;
 		
+		repository.save(user);
 	}
 }
