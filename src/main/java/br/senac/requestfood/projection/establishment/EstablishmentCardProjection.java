@@ -8,4 +8,5 @@ public interface EstablishmentCardProjection {
 	
 	Byte[] getImage();
 	
+	Boolean getOpen();
 }

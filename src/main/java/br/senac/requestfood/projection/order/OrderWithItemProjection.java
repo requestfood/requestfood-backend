@@ -22,7 +22,5 @@ public interface OrderWithItemProjection {
 
     List<ItemProjection> getItens();
 
-    Double getAmount();
-
     Establishment getEstablishment();
 }
