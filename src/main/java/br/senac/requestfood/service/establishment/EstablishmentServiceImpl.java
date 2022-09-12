@@ -116,7 +116,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public Page<EstablishmentProjection> findAll(Pageable pageable, Integer page) {
 		int size = 4;
 		
-		pageable = PageRequest.of(page,size);
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findEstablishments(pageable);
 	}
 
@@ -127,7 +127,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
 		int size = 4;
 		
-		pageable = PageRequest.of(page,size);
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findEstablishmentsCard(pageable);
 	}
 }

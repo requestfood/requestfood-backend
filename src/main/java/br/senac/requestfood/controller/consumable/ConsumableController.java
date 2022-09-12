@@ -31,9 +31,9 @@ public class ConsumableController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 
-	@GetMapping("/search-name/{name}")
-	public ResponseEntity<Page<ConsumableProjection>> getConsumableByName(@PathVariable(value = "name") String name, Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
+	@GetMapping("/search-name/{name}/{page}")
+	public ResponseEntity<Page<ConsumableProjection>> getConsumableByName(@PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, page,pageable));
 	}
 	
 	@GetMapping("/price/minor-to-major/{page}")

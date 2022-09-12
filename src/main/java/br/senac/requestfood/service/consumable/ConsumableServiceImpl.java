@@ -32,7 +32,10 @@ public class ConsumableServiceImpl implements ConsumableService{
 		return consumable;
 	}
 	
-	public Page<ConsumableProjection> findByName(String name, Pageable pageable) {
+	public Page<ConsumableProjection> findByName(String name, Integer page,Pageable pageable) {
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findByNameContainingIgnoreCase(name, pageable);
 	}
 
@@ -53,7 +56,7 @@ public class ConsumableServiceImpl implements ConsumableService{
 	public Page<ConsumableProjection> findAll(Pageable pageable, Integer page) {
 		int size = 4;
 		
-		pageable = PageRequest.of(page,size);
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findConsumables(pageable);
 	}
 	

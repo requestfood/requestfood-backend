@@ -11,7 +11,7 @@ public interface ConsumableService {
 	
 	ConsumableProjection findById(Long id);
 	
-	Page<ConsumableProjection> findByName(String name, Pageable pageable);
+	Page<ConsumableProjection> findByName(String name, Integer page,Pageable pageable);
 	
 	Page<ConsumableProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page);
 	
