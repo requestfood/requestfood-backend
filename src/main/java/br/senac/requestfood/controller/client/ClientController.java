@@ -34,7 +34,7 @@ public class ClientController {
 
 	@PostMapping
 	public ResponseEntity<AllClientDTO> addClientRegister(@RequestBody AllClientDTO dto) {
-		dto = service.encodePassword(dto);
+		//dto = service.encodePassword(dto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
 

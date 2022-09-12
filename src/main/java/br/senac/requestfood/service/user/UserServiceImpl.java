@@ -49,7 +49,16 @@ public class UserServiceImpl implements UserService{
 	public void updatePassword(UserPasswordDTO dto, Long id) {
 
 		User user = repository.findById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
-		user.setPassword(dto.password());;
+		
+		if(!dto.currentPassword().equals(user.getPassword())) {
+			System.out.println(user.getPassword()+" senha do banco");
+			System.out.println(dto.currentPassword()+" senha atual");
+			throw new UserPasswordException("Incorrect password");
+		}
+		if(!dto.newPassword().equals(dto.confirmPassword()))
+			throw new UserPasswordException("Passwords do not match.");
+		
+		user.setPassword(dto.confirmPassword());
 		
 		repository.save(user);
 	}

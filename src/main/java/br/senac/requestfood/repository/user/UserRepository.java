@@ -11,5 +11,7 @@ import br.senac.requestfood.projection.user.UserProjection;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	String findPasswordById(Long id);
+	
 	Optional<UserProjection> findUserByContactId(Long id);
 }
