@@ -86,7 +86,7 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithConsumable(id));
 	}
 	
-	@GetMapping("/with-ordes/{id}")
+	@GetMapping("/with-orders/{id}")
 	public ResponseEntity<EstablishmentWithOrderProjection> getEstablishmentWithOrdes(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
 	}

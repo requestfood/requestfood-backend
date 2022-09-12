@@ -20,7 +20,7 @@ public interface OrderWithItemProjection {
     
     OrderStatus getOrderStatus();
 
-    List<ItemProjection> getItens();
+    List<ItemProjection> getItems();
 
     Establishment getEstablishment();
 }

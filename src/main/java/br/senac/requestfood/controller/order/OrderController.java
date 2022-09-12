@@ -59,7 +59,7 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findAll());
 	}
 	
-	@GetMapping("/{id}/item")
+	@GetMapping("/with-items/{id}")
 	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
 	}
