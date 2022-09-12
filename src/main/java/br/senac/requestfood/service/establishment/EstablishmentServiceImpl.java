@@ -65,8 +65,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		establishment.setName(dto.name());
 		establishment.getContact().setPhone(dto.phone());
 		establishment.getContact().setEmail(dto.email());
-		establishment.setDescription(dto.description());
 		establishment.setImage(dto.image());
+		establishment.setTimeToOpen(dto.timeToOpen());
+		establishment.setTimeToClose(dto.timeToClose());
 		
 		repository.save(establishment);
 	}
