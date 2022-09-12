@@ -28,5 +28,7 @@ public interface OrderService {
 	OrderWithItemProjection findByIdWithItem(Long id);
 	
 	List<OrderProjection> findAll();
+	
+	List<OrderProjection> findAllByClient(String name);
 
 }

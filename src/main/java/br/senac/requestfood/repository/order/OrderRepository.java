@@ -15,7 +15,10 @@ import br.senac.requestfood.projection.order.OrderWithItemProjection;
 public interface OrderRepository extends JpaRepository<Order, Long>{
 
 	Optional<OrderProjection> findOrderById(Long id);
+	
+	List<OrderProjection> findOrderByClientName(String name);
 
+	@Query(value = "")
 	Optional<OrderWithItemProjection> findOrderWithItemById(Long id);
 
 	@Query(value = "SELECT o.id AS id, o.establishment AS establishment, o.client AS client, o.issueDate AS issueDate, o.closingDate AS closingDate, o.orderStatus AS orderStatus FROM Order o")

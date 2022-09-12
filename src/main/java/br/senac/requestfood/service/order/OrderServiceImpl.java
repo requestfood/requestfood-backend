@@ -94,4 +94,8 @@ public class OrderServiceImpl implements OrderService{
 		order.cancelOrder();
 	}
 
+	public List<OrderProjection> findAllByClient(String name) {
+		return repository.findOrderByClientName(name);
+	}
+
 }
