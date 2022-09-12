@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 
 @RestController
@@ -77,6 +79,16 @@ public class EstablishmentController {
 	@GetMapping("/card/{page}")
 	public ResponseEntity<Page<EstablishmentCardProjection>> getAllEstablishmentCard(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAllToCard(pageable, page));
+	}
+	
+	@GetMapping("/with-consumables/{id}")
+	public ResponseEntity<EstablishmentWithConsumableProjection> getEstablishmentWithConsumables(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithConsumable(id));
+	}
+	
+	@GetMapping("/with-ordes/{id}")
+	public ResponseEntity<EstablishmentWithOrderProjection> getEstablishmentWithOrdes(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
 	}
 	
 	@GetMapping()
