@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.projection.order.OrderProjection;
+import br.senac.requestfood.projection.order.OrderWithItemProjection;
 import br.senac.requestfood.service.order.OrderService;
 
 @RestController
@@ -56,5 +57,10 @@ public class OrderController {
 	@GetMapping()
 	public ResponseEntity<List<OrderProjection>> getAllOrder() {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findAll());
+	}
+	
+	@GetMapping("/{id}/item")
+	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
 	}
 }
