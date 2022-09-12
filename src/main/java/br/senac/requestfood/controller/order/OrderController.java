@@ -63,4 +63,20 @@ public class OrderController {
 	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
 	}
+	
+	@PostMapping("/prepar-order/{id}")
+	public ResponseEntity<String> preparOrder(@PathVariable(value = "id")Long id) {
+		orderService.preparOrder(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Order is preparing");
+	}
+	@PostMapping("/finish-order/{id}")
+	public ResponseEntity<String> finishOrder(@PathVariable(value = "id")Long id) {
+		orderService.finishOrder(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Order was finished");
+	}
+	@PostMapping("/cancel-order/{id}")
+	public ResponseEntity<String> cancelOrder(@PathVariable(value = "id")Long id) {
+		orderService.cancelOrder(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Order was canceled");
+	}
 }
