@@ -1,5 +1,7 @@
 package br.senac.requestfood.projection.establishment;
 
+import java.time.LocalTime;
+
 import br.senac.requestfood.model.contact.Contact;
 
 public interface EstablishmentProjection {
@@ -9,10 +11,12 @@ public interface EstablishmentProjection {
 	String getName();
 	
 	Byte[] getImage();
-	
-	String getDescription();
-	
+		
 	String getPassword();
 	
 	Contact getContact();
+	
+	LocalTime getTimeToOpen();
+	
+	LocalTime getTimeToClose();
 }

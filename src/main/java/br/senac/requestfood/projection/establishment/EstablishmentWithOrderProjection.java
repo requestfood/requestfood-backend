@@ -10,10 +10,6 @@ public interface EstablishmentWithOrderProjection {
 
 	String getName();
 	
-	Byte[] getImage();
-	
-	String getDescription();
-
 	List<OrderProjection> getOrders();
 
 }

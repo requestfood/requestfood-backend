@@ -10,9 +10,5 @@ public interface EstablishmentWithConsumableProjection {
 
 	String getName();
 	
-	Byte[] getImage();
-	
-	String getDescription();
-
 	List<ConsumableProjection> getConsumables();
 }

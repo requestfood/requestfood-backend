@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithAllProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 
@@ -21,8 +20,6 @@ public interface EstablishmentService {
 	void delete(Long id);
 	
 	EstablishmentProjection findById(Long id);
-	
-	EstablishmentWithAllProjection findByIdWithAll(Long id);
 	
 	EstablishmentWithOrderProjection findByIdWithOrder(Long id);
 	
