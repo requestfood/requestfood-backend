@@ -38,18 +38,21 @@ public class ContactServiceImpl implements ContactService {
 		return mapper.toDTO(contactSaved);
 	}
 	
-	public void update(ContactDTO contactDTO, Long id) {
+	public void update(ContactDTO dto, Long id) {
 		
 		Contact contact = repository.findById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
 		
-		if (repository.existsByEmail(contactDTO.email()))
-			throw new ContactEmailRegisteredException("Email "+ contactDTO.email() +" is already registered.");
+		if(!dto.phone().equals(contact.getPhone())) {			
+			if (repository.existsByPhone(dto.phone())) 
+				throw new ContactPhoneRegisteredException("Phone "+ dto.phone() +" is already registered");
+		}
+		if(!dto.email().equals(contact.getEmail())) {			
+			if (repository.existsByEmail(dto.email())) 
+				throw new ContactEmailRegisteredException("Email "+ dto.email() +" is already registered");
+		}
 		
-		if (repository.existsByPhone(contactDTO.phone()))
-			throw new ContactPhoneRegisteredException("Phone "+ contactDTO.phone() +" is already registered.");
-			
-		contact.setEmail(contactDTO.email());
-		contact.setPhone(contactDTO.phone());
+		contact.setEmail(dto.email());
+		contact.setPhone(dto.phone());
 		
 		repository.save(contact);
 	}

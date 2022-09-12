@@ -53,18 +53,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 
-		if(!dto.phone().equals(establishment.getContact().getPhone())) {			
-			if (contactRepository.existsByPhone(dto.phone())) 
-				throw new ContactPhoneRegisteredException("Phone "+ dto.phone() +" is already registered");
-		}
-		if(!dto.email().equals(establishment.getContact().getEmail())) {			
-			if (contactRepository.existsByEmail(dto.email())) 
-				throw new ContactEmailRegisteredException("Email "+ dto.email() +" is already registered");
-		}
+		
 		
 		establishment.setName(dto.name());
-		establishment.getContact().setPhone(dto.phone());
-		establishment.getContact().setEmail(dto.email());
 		establishment.setImage(dto.image());
 		establishment.setTimeToOpen(dto.timeToOpen());
 		establishment.setTimeToClose(dto.timeToClose());
