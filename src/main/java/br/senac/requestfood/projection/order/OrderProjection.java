@@ -19,4 +19,6 @@ public interface OrderProjection {
 	LocalDateTime getClosingDate();
 	
 	OrderStatus getOrderStatus();
+	
+    Double getAmount();
 }

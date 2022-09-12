@@ -16,6 +16,8 @@ public interface OrderWithItemProjection {
 
     LocalDateTime getIssueDate();
     
+    LocalDateTime getClosingDate();
+    
     OrderStatus getOrderStatus();
 
     List<ItemProjection> getItens();

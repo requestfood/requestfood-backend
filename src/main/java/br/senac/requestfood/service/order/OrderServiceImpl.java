@@ -12,7 +12,6 @@ import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.projection.order.OrderProjection;
-import br.senac.requestfood.projection.order.OrderWithClosingDateProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
 import br.senac.requestfood.repository.order.OrderRepository;
 
@@ -61,11 +60,6 @@ public class OrderServiceImpl implements OrderService{
 
     public OrderWithItemProjection findByIdWithItem(Long id) {
         OrderWithItemProjection order = repository.findOrderWithItemById(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
-        return order;
-    }
-
-    public OrderWithClosingDateProjection findByIdWithClosingDate(Long id) {
-        OrderWithClosingDateProjection order = repository.findOrderWithClosingDateById(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
         return order;
     }
 
