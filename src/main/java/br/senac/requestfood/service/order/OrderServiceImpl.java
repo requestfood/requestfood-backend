@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
+import br.senac.requestfood.exception.order.OrderLimitDeleteDoNotCatchUpException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.order.Order;
@@ -49,8 +50,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public void delete(Long id) {
+    	
+    	Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+    	
         if(!repository.existsById(id))
-            throw new OrderNotFoundException("Order " + id + " was not found");
+            throw new OrderNotFoundException("Order " + id + " was not found");           
+        
+        if((LocalDateTime.now().getDayOfMonth() - order.getClosingDate().getDayOfMonth()) < 1 )
+        	throw new OrderLimitDeleteDoNotCatchUpException("Limit to delete order don't catch up.");
+        
+        repository.deleteById(id);
     }
     
     public OrderProjection findById(Long id) {
@@ -77,6 +86,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 	public void finishOrder(Long id) {
 		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		order.setClosingDate(LocalDateTime.now());
 		order.finishOrder();		
 	}
 	public void cancelOrder(Long id) {
