@@ -4,6 +4,8 @@ import java.util.List;
 
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
+import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
 
@@ -15,14 +17,8 @@ public interface OrderService {
 	
 	void delete(Long id);
 	
-	void waitOrder(Long id);
-
-	void preparOrder(Long id);
+	void alterOrderStatus(Long id, OrderStatus status);
 	
-	void finishOrder(Long id);
-	
-	void cancelOrder(Long id);
-		
 	OrderProjection findById(Long id);
 	
 	OrderWithItemProjection findByIdWithItem(Long id);
@@ -31,4 +27,9 @@ public interface OrderService {
 	
 	List<OrderProjection> findAllByClient(String name);
 
+	
+	Boolean checkDate(Order order);
+	
+	Boolean checkStatus(Order order);
+	
 }

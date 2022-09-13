@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
 import br.senac.requestfood.service.order.OrderService;
@@ -64,19 +65,9 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
 	}
 	
-	@PostMapping("/prepar-order/{id}")
-	public ResponseEntity<String> preparOrder(@PathVariable(value = "id")Long id) {
-		orderService.preparOrder(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Order is preparing");
-	}
-	@PostMapping("/finish-order/{id}")
-	public ResponseEntity<String> finishOrder(@PathVariable(value = "id")Long id) {
-		orderService.finishOrder(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Order was finished");
-	}
-	@PostMapping("/cancel-order/{id}")
-	public ResponseEntity<String> cancelOrder(@PathVariable(value = "id")Long id) {
-		orderService.cancelOrder(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Order was canceled");
+	@PostMapping("/{status}/{id}")
+	public ResponseEntity<String> alterOrderStatus(@PathVariable(value = "status")OrderStatus status ,@PathVariable(value = "id")Long id) {
+		orderService.alterOrderStatus(id, status);
+		return ResponseEntity.status(HttpStatus.OK).body("Order status alter sucefully");
 	}
 }

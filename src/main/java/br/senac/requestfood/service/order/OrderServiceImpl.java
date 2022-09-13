@@ -30,8 +30,9 @@ public class OrderServiceImpl implements OrderService{
     public OrderDTO save(CreateOrderDTO orderDTO) {
 		
 		final LocalDateTime issueDate = LocalDateTime.now();
+		OrderStatus status = OrderStatus.WAITING;
 		
-		Order order = new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), issueDate, null, OrderStatus.WAITING);
+		Order order = new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), issueDate, null, status);
 		Order orderSaved = repository.save(order);
 		
 		return mapper.toDTO(orderSaved);
@@ -53,14 +54,14 @@ public class OrderServiceImpl implements OrderService{
     	
     	Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
     	
-        if(!repository.existsById(id))
-            throw new OrderNotFoundException("Order " + id + " was not found");           
-        
-        if((LocalDateTime.now().getDayOfMonth() - order.getClosingDate().getDayOfMonth()) < 1 )
-        	throw new OrderLimitDeleteDoNotCatchUpException("Limit to delete order don't catch up.");
-        
-        repository.deleteById(id);
+    	if(!checkStatus(order))
+    		throw new OrderNotFoundException("You need cancel or finish order to delete");
+        if(!checkDate(order))
+        	throw new OrderLimitDeleteDoNotCatchUpException("Wait 24 hours to delete Order " + id);
+    
+    	repository.deleteById(id);
     }
+    
     
     public OrderProjection findById(Long id) {
         OrderProjection order = repository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
@@ -76,26 +77,47 @@ public class OrderServiceImpl implements OrderService{
         return repository.findOrders();
     }
 
-	public void waitOrder(Long id) {
+	public void alterOrderStatus(Long id, OrderStatus status) {
+		
 		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-		order.waitingOrder();
-	}
-	public void preparOrder(Long id) {
-		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-		order.preparOrder();		
-	}
-	public void finishOrder(Long id) {
-		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-		order.setClosingDate(LocalDateTime.now());
-		order.finishOrder();		
-	}
-	public void cancelOrder(Long id) {
-		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-		order.cancelOrder();
+		order.setOrderStatus(status);
+		
+		if(status == OrderStatus.FINISHED) {
+			order.setClosingDate(LocalDateTime.now());
+		}
+	
+		repository.save(order);
 	}
 
 	public List<OrderProjection> findAllByClient(String name) {
 		return repository.findOrderByClientName(name);
 	}
 
+	
+	public Boolean checkDate(Order order) {
+		
+		if(order.getClosingDate().getYear() == LocalDateTime.now().getYear()) {
+        	if(order.getClosingDate().getMonth() == LocalDateTime.now().getMonth()){	
+        		
+        		if(order.getClosingDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()){	
+        			return false;
+        		
+        		} else if(order.getClosingDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth() - 1){
+        				
+        			if((order.getClosingDate().getHour() - 24) + LocalDateTime.now().getHour() < 24)
+        			 	return false;        		
+        		}
+        	}
+        }
+		
+		return true;
+	}
+	
+	public Boolean checkStatus(Order order) {
+		
+		if(order.getOrderStatus() == OrderStatus.WAITING || order.getOrderStatus() == OrderStatus.PREPARING)
+    		return false;
+		
+		return true;
+	}
 }
