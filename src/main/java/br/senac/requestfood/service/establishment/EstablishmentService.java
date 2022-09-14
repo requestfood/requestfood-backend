@@ -19,6 +19,8 @@ public interface EstablishmentService {
 	
 	void delete(Long id);
 	
+	void setOpen(Long id);
+	
 	EstablishmentProjection findById(Long id);
 	
 	EstablishmentWithOrderProjection findByIdWithOrder(Long id);

@@ -1,5 +1,6 @@
 package br.senac.requestfood.service.establishment;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -123,6 +124,24 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findEstablishmentsCard(pageable);
 	}
+
+	public void setOpen(Long id) {
+		
+		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		
+		if (establishment.getTimeToOpen().getHour() > establishment.getTimeToClose().getHour() 
+				&& establishment.getTimeToClose().getHour() < establishment.getTimeToOpen().getHour()) {
+			establishment.setOpen(true);
+		}else
+			establishment.setOpen(false);
+		
+		if (establishment.getOpen()) {
+			System.out.println("OPEN");
+		}else
+			System.out.println("CLOSE");
+		
+		repository.save(establishment);
+	}	
 }
 
 

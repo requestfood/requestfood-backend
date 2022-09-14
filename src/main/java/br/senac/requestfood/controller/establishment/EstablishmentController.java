@@ -91,6 +91,12 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
 	}
 	
+	@GetMapping("/getOpen/{id}")
+	public ResponseEntity<EstablishmentProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
+		service.setOpen(id);
+		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+	}
+	
 	@GetMapping()
 	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());

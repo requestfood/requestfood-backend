@@ -19,4 +19,5 @@ public interface EstablishmentProjection {
 	LocalTime getTimeToOpen();
 	
 	LocalTime getTimeToClose();
+	
 }
