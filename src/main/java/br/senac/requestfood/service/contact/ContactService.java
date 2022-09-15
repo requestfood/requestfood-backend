@@ -7,8 +7,6 @@ import br.senac.requestfood.projection.contact.ContactProjection;
 
 public interface ContactService {
 	
-	ContactDTO save(ContactDTO contactDTO);
-	
 	void update(ContactDTO contactDTO, Long id);
 	
 	void delete(Long id);

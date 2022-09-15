@@ -53,8 +53,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 
-		
-		
 		establishment.setName(dto.name());
 		establishment.setImage(dto.image());
 		establishment.setTimeToOpen(dto.timeToOpen());

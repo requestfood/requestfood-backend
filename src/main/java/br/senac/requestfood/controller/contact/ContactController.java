@@ -30,11 +30,6 @@ public class ContactController {
 		this.contactService = contactService;
 	}
 
-    @PostMapping
-	public ResponseEntity<ContactDTO> addContact(@RequestBody ContactDTO contactDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(contactDTO));
-	}
-
     @PutMapping("/{id}")
 	public ResponseEntity<String> updatedContact(@RequestBody ContactDTO contactDTO, @PathVariable(value = "id") Long id) {
 		contactService.update(contactDTO, id);
