@@ -2,6 +2,7 @@ package br.senac.requestfood.service.establishment;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -123,22 +124,28 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return repository.findEstablishmentsCard(pageable);
 	}
 
-	public void setOpen(Long id) {
+	public Boolean setOpen(Long id) {
 		
-		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		Establishment establishment =  repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
-		if (establishment.getTimeToOpen().getHour() > establishment.getTimeToClose().getHour() 
-				&& establishment.getTimeToClose().getHour() < establishment.getTimeToOpen().getHour()) {
-			establishment.setOpen(true);
-		}else
-			establishment.setOpen(false);
-		
-		if (establishment.getOpen()) {
-			System.out.println("OPEN");
-		}else
-			System.out.println("CLOSE");
-		
-		repository.save(establishment);
+if (LocalTime.now().getHour() > establishment.getTimeToOpen().getHour() && LocalTime.now().getHour() < establishment.getTimeToClose().getHour()) {
+			
+			if(LocalTime.now().getHour() == establishment.getTimeToOpen().getHour()) {
+				
+				if(LocalTime.now().getMinute() <= establishment.getTimeToOpen().getMinute())		
+					establishment.setOpen(true);
+					return establishment.getOpen();
+			}
+			
+			if(LocalTime.now().getHour() == establishment.getTimeToClose().getHour()) {
+				
+				if(LocalTime.now().getMinute() <= establishment.getTimeToClose().getMinute())
+					establishment.setOpen(false);
+					return establishment.getOpen();
+			}
+		}
+		establishment.setOpen(false);
+		return establishment.getOpen();	
 	}
 }
 

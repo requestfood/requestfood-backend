@@ -20,7 +20,7 @@ public interface EstablishmentService {
 	
 	void delete(Long id);
 	
-	void setOpen(Long id);
+	Boolean setOpen(Long id);
 	
 	EstablishmentProjection findById(Long id);
 	
