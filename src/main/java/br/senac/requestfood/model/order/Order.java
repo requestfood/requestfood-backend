@@ -56,7 +56,6 @@ public class Order {
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
     
-    @JsonIgnore
     @Transient
     private Double amount;
 
