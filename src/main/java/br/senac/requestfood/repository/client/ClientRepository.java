@@ -13,7 +13,7 @@ import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-  
+	
     Optional<ClientProjection> findClientById(Long id);
 
     Optional<ClientWithOrdersProjection> findClientWithOrdersById(Long id);

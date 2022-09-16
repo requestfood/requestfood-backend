@@ -139,7 +139,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 			System.out.println("CLOSE");
 		
 		repository.save(establishment);
-	}	
+	}
 }
 
 

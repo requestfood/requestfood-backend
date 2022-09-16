@@ -17,7 +17,7 @@ import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProje
 
 @Repository
 public interface EstablishmentRepository extends JpaRepository<Establishment, Long> {
-
+	
 	Optional<EstablishmentProjection> findEstablishmentById(Long id);
 	
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);

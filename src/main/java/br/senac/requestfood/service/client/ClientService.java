@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
+import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 

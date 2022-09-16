@@ -8,12 +8,18 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
+import br.senac.requestfood.exception.client.ClientNotFoundException;
+import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.exception.order.OrderLimitDeleteDoNotCatchUpException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.order.Order;
+import br.senac.requestfood.model.user.client.Client;
+import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
+import br.senac.requestfood.repository.client.ClientRepository;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.repository.order.OrderRepository;
 
 @Service
@@ -21,10 +27,15 @@ public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository repository;
     private final OrderMapper mapper;
+    private final EstablishmentRepository establishmentRepository;
+    private final ClientRepository clientRepository;
 
-    public OrderServiceImpl (OrderRepository repository, OrderMapper mapper) {
+    public OrderServiceImpl (OrderRepository repository, OrderMapper mapper, 
+    		EstablishmentRepository establishmentRepository, ClientRepository clientRepository) {
         this.repository = repository;
         this.mapper = mapper;
+        this.clientRepository = clientRepository;
+        this.establishmentRepository = establishmentRepository;
     }
 
     public OrderDTO save(CreateOrderDTO orderDTO) {
@@ -32,7 +43,12 @@ public class OrderServiceImpl implements OrderService{
 		final LocalDateTime issueDate = LocalDateTime.now();
 		OrderStatus status = OrderStatus.WAITING;
 		
-		Order order = new Order(orderDTO.id(), orderDTO.establishment(), orderDTO.client(), issueDate, null, status);
+		Establishment establishment = establishmentRepository.findById(orderDTO.idEstablishment())
+				.orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ orderDTO.idEstablishment() +" was not found"));
+		Client client = clientRepository.findById(orderDTO.idClient())
+				.orElseThrow(() -> new ClientNotFoundException("Client "+ orderDTO.idClient() +" was not found"));
+		
+		Order order = new Order(orderDTO.id(), establishment, client, issueDate, null, status);
 		Order orderSaved = repository.save(order);
 		
 		return mapper.toDTO(orderSaved);
@@ -42,8 +58,7 @@ public class OrderServiceImpl implements OrderService{
     public void update(OrderDTO orderDTO, Long id) {
 
         Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-
-        order.setClient(orderDTO.client());
+        
         order.setClosingDate(orderDTO.closingDate());
         order.setOrderStatus(orderDTO.orderStatus());
 

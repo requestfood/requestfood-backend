@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.model.item.Item;
@@ -48,8 +52,11 @@ public class Order {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
     
+    @JsonIgnore
     @Transient
     private Double amount;
 

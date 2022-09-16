@@ -98,6 +98,5 @@ public class ClientServiceImpl implements ClientService {
 		return mapper.AllToDTO(client);
 		
 	}
-
 	
 }
