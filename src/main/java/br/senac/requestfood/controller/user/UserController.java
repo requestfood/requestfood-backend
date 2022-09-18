@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.user.LoginUserDTO;
-import br.senac.requestfood.dto.user.UserDTO;
 import br.senac.requestfood.dto.user.UserPasswordDTO;
+import br.senac.requestfood.projection.user.UserProjection;
 import br.senac.requestfood.service.user.UserService;
 
 @RestController
@@ -27,7 +27,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<UserDTO> getUser(@RequestBody LoginUserDTO dto ) {
+	public ResponseEntity<UserProjection> getUser(@RequestBody LoginUserDTO dto ) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByUser(dto));
 	}
 	

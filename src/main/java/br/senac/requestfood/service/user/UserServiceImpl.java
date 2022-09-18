@@ -4,7 +4,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.user.LoginUserDTO;
-import br.senac.requestfood.dto.user.UserDTO;
 import br.senac.requestfood.dto.user.UserPasswordDTO;
 import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.user.UserNotFoundException;
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService{
 		this.encoder = encoder;
 	}
 
-	public UserDTO findByUser(LoginUserDTO dto) {
+	public UserProjection findByUser(LoginUserDTO dto) {
 		
 		if(!contactRepository.existsByEmail(dto.email())) {
 			throw new ContactNotFoundException("Email " + dto.email() + " was not found");
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService{
 			throw new UserPasswordException("Incorrect password");
 		}
 			
-		return new UserDTO(user.getId(), user.getName(), user.getContact(), user.getPassword());
+		return user;
 	}
 
 	public void updatePassword(UserPasswordDTO dto, Long id) {

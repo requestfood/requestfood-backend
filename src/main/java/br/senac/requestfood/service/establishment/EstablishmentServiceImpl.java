@@ -2,7 +2,6 @@ package br.senac.requestfood.service.establishment;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
@@ -18,7 +18,6 @@ import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
@@ -43,11 +42,11 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		if (contactRepository.existsByEmail(dto.email())) 
 			throw new ContactEmailRegisteredException("Email "+ dto.email() +" is already registered");
 		
-		Establishment establishment = mapper.AllToEntity(dto);
+		Establishment establishment = mapper.toEntity(dto);
 		
 		Establishment establishmentSaved = repository.save(establishment);
 		
-		return mapper.AllToDTO(establishmentSaved);
+		return mapper.toDTO(establishmentSaved);
 	}
 	
 	public void update(EstablishmentAllDTO dto, Long id) {
@@ -82,10 +81,12 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 	
-	public EstablishmentWithConsumableProjection findByIdWithConsumable(Long id) {
+	public EstablishmentWithConsumablesDTO findByIdWithConsumable(Long id) {
 
-		EstablishmentWithConsumableProjection establishment = repository.findEstablishmentWithConsumableById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		return establishment;
+		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		EstablishmentWithConsumablesDTO establishmentWithConsumables = mapper.toEWConsumableDTO(establishment);
+		
+		return establishmentWithConsumables;
 	}
 
 	public List<EstablishmentProjection> findByName(String name) {
