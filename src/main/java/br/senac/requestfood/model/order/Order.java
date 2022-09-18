@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.senac.requestfood.enumeration.order.OrderStatus;
@@ -35,6 +36,7 @@ public class Order {
     @Column(name = "id_order")
     private Long id;
 
+	@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_establishment")
     private Establishment establishment;

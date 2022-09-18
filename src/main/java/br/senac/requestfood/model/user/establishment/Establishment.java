@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.order.Order;
@@ -22,9 +24,11 @@ import br.senac.requestfood.model.user.User;
 @Table(name = "establishment")
 public class Establishment extends User {
 
+	@JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Consumable> consumables = new ArrayList<>();
     
+	@JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
     

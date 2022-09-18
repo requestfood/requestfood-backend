@@ -6,17 +6,29 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.model.consumable.dish.Dish;
+import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
 public class DishMapper {
+	
+	private EstablishmentRepository establishmentRepository;
+
+	public DishMapper(EstablishmentRepository establishmentRepository) {
+		this.establishmentRepository = establishmentRepository;
+	}
 
 	public DishDTO toDTO(Dish dish) {
-		return new DishDTO(dish.getId(), dish.getEstablishment(), dish.getName(), dish.getDescription(), dish.getImage(), dish.getPrice(), dish.getTypeDish());
+		return new DishDTO(dish.getId(), dish.getEstablishment().getId(), dish.getName(), dish.getDescription(), dish.getImage(), dish.getPrice(), dish.getTypeDish());
 	}
 	
 	public Dish toEntity(DishDTO dishDTO) {
-		return new Dish(dishDTO.id(), dishDTO.establishment(), dishDTO.name(), dishDTO.price(), dishDTO.description(), dishDTO.image(),  dishDTO.typeDish());
+		Establishment establishment = establishmentRepository.findById(dishDTO.idEstablishment())
+				.orElseThrow(() -> new EstablishmentNotFoundException(null));
+		
+		return new Dish(dishDTO.id(), establishment, dishDTO.name(), dishDTO.price(), dishDTO.description(), dishDTO.image(),  dishDTO.typeDish());
 	}
 
 	public List<DishDTO> toDTO(List<Dish> dishes){

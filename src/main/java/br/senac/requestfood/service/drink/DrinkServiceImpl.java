@@ -46,7 +46,6 @@ public class DrinkServiceImpl implements DrinkService{
 		if (!repository.existsByName(drinkDTO.name()))
 			throw new ConsumableNameRegisteredException("Drink " + drinkDTO.name() + " is already registered");
 
-		drink.setEstablishment(drinkDTO.establishment());
 		drink.setName(drinkDTO.name());
 		drink.setPrice(drinkDTO.price());
 

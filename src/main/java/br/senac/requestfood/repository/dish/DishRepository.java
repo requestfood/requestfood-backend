@@ -24,9 +24,9 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
     
     Page<DishProjection> findDishByTypeDish(Pageable pageable, CategoryDish typeDish);
 
-    @Query(value = "SELECT d.id AS id, d.name AS name, d.price AS price, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.establishment AS establishment, c.image AS image, d.typeDish AS typeDish FROM Consumable c JOIN Dish d ON c.id = d.id")
     Page<DishProjection> findDishes(Pageable pageable);
     
-    @Query(value = "SELECT d.id AS id, d.name AS name, d.price AS price, d.description AS description, d.image AS image, d.typeDish AS typeDish FROM Dish d")
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.establishment AS establishment, c.image AS image, d.typeDish AS typeDish FROM Consumable c JOIN Dish d ON c.id = d.id")
     List<DishProjection> findDishes();
 }

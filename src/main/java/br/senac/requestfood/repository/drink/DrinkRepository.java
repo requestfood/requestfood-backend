@@ -27,9 +27,9 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     
     Page<DrinkProjection> findDrinkByCategoryDrink(Pageable pageable, CategoryDrink categoryDrink);
 
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, d.establishment AS establishment, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
     Page<DrinkProjection> findDrinks(Pageable pageable);
     
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, d.establishment AS establishment, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
     List<DrinkProjection> findDrinks();
 }

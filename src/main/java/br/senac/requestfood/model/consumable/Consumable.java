@@ -13,6 +13,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Entity
@@ -25,6 +27,7 @@ public abstract class Consumable {
 	@Column(name = "id_consumable")
 	private Long id;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_user")
 	private Establishment establishment;

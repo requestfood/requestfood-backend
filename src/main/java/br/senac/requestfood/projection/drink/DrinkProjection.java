@@ -9,6 +9,7 @@ public interface DrinkProjection {
 
 	String getName();
 
+	Establishment getEstablishment();
 
 	Double getPrice();
 

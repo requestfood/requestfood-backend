@@ -22,6 +22,7 @@ public class DishServiceImpl implements DishService{
 
 	private final DishRepository repository;
 	private final DishMapper mapper;
+
 	
 	public DishServiceImpl(DishRepository repository, DishMapper mapper) {
 		this.repository = repository;
@@ -32,7 +33,7 @@ public class DishServiceImpl implements DishService{
 	
 		if (repository.existsByName(dishDTO.name()))
 			throw new ConsumableNameRegisteredException("Prato " + dishDTO.name() + " is already registered");
-
+		
 		Dish dish = mapper.toEntity(dishDTO);
 		Dish dishSaved = repository.save(dish);
 
@@ -47,7 +48,6 @@ public class DishServiceImpl implements DishService{
 			throw new ConsumableNameRegisteredException("Dish " + dishDTO.name() + " is already registered");
 
 		dish.setName(dishDTO.name());
-		dish.setEstablishment(dishDTO.establishment());
 		dish.setPrice(dishDTO.price());
 
 		repository.save(dish);

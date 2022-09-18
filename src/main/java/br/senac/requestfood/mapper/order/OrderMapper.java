@@ -21,7 +21,7 @@ public class OrderMapper {
 	private ClientRepository clientRepository;
 
 	public OrderDTO toDTO(Order order) {
-		return new OrderDTO(order.getId(),order.getEstablishment().getId() ,order.getClient().getId(), order.getIssueDate(), order.getClosingDate(), order.getOrderStatus(), order.getAmount());
+		return new OrderDTO(order.getId(), order.getEstablishment().getId() ,order.getClient().getId(), order.getIssueDate(), order.getClosingDate(), order.getOrderStatus(), order.getAmount());
 	}
 	
 	public Order toEntity(OrderDTO orderDTO) {
