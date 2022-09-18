@@ -20,6 +20,11 @@ public class ItemMapper {
 	
 	private OrderRepository orderRepository;
 	private ConsumableRepository consumableRepository;
+	
+	public ItemMapper(OrderRepository orderRepository, ConsumableRepository consumableRepository) {
+		this.orderRepository = orderRepository;
+		this.consumableRepository = consumableRepository;
+	}
 
 	public ItemDTO toDTO(Item item) {
 		return new ItemDTO(item.getId(), item.getOrder().getId(), item.getQuantity(), item.getConsumable().getId(), item.getObservation());
