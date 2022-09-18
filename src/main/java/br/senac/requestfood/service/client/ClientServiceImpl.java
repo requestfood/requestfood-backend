@@ -1,25 +1,23 @@
 package br.senac.requestfood.service.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.client.ClientUpdateDTO;
-import br.senac.requestfood.dto.contact.ContactDTO;
+import br.senac.requestfood.dto.order.OrderByClientDTO;
+import br.senac.requestfood.dto.order.OrderFinallyDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.mapper.client.ClientMapper;
-import br.senac.requestfood.mapper.contact.ContactMapper;
-import br.senac.requestfood.model.contact.Contact;
+import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.projection.client.ClientProjection;
-import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 import br.senac.requestfood.repository.client.ClientRepository;
 import br.senac.requestfood.repository.contact.ContactRepository;
-import br.senac.requestfood.service.contact.ContactService;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -51,7 +49,7 @@ public class ClientServiceImpl implements ClientService {
 		return mapper.AllToDTO(clientSaved);
 	}
 	
-	public void update(ClientUpdateDTO dto, Long id) {
+	public void update(AllClientDTO dto, Long id) {
 		
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
@@ -77,11 +75,18 @@ public class ClientServiceImpl implements ClientService {
 		return client;
 	}
 
-	public ClientWithOrdersProjection findByIdWithOrders(Long id) {
+	public OrderByClientDTO findByIdWithOrders(Long id) {
 
-		ClientWithOrdersProjection client = repository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
-		return client;
+		List<OrderFinallyDTO> ordersFinally = new ArrayList<>();
+		List<Order> clientOrders = client.getOrders();
+		
+		for (Order clientOrder : clientOrders) {
+			ordersFinally.add(new OrderFinallyDTO(clientOrder.getId(), clientOrder.getEstablishment().getImage(), clientOrder.getEstablishment().getName(), clientOrder.getOrderStatus(), clientOrder.getIssueDate()));
+		}
+		
+		return new OrderByClientDTO(ordersFinally);
 	}
 	
 	public List<ClientProjection> findAll() {
