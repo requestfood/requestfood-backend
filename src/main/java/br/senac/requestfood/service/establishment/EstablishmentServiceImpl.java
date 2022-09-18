@@ -129,7 +129,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		
 		Establishment establishment =  repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
-if (LocalTime.now().getHour() > establishment.getTimeToOpen().getHour() && LocalTime.now().getHour() < establishment.getTimeToClose().getHour()) {
+		if (LocalTime.now().getHour() > establishment.getTimeToOpen().getHour() && LocalTime.now().getHour() < establishment.getTimeToClose().getHour()) {
 			
 			if(LocalTime.now().getHour() == establishment.getTimeToOpen().getHour()) {
 				

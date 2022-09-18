@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
+import br.senac.requestfood.dto.order.OrderDetailsDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.projection.order.OrderWithItemProjection;
@@ -49,6 +50,16 @@ public class OrderController {
 		orderService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Order deleted successfully");
 	}
+	
+	@GetMapping("/details/{id}")
+	public ResponseEntity<OrderDetailsDTO> getOrderDetails(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderDetails(id));
+	}
+	
+	@GetMapping("/with-items/{id}")
+	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<OrderProjection> getOrder(@PathVariable(value = "id") Long id) {
@@ -58,11 +69,6 @@ public class OrderController {
 	@GetMapping()
 	public ResponseEntity<List<OrderProjection>> getAllOrder() {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findAll());
-	}
-	
-	@GetMapping("/with-items/{id}")
-	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
 	}
 	
 	@PostMapping("/{status}/{id}")

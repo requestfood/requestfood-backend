@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.senac.requestfood.enumeration.order.OrderStatus;
@@ -53,7 +52,7 @@ public class Order {
     @Column(name = "closing_date_order")
     private LocalDateTime closingDate;
     
-	@JsonIgnore
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 

@@ -29,7 +29,7 @@ public class EstablishmentMapper {
 		List<ConsumableCardDTO> consumablesCard = new ArrayList<>();
 		
 		for (Consumable consumable : entity.getConsumables()) {
-			consumablesCard.add(new ConsumableCardDTO(consumable.getId(), consumable.getImage(), consumable.getPrice(), consumable.getDescription()));
+			consumablesCard.add(new ConsumableCardDTO(consumable.getId(), consumable.getImage(), consumable.getName(),consumable.getPrice(), consumable.getDescription()));
 		}
 		
 		final EstablishmentWithConsumablesDTO dto = new EstablishmentWithConsumablesDTO(entity.getId(), entity.getName(), consumablesCard);

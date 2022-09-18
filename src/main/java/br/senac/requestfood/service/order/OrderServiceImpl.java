@@ -1,18 +1,22 @@
 package br.senac.requestfood.service.order;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.item.ItemDetailsDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
+import br.senac.requestfood.dto.order.OrderDetailsDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.exception.order.OrderLimitDeleteDoNotCatchUpException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
+import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
@@ -135,4 +139,24 @@ public class OrderServiceImpl implements OrderService{
 		
 		return true;
 	}
+
+	public OrderDetailsDTO findByIdOrderDetails(Long id) {
+
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		
+		List<Item> items = order.getItems();
+		List<ItemDetailsDTO> itemDetails = new ArrayList<>();		
+		
+		for (Item item : items) {
+			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getObservation()));
+		}
+		
+		return new OrderDetailsDTO(order.getId(), order.getEstablishment().getId(), order.getIssueDate(), itemDetails, order.getAmount());
+	}
 }
+
+
+
+
+
+

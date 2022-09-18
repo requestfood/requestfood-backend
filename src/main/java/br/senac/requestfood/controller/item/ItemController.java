@@ -30,7 +30,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<ItemOrderDTO> item(@RequestBody ItemOrderDTO itemDTO) {
+    public ResponseEntity<ItemOrderDTO> addItem(@RequestBody ItemOrderDTO itemDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.save(itemDTO));
     }
 
