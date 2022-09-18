@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.item.ItemDTO;
+import br.senac.requestfood.dto.item.ItemOrderDTO;
 import br.senac.requestfood.projection.item.ItemProjection;
 import br.senac.requestfood.service.item.ItemService;
 
@@ -30,12 +30,12 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<ItemDTO> item(@RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<ItemOrderDTO> item(@RequestBody ItemOrderDTO itemDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.save(itemDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatedItem(@RequestBody ItemDTO itemDTO, @PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> updatedItem(@RequestBody ItemOrderDTO itemDTO, @PathVariable(value = "id") Long id) {
         itemService.update(itemDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body("Item updated successfully");
     }

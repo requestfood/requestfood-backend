@@ -26,7 +26,6 @@ public interface OrderService {
 	List<OrderProjection> findAll();
 	
 	List<OrderProjection> findAllByClient(String name);
-
 	
 	Boolean checkDate(Order order);
 	
