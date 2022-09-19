@@ -35,7 +35,6 @@ public class Item {
 	private Integer quantity;
 
 	@OneToOne(fetch = FetchType.LAZY)
-    @MapsId
 	@JoinColumn(name = "id_consumable", nullable = false)
 	private Consumable consumable;
 
