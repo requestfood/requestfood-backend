@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
+import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.service.dish.DishService;
+import br.senac.requestfood.service.drink.DrinkService;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 
 @RestController
@@ -32,10 +34,12 @@ public class EstablishmentController {
     
     private final EstablishmentService service;
     private final DishService dishService;
+    private final DrinkService drinkService;
 
-    public EstablishmentController(EstablishmentService establishmentService, DishService dishService) {
+    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService) {
 		this.service = establishmentService;
 		this.dishService = dishService;
+		this.drinkService = drinkService;
 	}
 
 	@PostMapping
@@ -121,13 +125,45 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByPriceByOrdemByDesc(id));
 	}
 	
-	@GetMapping("/dish/category/{typeDish}/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByTypeDish(@PathVariable(value = "typeDish") CategoryDish typeDish, @PathVariable(value= "id")Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByTypeDish(typeDish, id));
+	@GetMapping("/dish/category/{categoryDish}/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByTypeDish(@PathVariable(value = "categoryDish") CategoryDish categoryDish, @PathVariable(value= "id")Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByTypeDish(categoryDish, id));
 	}
     
     @GetMapping("/dish/{id}")
 	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDish(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(dishService.findAll(id));
     }
+    
+    //DRINKS
+    
+    @GetMapping("/drink/search-name/{name}/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getDrinkByName(@PathVariable(value = "name") String name, @PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByName(name, id));
+	}
+	
+	@GetMapping("/drink/price/minor/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByPriceByAsc(@PathVariable(value= "id") Long id){
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByPriceByOrdemByAsc(id));
+	}
+	
+	@GetMapping("/drink/price/major/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByPriceByDesc(@PathVariable(value= "id")Long id){
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByPriceByOrdemByDesc(id));
+	}
+	
+	@GetMapping("/drink/category/{categoryDrink}/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByTypeDrink(@PathVariable(value = "categoryDrink") CategoryDrink categoryDrink, @PathVariable(value= "id")Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByCategoryDrink(categoryDrink, id));
+	}
+    
+    @GetMapping("/drink/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrink(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findAll(id));
+    }
+    
+    @GetMapping("/drink/alcoholic/{alcoholic}/{id}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByAlcoholic(@PathVariable(value = "alcoholic") Boolean alcoholic, @PathVariable(value = "id")Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByAlcoholic(alcoholic, id));
+	}
 }

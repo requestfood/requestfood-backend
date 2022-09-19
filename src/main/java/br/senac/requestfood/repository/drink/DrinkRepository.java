@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.model.consumable.drink.Drink;
-import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 
 @Repository
