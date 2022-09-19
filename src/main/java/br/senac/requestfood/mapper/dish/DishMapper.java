@@ -26,7 +26,7 @@ public class DishMapper {
 	
 	public Dish toEntity(DishDTO dishDTO) {
 		Establishment establishment = establishmentRepository.findById(dishDTO.idEstablishment())
-				.orElseThrow(() -> new EstablishmentNotFoundException(null));
+				.orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ dishDTO.idEstablishment() +" was not found."));
 		
 		return new Dish(dishDTO.id(), establishment, dishDTO.name(), dishDTO.price(), dishDTO.description(), dishDTO.image(),  dishDTO.typeDish());
 	}

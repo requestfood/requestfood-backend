@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
 import br.senac.requestfood.service.establishment.EstablishmentService;
@@ -85,7 +85,7 @@ public class EstablishmentController {
 	}
 	
 	@GetMapping("/with-orders/{id}")
-	public ResponseEntity<EstablishmentWithOrderProjection> getEstablishmentWithOrdes(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<EstablishmentWithOrdersDTO> getEstablishmentWithOrdes(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
 	}
 	
