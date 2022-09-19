@@ -88,11 +88,6 @@ public class ClientServiceImpl implements ClientService {
 		
 		return new OrderByClientDTO(ordersFinally);
 	}
-	
-	public List<ClientProjection> findAll() {
-		
-		return repository.findClients();
-	}
 
 	public AllClientDTO encodePassword(AllClientDTO clientDTO) {
 		

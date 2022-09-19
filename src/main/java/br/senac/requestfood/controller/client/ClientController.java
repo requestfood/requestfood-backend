@@ -1,7 +1,5 @@
 package br.senac.requestfood.controller.client;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +21,6 @@ import br.senac.requestfood.service.client.ClientService;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/client")
-
 public class ClientController {
 
     private final ClientService service;
@@ -60,8 +57,4 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrders(id));
 	}
 	
-	@GetMapping()
-	public ResponseEntity<List<ClientProjection>> getAllClient() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
-	}
 }
