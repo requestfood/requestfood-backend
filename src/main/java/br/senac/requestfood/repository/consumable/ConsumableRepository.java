@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 
@@ -17,10 +18,10 @@ public interface ConsumableRepository extends JpaRepository<Consumable, Long>{
 	
     Optional<ConsumableProjection> findConsumableById(Long id);
 
-    Page<ConsumableProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<ConsumableCardDTO> findByNameContainingIgnoreCase(String name, Pageable pageable);
         
     @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
-    Page<ConsumableProjection> findConsumables(Pageable page);
+    Page<ConsumableCardDTO> findConsumables(Pageable page);
     
     @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, c.image AS image FROM Consumable c")
     List<ConsumableProjection> findConsumables();

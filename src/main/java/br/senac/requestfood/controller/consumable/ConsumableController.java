@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 import br.senac.requestfood.service.consumable.ConsumableService;
 
@@ -32,22 +33,22 @@ public class ConsumableController {
 	}
 
 	@GetMapping("/search-name/{name}/{page}")
-	public ResponseEntity<Page<ConsumableProjection>> getConsumableByName(@PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
+	public ResponseEntity<Page<ConsumableCardDTO>> getConsumableByName(@PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, page,pageable));
 	}
 	
 	@GetMapping("/price/minor-to-major/{page}")
-	public ResponseEntity<Page<ConsumableProjection>> getAllConsumableByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
+	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumableByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByAsc(pageable, page));
 	}
 	
 	@GetMapping("/price/major-to-minor/{page}")
-	public ResponseEntity<Page<ConsumableProjection>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
+	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByDesc(pageable, page));
 	}
 	
 	@GetMapping("/page/{page}")
-	public ResponseEntity<Page<ConsumableProjection>> getAllConsumable(Pageable pageable,@PathVariable(value = "page") Integer page) {
+	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumable(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
 	}
 	
