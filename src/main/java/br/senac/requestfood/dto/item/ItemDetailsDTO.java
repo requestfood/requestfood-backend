@@ -1,4 +1,4 @@
 package br.senac.requestfood.dto.item;
 
-public record ItemDetailsDTO(String nameConsumable, Double valueItem, 
-		String observationItem) {}
+public record ItemDetailsDTO(String nameConsumable, Double value, Integer quantity,
+		String observation) {}

@@ -51,7 +51,7 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body("Order deleted successfully");
 	}
 	
-	@GetMapping("/details/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<OrderDetailsDTO> getOrderDetails(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderDetails(id));
 	}
@@ -59,16 +59,6 @@ public class OrderController {
 	@GetMapping("/with-items/{id}")
 	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<OrderProjection> getOrder(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
-	}
-
-	@GetMapping()
-	public ResponseEntity<List<OrderProjection>> getAllOrder() {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findAll());
 	}
 	
 	@PostMapping("/{status}/{id}")

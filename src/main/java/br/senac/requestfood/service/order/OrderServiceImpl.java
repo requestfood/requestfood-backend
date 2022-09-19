@@ -148,7 +148,7 @@ public class OrderServiceImpl implements OrderService{
 		List<ItemDetailsDTO> itemDetails = new ArrayList<>();		
 		
 		for (Item item : items) {
-			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getObservation()));
+			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
 		}
 		
 		return new OrderDetailsDTO(order.getId(), order.getEstablishment().getId(), order.getIssueDate(), itemDetails, order.getAmount());
