@@ -89,41 +89,31 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishmentWithConsumables;
 	}
 
-	public List<EstablishmentProjection> findByName(String name) {
+	public List<EstablishmentCardProjection> findByName(String name) {
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 
-	public Page<EstablishmentProjection> findNameByOrderByAsc(Pageable pageable, Integer page) {
+	public Page<EstablishmentCardProjection> findNameByOrderByAsc(Pageable pageable, Integer page) {
 		int size = 4;
 		
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findEstablishments(pageable);
 	}
 	
-	public Page<EstablishmentProjection> findNameByOrderByDesc(Pageable pageable, Integer page) {
+	public Page<EstablishmentCardProjection> findNameByOrderByDesc(Pageable pageable, Integer page) {
 		int size = 4;
 		
 		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "name");
 		return repository.findEstablishments(pageable);
 	}
 	
-	public Page<EstablishmentProjection> findAll(Pageable pageable, Integer page) {
+	public Page<EstablishmentCardProjection> findAll(Pageable pageable, Integer page) {
 		int size = 4;
 		
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findEstablishments(pageable);
 	}
 
-	public List<EstablishmentProjection> findAll() {
-		return repository.findEstablishments();
-	}
-
-	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
-		int size = 4;
-		
-		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
-		return repository.findEstablishmentsCard(pageable);
-	}
 
 	public Boolean setOpen(Long id) {
 		
@@ -147,6 +137,12 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		}
 		establishment.setOpen(false);
 		return establishment.getOpen();	
+	}
+
+	@Override
+	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

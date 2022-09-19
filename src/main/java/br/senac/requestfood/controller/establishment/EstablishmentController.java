@@ -57,23 +57,18 @@ public class EstablishmentController {
 	}
 
 	@GetMapping("/search-name/{name}")
-	public ResponseEntity<List<EstablishmentProjection>> getEstablishmentByName(@PathVariable(value = "name") String name) {
+	public ResponseEntity<List<EstablishmentCardProjection>> getEstablishmentByName(@PathVariable(value = "name") String name) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
 	}
 	
 	@GetMapping("/name/a-z/{page}")
-	public ResponseEntity<Page<EstablishmentProjection>> getEstablishmentByNameByOrderByAsc(Pageable pageable,@PathVariable(value = "page") Integer page){
+	public ResponseEntity<Page<EstablishmentCardProjection>> getEstablishmentByNameByOrderByAsc(Pageable pageable,@PathVariable(value = "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findNameByOrderByAsc(pageable, page));
 	}
 	
 	@GetMapping("/name/z-a/{page}")
-	public ResponseEntity<Page<EstablishmentProjection>> getEstablishmentByNameByOrderByDesc(Pageable pageable,@PathVariable(value = "page") Integer page){
+	public ResponseEntity<Page<EstablishmentCardProjection>> getEstablishmentByNameByOrderByDesc(Pageable pageable,@PathVariable(value = "page") Integer page){
 		return ResponseEntity.status(HttpStatus.OK).body(service.findNameByOrderByDesc(pageable, page));
-	}
-	
-	@GetMapping("/page/{page}")
-	public ResponseEntity<Page<EstablishmentProjection>> getAllEstablishment(Pageable pageable,@PathVariable(value = "page") Integer page) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
 	}
 	
 	@GetMapping("/card/{page}")
@@ -95,10 +90,5 @@ public class EstablishmentController {
 	public ResponseEntity<EstablishmentProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
 		service.setOpen(id);
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
-	}
-	
-	@GetMapping()
-	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 }

@@ -24,10 +24,10 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentWithOrderProjection> findEstablishmentWithCommandById(Long id);
 
-	List<EstablishmentProjection> findByNameContainingIgnoreCase(String name);
+	List<EstablishmentCardProjection> findByNameContainingIgnoreCase(String name);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.image AS image, e.timeToOpen AS timeToOpen, e.timeToClose AS timeToClose FROM User u JOIN Establishment e ON u.id = e.id")
-	Page<EstablishmentProjection>findEstablishments(Pageable pageable);
+	Page<EstablishmentCardProjection>findEstablishments(Pageable pageable);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
 	Page<EstablishmentCardProjection>findEstablishmentsCard(Pageable pageable);

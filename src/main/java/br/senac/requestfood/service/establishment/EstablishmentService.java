@@ -27,15 +27,14 @@ public interface EstablishmentService {
 	
 	EstablishmentWithConsumablesDTO findByIdWithConsumable(Long id);
 	
-	List<EstablishmentProjection> findByName(String name);
+	List<EstablishmentCardProjection> findByName(String name);
 
-	Page<EstablishmentProjection> findNameByOrderByAsc(Pageable pageable, Integer page);
+	Page<EstablishmentCardProjection> findNameByOrderByAsc(Pageable pageable, Integer page);
 	
-	Page<EstablishmentProjection> findNameByOrderByDesc(Pageable pageable, Integer page);
+	Page<EstablishmentCardProjection> findNameByOrderByDesc(Pageable pageable, Integer page);
 	
-	Page<EstablishmentProjection> findAll(Pageable pageable, Integer page);
+	Page<EstablishmentCardProjection> findAll(Pageable pageable, Integer page);
 	
 	Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page);
 	
-	List<EstablishmentProjection> findAll();
 }
