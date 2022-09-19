@@ -1,9 +1,5 @@
 package br.senac.requestfood.controller.dish;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.dish.DishDTO;
-import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.service.dish.DishService;
 
@@ -53,34 +48,4 @@ public class DishController {
     public ResponseEntity<DishProjection> getDish(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
-    
-    @GetMapping("/search-name/{name}")
-	public ResponseEntity<Page<DishProjection>> getDishByName(@PathVariable(value = "name") String name, Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
-	}
-	
-	@GetMapping("/price/minor-to-major/{page}")
-	public ResponseEntity<Page<DishProjection>> getAllDishByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByAsc(pageable, page));
-	}
-	
-	@GetMapping("/price/major-to-minor/{page}")
-	public ResponseEntity<Page<DishProjection>> getAllDishByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByDesc(pageable, page));
-	}
-	
-	@GetMapping("/category/{typeDish}")
-	public ResponseEntity<Page<DishProjection>> getAllDishByTypeDish(@PathVariable(value = "typeDish") CategoryDish typeDish, Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByTypeDish(typeDish, pageable));
-	}
-    
-    @GetMapping("/page/{page}")
-	public ResponseEntity<Page<DishProjection>> getAllDish(Pageable pageable,@PathVariable(value = "page") Integer page) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
-	}
-
-    @GetMapping()
-	public ResponseEntity<List<DishProjection>> getAllDish() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
-	}
 }

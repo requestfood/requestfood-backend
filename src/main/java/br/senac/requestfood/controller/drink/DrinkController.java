@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
-import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 import br.senac.requestfood.service.drink.DrinkService;
 
@@ -33,7 +32,7 @@ public class DrinkController {
         this.service = drinkService;
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<DrinkDTO> drink(@RequestBody DrinkDTO drinkDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(drinkDto));
     }

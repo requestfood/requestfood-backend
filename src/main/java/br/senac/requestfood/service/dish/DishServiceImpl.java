@@ -1,5 +1,6 @@
 package br.senac.requestfood.service.dish;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -8,25 +9,32 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
+import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.dish.DishMapper;
 import br.senac.requestfood.model.consumable.dish.Dish;
 import br.senac.requestfood.projection.dish.DishProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.dish.DishRepository;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
 public class DishServiceImpl implements DishService{
 
 	private final DishRepository repository;
+	private final EstablishmentRepository establishmentRepository;
 	private final DishMapper mapper;
 
 	
-	public DishServiceImpl(DishRepository repository, DishMapper mapper) {
+	public DishServiceImpl(DishRepository repository, DishMapper mapper, EstablishmentRepository establishmentRepository) {
 		this.repository = repository;
 		this.mapper = mapper;
+		this.establishmentRepository = establishmentRepository;
 	}
 
 	public DishDTO save(DishDTO dishDTO) {
@@ -66,42 +74,80 @@ public class DishServiceImpl implements DishService{
 		return dish;
 	}
 	
-	public Page<DishProjection> findByName(String name, Pageable pageable) {
-		return repository.findByNameContainingIgnoreCase(name, pageable);
+	public EstablishmentWithConsumablesDTO findByName(String name, Long id) {
+		
+		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
+		Page<DishProjection> dishes = repository.findByNameContainingIgnoreCase(pageable ,name);
+		List<ConsumableCardDTO> dishesCard = new ArrayList<>();
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		
+		for (DishProjection dishProjection : dishes) {
+			dishesCard.add(new ConsumableCardDTO(dishProjection.getId(), dishProjection.getImage(), dishProjection.getName(), dishProjection.getPrice(), dishProjection.getDescription()));
+		}
+		
+		
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), dishesCard);
 	}
 	
-	public Page<DishProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page) {
-		int size = 4;
+	public EstablishmentWithConsumablesDTO  findByPriceByOrdemByAsc(Long id) {
 		
-		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
-		return repository.findDishes(pageable);
+		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "price");
+		Page<DishProjection> dishes = repository.findDishes(pageable);
+		
+		List<ConsumableCardDTO> dishesCard = new ArrayList<>();
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		
+		for (DishProjection dishProjection : dishes) {
+			dishesCard.add(new ConsumableCardDTO(dishProjection.getId(), dishProjection.getImage(), dishProjection.getName(), dishProjection.getPrice(), dishProjection.getDescription()));
+		}
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), dishesCard);
 	}
 	
-	public Page<DishProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page) {
-		int size = 4;
+	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id) {
 		
-		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
-		return repository.findDishes(pageable);
+		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.DESC, "price");
+		Page<DishProjection> dishes = repository.findDishes(pageable);
+		
+		List<ConsumableCardDTO> dishesCard = new ArrayList<>();
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		
+		for (DishProjection dishProjection : dishes) {
+			dishesCard.add(new ConsumableCardDTO(dishProjection.getId(), dishProjection.getImage(), dishProjection.getName(), dishProjection.getPrice(), dishProjection.getDescription()));
+		}
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), dishesCard);
 	}
 	
-	public Page<DishProjection> findAll(Pageable pageable, Integer page) {
-		int size = 4;
+	public EstablishmentWithConsumablesDTO findAll(Long id) {
 		
-		pageable = PageRequest.of(page,size);
-		return repository.findDishes(pageable);
+		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
+		Page<DishProjection> dishes = repository.findDishes(pageable);
+		
+		List<ConsumableCardDTO> dishesCard = new ArrayList<>();
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		
+		for (DishProjection dishProjection : dishes) {
+			dishesCard.add(new ConsumableCardDTO(dishProjection.getId(), dishProjection.getImage(), dishProjection.getName(), dishProjection.getPrice(), dishProjection.getDescription()));
+		}
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), dishesCard);
 	}
 
-	public List<DishProjection> findAll() {
-		return repository.findDishes();
-	}
-
-	public Page<DishProjection> findByTypeDish(CategoryDish typeDish, Pageable pageable) {
-		int size = 4;
-		int page = 0;
+	public EstablishmentWithConsumablesDTO findByTypeDish(CategoryDish typeDish, Long id) {
 		
-		pageable = PageRequest.of(page,size);
+		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
+		Page<DishProjection> dishes = repository.findDishByTypeDish(pageable, typeDish);
 		
-		return repository.findDishByTypeDish(pageable, typeDish);
+		List<ConsumableCardDTO> dishesCard = new ArrayList<>();
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		
+		for (DishProjection dishProjection : dishes) {
+			dishesCard.add(new ConsumableCardDTO(dishProjection.getId(), dishProjection.getImage(), dishProjection.getName(), dishProjection.getPrice(), dishProjection.getDescription()));
+		}
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), dishesCard);
 	}
 
 }

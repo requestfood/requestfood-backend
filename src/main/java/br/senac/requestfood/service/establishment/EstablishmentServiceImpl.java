@@ -89,8 +89,11 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishmentWithConsumables;
 	}
 
-	public List<EstablishmentCardProjection> findByName(String name) {
-		return repository.findByNameContainingIgnoreCase(name);
+	public Page<EstablishmentCardProjection> findByName(Pageable pageable, Integer page, String name) {	
+		int size = 4;
+		
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
+		return repository.findByNameContainingIgnoreCase(pageable, name);
 	}
 
 	public Page<EstablishmentCardProjection> findNameByOrderByAsc(Pageable pageable, Integer page) {
@@ -107,14 +110,17 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return repository.findEstablishments(pageable);
 	}
 	
-	public Page<EstablishmentCardProjection> findAll(Pageable pageable, Integer page) {
+	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
 		int size = 4;
 		
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		return repository.findEstablishments(pageable);
 	}
 
-
+	public List<EstablishmentProjection> findAll() {
+		return repository.findEstablishments();
+	}
+	
 	public Boolean setOpen(Long id) {
 		
 		Establishment establishment =  repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
@@ -137,12 +143,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		}
 		establishment.setOpen(false);
 		return establishment.getOpen();	
-	}
-
-	@Override
-	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
 

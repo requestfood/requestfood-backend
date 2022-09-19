@@ -24,7 +24,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentWithOrderProjection> findEstablishmentWithCommandById(Long id);
 
-	List<EstablishmentCardProjection> findByNameContainingIgnoreCase(String name);
+	Page<EstablishmentCardProjection> findByNameContainingIgnoreCase(Pageable pageable, String name);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.image AS image, e.timeToOpen AS timeToOpen, e.timeToClose AS timeToClose FROM User u JOIN Establishment e ON u.id = e.id")
 	Page<EstablishmentCardProjection>findEstablishments(Pageable pageable);
