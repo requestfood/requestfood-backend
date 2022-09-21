@@ -98,5 +98,9 @@ public class ClientServiceImpl implements ClientService {
 		return mapper.AllToDTO(client);
 		
 	}
+
+	public List<ClientProjection> findAll() {
+		return repository.findClients();
+	}
 	
 }

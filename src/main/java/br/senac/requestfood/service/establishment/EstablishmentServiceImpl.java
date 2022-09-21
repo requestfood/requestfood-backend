@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
@@ -19,7 +18,6 @@ import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
@@ -76,13 +74,13 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 	
-	public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
+	/*public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		EstablishmentWithOrdersDTO establishmentWithOrders = mapper.toEWOrdersDTO(establishment);
 		
 		return establishmentWithOrders;
-	}
+	}*/
 	
 	public EstablishmentWithConsumablesDTO findByIdWithConsumable(Long id) {
 

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
 		this.encoder = encoder;
 	}
 
-	public UserProjection findByUser(LoginUserDTO dto) {
+	public Long findByUser(LoginUserDTO dto) {
 		
 		if(!contactRepository.existsByEmail(dto.email())) {
 			throw new ContactNotFoundException("Email " + dto.email() + " was not found");
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
 			throw new UserPasswordException("Incorrect password");
 		}
 			
-		return user;
+		return user.getId();
 	}
 
 	public void updatePassword(UserPasswordDTO dto, Long id) {
