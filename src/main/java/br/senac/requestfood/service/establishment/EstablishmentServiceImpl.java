@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
@@ -74,13 +75,13 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 	
-	/*public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
+	public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		EstablishmentWithOrdersDTO establishmentWithOrders = mapper.toEWOrdersDTO(establishment);
 		
 		return establishmentWithOrders;
-	}*/
+	}
 	
 	public EstablishmentWithConsumablesDTO findByIdWithConsumable(Long id) {
 

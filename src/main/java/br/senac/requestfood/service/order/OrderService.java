@@ -3,6 +3,7 @@ package br.senac.requestfood.service.order;
 import java.util.List;
 
 import br.senac.requestfood.dto.order.CreateOrderDTO;
+import br.senac.requestfood.dto.order.OrderControlDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.dto.order.OrderDetailsDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
@@ -27,6 +28,8 @@ public interface OrderService {
 	List<OrderProjection> findAll();
 	
 	List<OrderProjection> findAllByClient(String name);
+	
+	OrderControlDTO findByIdOrderControl(Long id);
 	
 	OrderDetailsDTO findByIdOrderDetails(Long id);
 	

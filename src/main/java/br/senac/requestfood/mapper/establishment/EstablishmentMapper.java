@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
+import br.senac.requestfood.dto.order.OrderDetailsDTO;
 import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.model.contact.Contact;
+import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.establishment.Establishment;
 
 @Service
@@ -36,7 +39,7 @@ public class EstablishmentMapper {
 		return dto;
 	}
 	
-	/*public EstablishmentWithOrdersDTO toEWOrdersDTO(Establishment entity) {
+	public EstablishmentWithOrdersDTO toEWOrdersDTO(Establishment entity) {
 		
 		List<OrderDetailsDTO> orders = new ArrayList<>();
 		
@@ -46,7 +49,7 @@ public class EstablishmentMapper {
 		
 		final EstablishmentWithOrdersDTO dto = new EstablishmentWithOrdersDTO(entity.getId(), entity.getName(), orders);
 		return dto;
-	}*/
+	}
 	
 	public List<EstablishmentAllDTO> toDTO(List<Establishment> establishments){
 		

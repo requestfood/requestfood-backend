@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.item.ItemDetailsDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
+import br.senac.requestfood.dto.order.OrderControlDTO;
 import br.senac.requestfood.dto.order.OrderDTO;
 import br.senac.requestfood.dto.order.OrderDetailsDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
@@ -152,6 +153,20 @@ public class OrderServiceImpl implements OrderService{
 		}
 		
 		return new OrderDetailsDTO(order.getId(), order.getEstablishment().getId(), order.getIssueDate(), itemDetails, order.getAmount());
+	}
+
+	public OrderControlDTO findByIdOrderControl(Long id) {
+		
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		
+		List<Item> items = order.getItems();
+		List<ItemDetailsDTO> itemDetails = new ArrayList<>();		
+		
+		for (Item item : items) {
+			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
+		}
+		
+		return new OrderControlDTO(order.getId(), order.getClient().getName(), order.getAmount(), itemDetails);
 	}
 }
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
+import br.senac.requestfood.dto.order.OrderControlDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
@@ -26,6 +27,7 @@ import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
 import br.senac.requestfood.service.establishment.EstablishmentService;
+import br.senac.requestfood.service.order.OrderService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,13 +35,15 @@ import br.senac.requestfood.service.establishment.EstablishmentService;
 public class EstablishmentController {
     
     private final EstablishmentService service;
+    private final OrderService orderService;
     private final DishService dishService;
     private final DrinkService drinkService;
 
-    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService) {
+    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService) {
 		this.service = establishmentService;
 		this.dishService = dishService;
 		this.drinkService = drinkService;
+		this.orderService = orderService;
 	}
 
 	@PostMapping
@@ -93,6 +97,11 @@ public class EstablishmentController {
 	public ResponseEntity<EstablishmentProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
 		service.setOpen(id);
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+	}
+	
+	@GetMapping("/order-control/{id}")
+	public ResponseEntity<OrderControlDTO> getOrderControl(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderControl(id));
 	}
 	
 	@GetMapping()
