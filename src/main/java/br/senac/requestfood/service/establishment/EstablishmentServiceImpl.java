@@ -19,6 +19,7 @@ import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
@@ -75,6 +76,12 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return establishment;
 	}
 	
+	public EstablishmentStartOrderProjection findByIdStartOrder(Long id) {
+		
+		EstablishmentStartOrderProjection establishment = repository.findEstablishmentStartOrderById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		return establishment;
+	}
+	
 	public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
@@ -90,6 +97,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		
 		return establishmentWithConsumables;
 	}
+
 
 	public Page<EstablishmentCardProjection> findByName(Pageable pageable, Integer page, String name) {	
 		int size = 4;
@@ -146,6 +154,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		establishment.setOpen(false);
 		return establishment.getOpen();	
 	}
+
 }
 
 

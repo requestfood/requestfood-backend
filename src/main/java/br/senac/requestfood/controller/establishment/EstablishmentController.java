@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
@@ -24,6 +25,8 @@ import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.service.consumable.ConsumableService;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
 import br.senac.requestfood.service.establishment.EstablishmentService;
@@ -36,11 +39,13 @@ public class EstablishmentController {
     
     private final EstablishmentService service;
     private final OrderService orderService;
+    private final ConsumableService consumableService;
     private final DishService dishService;
     private final DrinkService drinkService;
 
-    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService) {
+    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService, ConsumableService consumableService) {
 		this.service = establishmentService;
+		this.consumableService = consumableService;
 		this.dishService = dishService;
 		this.drinkService = drinkService;
 		this.orderService = orderService;
@@ -66,6 +71,11 @@ public class EstablishmentController {
 	@GetMapping("/{id}")
 	public ResponseEntity<EstablishmentProjection> getEstablishment(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+	}
+	
+	@GetMapping("/start-order/{id}")
+	public ResponseEntity<EstablishmentStartOrderProjection> getEstablishmentStartOrder(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdStartOrder(id));
 	}
 
 	@GetMapping("/search-name/{name}/{page}")
@@ -116,6 +126,20 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithConsumable(id));
 	}
 	
+	@GetMapping("/search-name/{name}/{page}")
+	public ResponseEntity<Page<ConsumableCardDTO>> getConsumableByName(@PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByName(name, page,pageable));
+	}
+	
+	@GetMapping("/price/minor-to-major/{page}")
+	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumableByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByPriceByOrdemByAsc(pageable, page));
+	}
+	
+	@GetMapping("/price/major-to-minor/{page}")
+	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByPriceByOrdemByDesc(pageable, page));
+	}
 	
 	//DISHES
 	
