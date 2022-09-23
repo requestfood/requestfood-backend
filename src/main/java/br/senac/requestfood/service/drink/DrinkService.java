@@ -2,6 +2,8 @@ package br.senac.requestfood.service.drink;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
@@ -17,17 +19,17 @@ public interface DrinkService {
 	
 	DrinkProjection findById(Long id);
 	
-	EstablishmentWithConsumablesDTO findByName(String name, Long id);
+	EstablishmentWithConsumablesDTO findByName(Long id, String name, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id);
+	EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id);
+	EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByAlcoholic(Boolean alcoholic, Long id);
+	EstablishmentWithConsumablesDTO findByAlcoholic(Long id, Boolean alcoholic, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByCategoryDrink(CategoryDrink categoryDrink, Long id);
+	EstablishmentWithConsumablesDTO findByCategoryDrink(Long id, CategoryDrink categoryDrink, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findAll(Long id);
+	EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable);
 	
 	List<DrinkProjection> findAll();
 }

@@ -1,15 +1,12 @@
 package br.senac.requestfood.service.drink;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
@@ -73,103 +70,58 @@ public class DrinkServiceImpl implements DrinkService{
 		return bebida;
 	}
 
-	public EstablishmentWithConsumablesDTO findByName(String name, Long id) {
+	public EstablishmentWithConsumablesDTO findByName(Long id, String name, Integer page, Pageable pageable) {
 		
-		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
-		
-		Page<DrinkProjection> drinks = repository.findByNameContainingIgnoreCase(name, pageable);
-		List<ConsumableCardDTO> drinksCard = new ArrayList<>();
-		
-		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		
-		for (DrinkProjection drinkProjection : drinks) {
-			drinksCard.add(new ConsumableCardDTO(drinkProjection.getId(), drinkProjection.getImage(), drinkProjection.getName(), drinkProjection.getPrice(), drinkProjection.getDescription()));
-		}
-		
-		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), drinksCard);
-	}
-	
-	public EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id) {
-		
-		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "price");
-		
-		Page<DrinkProjection> drinks = repository.findDrinks(pageable);
-		List<ConsumableCardDTO> drinksCard = new ArrayList<>();
-		
-		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		
-		for (DrinkProjection drinkProjection : drinks) {
-			drinksCard.add(new ConsumableCardDTO(drinkProjection.getId(), drinkProjection.getImage(), drinkProjection.getName(), drinkProjection.getPrice(), drinkProjection.getDescription()));
-		}
-		
-		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), drinksCard);
-	}
-	
-	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id) {
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 
-		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.DESC, "price");
-		
-		Page<DrinkProjection> drinks = repository.findDrinks(pageable);
-		List<ConsumableCardDTO> drinksCard = new ArrayList<>();
-		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		
-		for (DrinkProjection drinkProjection : drinks) {
-			drinksCard.add(new ConsumableCardDTO(drinkProjection.getId(), drinkProjection.getImage(), drinkProjection.getName(), drinkProjection.getPrice(), drinkProjection.getDescription()));
-		}
-		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), drinksCard);
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findByNameContainingIgnoreCase(name, pageable));
 	}
 	
-	public EstablishmentWithConsumablesDTO findAll(Long id) {
+	public EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable) {
 		
-		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
-		
-		Page<DrinkProjection> drinks = repository.findDrinks(pageable);
-		List<ConsumableCardDTO> drinksCard = new ArrayList<>();
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		
-		for (DrinkProjection drinkProjection : drinks) {
-			drinksCard.add(new ConsumableCardDTO(drinkProjection.getId(), drinkProjection.getImage(), drinkProjection.getName(), drinkProjection.getPrice(), drinkProjection.getDescription()));
-		}
-		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), drinksCard);
+		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinks(pageable));
 	}
 	
-	
-	public EstablishmentWithConsumablesDTO findByCategoryDrink(CategoryDrink categoryDrink, Long id) {
+	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable) {
+		
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
 
-		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
-		
-		Page<DrinkProjection> drinks = repository.findDrinkByCategoryDrink(pageable, categoryDrink);
-		List<ConsumableCardDTO> drinksCard = new ArrayList<>();
-		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinks(pageable));
+	}
+	
+	public EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable) {
 		
-		for (DrinkProjection drinkProjection : drinks) {
-			drinksCard.add(new ConsumableCardDTO(drinkProjection.getId(), drinkProjection.getImage(), drinkProjection.getName(), drinkProjection.getPrice(), drinkProjection.getDescription()));
-		}
-		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), drinksCard);
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
+
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinks(pageable));	}
+	
+	
+	public EstablishmentWithConsumablesDTO findByCategoryDrink(Long id, CategoryDrink categoryDrink, Integer page, Pageable pageable) {
+
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
+
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));		
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinkByCategoryDrink(pageable, categoryDrink));
 	}
 
-	public EstablishmentWithConsumablesDTO findByAlcoholic(Boolean alcoholic, Long id) {
+	public EstablishmentWithConsumablesDTO findByAlcoholic(Long id, Boolean alcoholic, Integer page, Pageable pageable) {
 		
-		Pageable pageable = PageRequest.of(0,Integer.MAX_VALUE, Sort.Direction.ASC, "name");
-		
-		Page<DrinkProjection> drinks = repository.findDrinkByAlcoholic(pageable, alcoholic);
-		List<ConsumableCardDTO> drinksCard = new ArrayList<>();
-		
-		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		
-		for (DrinkProjection drinkProjection : drinks) {
-			drinksCard.add(new ConsumableCardDTO(drinkProjection.getId(), drinkProjection.getImage(), drinkProjection.getName(), drinkProjection.getPrice(), drinkProjection.getDescription()));
-		}
-		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), drinksCard);
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
+
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));		
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinkByAlcoholic(pageable, alcoholic));
 	}
 
 	public List<DrinkProjection> findAll() {
