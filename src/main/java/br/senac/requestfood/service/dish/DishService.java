@@ -1,5 +1,6 @@
 package br.senac.requestfood.service.dish;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
@@ -18,14 +19,14 @@ public interface DishService {
 	
 	DishProjection findById(Long id);
 	
-	EstablishmentWithConsumablesDTO findByName(String name, Long id);
+	EstablishmentWithConsumablesDTO findByName(Long id, String name, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id);
+	EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id);
+	EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findByTypeDish(CategoryDish typeDish, Long id);
+	EstablishmentWithConsumablesDTO findByTypeDish(Long id, CategoryDish typeDish, Integer page, Pageable pageable);
 	
-	EstablishmentWithConsumablesDTO findAll(Long id);
+	EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable);
 	
 }
