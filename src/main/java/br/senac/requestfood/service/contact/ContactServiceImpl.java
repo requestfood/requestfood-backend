@@ -8,7 +8,6 @@ import br.senac.requestfood.dto.contact.ContactDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
-import br.senac.requestfood.mapper.contact.ContactMapper;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.projection.contact.ContactProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
@@ -17,11 +16,9 @@ import br.senac.requestfood.repository.contact.ContactRepository;
 public class ContactServiceImpl implements ContactService {
 
 	private final ContactRepository repository;
-	private final ContactMapper mapper;
 	
-	public ContactServiceImpl(ContactRepository repository, ContactMapper mapper) {
+	public ContactServiceImpl(ContactRepository repository) {
 		this.repository = repository;
-		this.mapper = mapper;
 	}
 	
 	public void update(ContactDTO dto, Long id) {

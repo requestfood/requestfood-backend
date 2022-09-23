@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
@@ -89,15 +88,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		
 		return establishmentWithOrders;
 	}
-	
-	public EstablishmentWithConsumablesDTO findByIdWithConsumable(Long id) {
-
-		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		EstablishmentWithConsumablesDTO establishmentWithConsumables = mapper.toEWConsumableDTO(establishment);
-		
-		return establishmentWithConsumables;
-	}
-
 
 	public Page<EstablishmentCardProjection> findByName(Pageable pageable, Integer page, String name) {	
 		int size = 4;

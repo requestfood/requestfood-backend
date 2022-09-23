@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
@@ -121,82 +120,82 @@ public class EstablishmentController {
 	
 	//CONSUMABLES
 	
-	@GetMapping("/consumable/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getEstablishmentWithConsumables(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithConsumable(id));
+	@GetMapping("/{id}/consumable/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getEstablishmentWithConsumables(@PathVariable(value = "id") Long id, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findAll(id, page, pageable));
 	}
 	
-	@GetMapping("/search-name/{name}/{page}")
-	public ResponseEntity<Page<ConsumableCardDTO>> getConsumableByName(@PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByName(name, page,pageable));
+	@GetMapping("/{id}/consumable/search-name/{name}/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getConsumableByName(@PathVariable(value = "id") Long id, @PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByName(id, name, page,pageable));
 	}
 	
-	@GetMapping("/price/minor-to-major/{page}")
-	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumableByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByPriceByOrdemByAsc(pageable, page));
+	@GetMapping("/{id}/consumable/price/minor/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllConsumableByOrderByPriceByAsc(@PathVariable(value = "id") Long id, Pageable pageable, @PathVariable(value= "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByPriceByOrdemByAsc(id, page, pageable));
 	}
 	
-	@GetMapping("/price/major-to-minor/{page}")
-	public ResponseEntity<Page<ConsumableCardDTO>> getAllConsumableByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByPriceByOrdemByDesc(pageable, page));
+	@GetMapping("/{id}/consumable/price/major/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllConsumableByOrderByPriceByDesc(@PathVariable(value = "id") Long id, Pageable pageable, @PathVariable(value= "page") Integer page){
+		return ResponseEntity.status(HttpStatus.OK).body(consumableService.findByPriceByOrdemByDesc(id, page, pageable));
 	}
 	
 	//DISHES
 	
-	@GetMapping("/dish/search-name/{name}/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getDishByName(@PathVariable(value = "name") String name, @PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByName(name, id));
+	@GetMapping("/{id}/dish/search-name/{name}/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getDishByName(@PathVariable(value = "id") Long id, @PathVariable(value = "name") String name,  @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByName(id, name, page, pageable));
 	}
 	
-	@GetMapping("/dish/price/minor/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByPriceByAsc(@PathVariable(value= "id") Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByPriceByOrdemByAsc(id));
+	@GetMapping("/{id}/dish/price/minor/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByPriceByAsc(@PathVariable(value= "id") Long id, @PathVariable(value = "page") Integer page, Pageable pageable){
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByPriceByOrdemByAsc(id, page, pageable));
 	}
 	
-	@GetMapping("/dish/price/major/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByPriceByDesc(@PathVariable(value= "id")Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByPriceByOrdemByDesc(id));
+	@GetMapping("/{id}/dish/price/major/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByPriceByDesc(@PathVariable(value= "id")Long id, @PathVariable(value = "page") Integer page, Pageable pageable){
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByPriceByOrdemByDesc(id, page, pageable));
 	}
 	
-	@GetMapping("/dish/category/{categoryDish}/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByTypeDish(@PathVariable(value = "categoryDish") CategoryDish categoryDish, @PathVariable(value= "id")Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByTypeDish(categoryDish, id));
+	@GetMapping("/{id}/dish/category/{categoryDish}/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDishByTypeDish(@PathVariable(value = "id") Long id, @PathVariable(value = "categoryDish") CategoryDish categoryDish, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findByTypeDish(id, categoryDish, page, pageable));
 	}
     
-    @GetMapping("/dish/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDish(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(dishService.findAll(id));
+    @GetMapping("/{id}/dish/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDish(@PathVariable(value = "id") Long id, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(dishService.findAll(id, page, pageable));
     }
     
     //DRINKS
     
-    @GetMapping("/drink/search-name/{name}/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getDrinkByName(@PathVariable(value = "name") String name, @PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByName(name, id));
+    @GetMapping("/{id}/drink/search-name/{name}/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getDrinkByName(@PathVariable(value = "id") Long id, @PathVariable(value = "name") String name, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByName(id, name, page, pageable));
 	}
 	
-	@GetMapping("/drink/price/minor/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByPriceByAsc(@PathVariable(value= "id") Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByPriceByOrdemByAsc(id));
+	@GetMapping("/{id}/drink/price/minor/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByPriceByAsc(@PathVariable(value= "id") Long id, @PathVariable(value = "page") Integer page, Pageable pageable){
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByPriceByOrdemByAsc(id, page, pageable));
 	}
 	
-	@GetMapping("/drink/price/major/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByPriceByDesc(@PathVariable(value= "id")Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByPriceByOrdemByDesc(id));
+	@GetMapping("/{id}/drink/price/major/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByPriceByDesc(@PathVariable(value= "id")Long id, @PathVariable(value = "page") Integer page, Pageable pageable){
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByPriceByOrdemByDesc(id, page, pageable));
 	}
 	
-	@GetMapping("/drink/category/{categoryDrink}/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByTypeDrink(@PathVariable(value = "categoryDrink") CategoryDrink categoryDrink, @PathVariable(value= "id")Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByCategoryDrink(categoryDrink, id));
+	@GetMapping("/{id}/drink/category/{categoryDrink}/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByTypeDrink(@PathVariable(value = "id") Long id, @PathVariable(value = "categoryDrink") CategoryDrink categoryDrink, @PathVariable(value = "page") Integer page, Pageable pageable ) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByCategoryDrink(id, categoryDrink, page, pageable));
 	}
     
-    @GetMapping("/drink/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrink(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findAll(id));
+    @GetMapping("/{id}/drink/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrink(@PathVariable(value = "id") Long id, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findAll(id, page, pageable));
     }
     
-    @GetMapping("/drink/alcoholic/{alcoholic}/{id}")
-	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByAlcoholic(@PathVariable(value = "alcoholic") Boolean alcoholic, @PathVariable(value = "id")Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByAlcoholic(alcoholic, id));
+    @GetMapping("/{id}/drink/alcoholic/{alcoholic}/{page}")
+	public ResponseEntity<EstablishmentWithConsumablesDTO> getAllDrinkByAlcoholic(@PathVariable(value = "id")Long id, @PathVariable(value = "alcoholic") Boolean alcoholic, @PathVariable(value = "page") Integer page, Pageable pageable) {
+		return ResponseEntity.status(HttpStatus.OK).body(drinkService.findByAlcoholic(id, alcoholic, page, pageable));
 	}
 }

@@ -5,12 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.consumable.ConsumableCardDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.order.OrderDetailsDTO;
-import br.senac.requestfood.model.consumable.Consumable;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.establishment.Establishment;
@@ -25,18 +22,6 @@ public class EstablishmentMapper {
 	public Establishment toEntity(EstablishmentAllDTO dto) {	
 		final Contact contact = new Contact(dto.id(), dto.phone(), dto.email());
 		return new Establishment(dto.id(), dto.name(), contact, dto.password(), dto.image(), dto.timeToOpen(), dto.timeToClose());
-	}
-	
-	public EstablishmentWithConsumablesDTO toEWConsumableDTO(Establishment entity) {
-		
-		List<ConsumableCardDTO> consumablesCard = new ArrayList<>();
-		
-		for (Consumable consumable : entity.getConsumables()) {
-			consumablesCard.add(new ConsumableCardDTO(consumable.getId(), consumable.getImage(), consumable.getName(),consumable.getPrice(), consumable.getDescription()));
-		}
-		
-		final EstablishmentWithConsumablesDTO dto = new EstablishmentWithConsumablesDTO(entity.getId(), entity.getName(), consumablesCard);
-		return dto;
 	}
 	
 	public EstablishmentWithOrdersDTO toEWOrdersDTO(Establishment entity) {
