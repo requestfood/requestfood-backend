@@ -20,7 +20,7 @@ import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
-import br.senac.requestfood.dto.order.OrderControlDTO;
+import br.senac.requestfood.dto.order.establishment.OrderControlDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
@@ -83,16 +83,6 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(pageable, page,name));
 	}
 	
-	@GetMapping("/name/a-z/{page}")
-	public ResponseEntity<Page<EstablishmentCardProjection>> getEstablishmentByNameByOrderByAsc(Pageable pageable,@PathVariable(value = "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(service.findNameByOrderByAsc(pageable, page));
-	}
-	
-	@GetMapping("/name/z-a/{page}")
-	public ResponseEntity<Page<EstablishmentCardProjection>> getEstablishmentByNameByOrderByDesc(Pageable pageable,@PathVariable(value = "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(service.findNameByOrderByDesc(pageable, page));
-	}
-	
 	@GetMapping("/card/{page}")
 	public ResponseEntity<Page<EstablishmentCardProjection>> getAllEstablishmentCard(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAllToCard(pageable, page));
@@ -106,22 +96,26 @@ public class EstablishmentController {
 	
 	//ORDERS
 	
-	@GetMapping("/with-order-ready/{id}")
+	//Triggered when an order is ready and the Client needs to pick it up at the counter..
+	@GetMapping("/orders-ready/{id}")
 	public ResponseEntity<EstablishmentWithOrdersReadyDTO> getEstablishmentWithOrderReady(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrderReady(id));
 	}
 	
+	//Triggered before someone starting an order...
 	@GetMapping("/start-order/{id}")
 	public ResponseEntity<EstablishmentStartOrderProjection> getEstablishmentStartOrder(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdStartOrder(id));
 	}
 	
-	@GetMapping("/with-orders/{id}")
+	//Show Establishment's Orders
+	@GetMapping("/orders/{id}")
 	public ResponseEntity<EstablishmentWithOrdersDTO> getEstablishmentWithOrder(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
 	}
 
-	@GetMapping("/with-order-control/{id}")
+	//Triggered when Establishment wants delete or update an order
+	@GetMapping("/order-control/{id}")
 	public ResponseEntity<OrderControlDTO> getOrderControl(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderControl(id));
 	}

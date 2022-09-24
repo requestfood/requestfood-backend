@@ -16,8 +16,6 @@ import br.senac.requestfood.projection.dish.DishProjection;
 @Repository
 public interface DishRepository extends JpaRepository<Dish, Long> {
 
-	boolean existsByName (String name);
-
     Optional<DishProjection> findDishById(Long id);
     
     Page<ConsumableCardProjection> findByNameContainingIgnoreCase(String name, Pageable pageable); 

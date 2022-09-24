@@ -3,7 +3,7 @@ package br.senac.requestfood.service.client;
 import java.util.List;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.order.OrderByClientDTO;
+import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 
 public interface ClientService {
@@ -18,7 +18,7 @@ public interface ClientService {
 	
 	ClientProjection findById(Long id);
 	
-	OrderByClientDTO findByIdWithOrders(Long id);
+	ClientOrdersDTO findByIdWithOrders(Long id);
 	
 	List<ClientProjection> findAll();
 	

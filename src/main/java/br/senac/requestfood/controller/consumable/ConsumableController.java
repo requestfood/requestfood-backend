@@ -24,13 +24,14 @@ public class ConsumableController {
 		this.service = service;
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<ConsumableProjection> getConsumable(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
-	}
-
 	@GetMapping()
 	public ResponseEntity<List<ConsumableProjection>> getAllConsumables() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ConsumableProjection> getConsumable(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+	}
+	
 }

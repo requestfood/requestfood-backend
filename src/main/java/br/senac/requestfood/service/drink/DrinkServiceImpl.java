@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
-import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.drink.DrinkMapper;
@@ -35,9 +34,6 @@ public class DrinkServiceImpl implements DrinkService{
 	
 	public DrinkDTO save(DrinkDTO drinkDTO) {
 
-		if (repository.existsByName(drinkDTO.name()))
-			throw new ConsumableNameRegisteredException("Drink " + drinkDTO.name() + " is already registered");
-
 		Drink drink = mapper.toEntity(drinkDTO);
 		Drink drinkSaved = repository.save(drink);
 
@@ -47,9 +43,6 @@ public class DrinkServiceImpl implements DrinkService{
 	public void update(DrinkDTO drinkDTO, Long id) {
 
 		Drink drink = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink " + id + " was not found"));
-
-		if (!repository.existsByName(drinkDTO.name()))
-			throw new ConsumableNameRegisteredException("Drink " + drinkDTO.name() + " is already registered");
 
 		drink.setName(drinkDTO.name());
 		drink.setPrice(drinkDTO.price());

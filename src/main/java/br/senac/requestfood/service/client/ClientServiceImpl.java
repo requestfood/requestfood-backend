@@ -7,8 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.order.OrderByClientDTO;
-import br.senac.requestfood.dto.order.OrderStartedDTO;
+import br.senac.requestfood.dto.client.ClientOrdersDTO;
+import br.senac.requestfood.dto.order.client.OrderToClientDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
@@ -75,18 +75,18 @@ public class ClientServiceImpl implements ClientService {
 		return client;
 	}
 
-	public OrderByClientDTO findByIdWithOrders(Long id) {
+	public ClientOrdersDTO findByIdWithOrders(Long id) {
 
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
-		List<OrderStartedDTO> ordersFinally = new ArrayList<>();
-		List<Order> clientOrders = client.getOrders();
+		List<OrderToClientDTO> dtos = new ArrayList<>();
+		List<Order> orders = client.getOrders();
 		
-		for (Order clientOrder : clientOrders) {
-			ordersFinally.add(new OrderStartedDTO(clientOrder.getId(), clientOrder.getEstablishment().getImage(), clientOrder.getEstablishment().getName(), clientOrder.getOrderStatus(), clientOrder.getIssueDate()));
+		for (Order order : orders) {
+			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
 		}
 		
-		return new OrderByClientDTO(ordersFinally);
+		return new ClientOrdersDTO(client.getId() ,dtos);
 	}
 
 	public AllClientDTO encodePassword(AllClientDTO clientDTO) {

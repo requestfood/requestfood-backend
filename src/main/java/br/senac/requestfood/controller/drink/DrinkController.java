@@ -46,13 +46,14 @@ public class DrinkController {
         return ResponseEntity.status(HttpStatus.OK).body("Drink deleted successfully");
     }
 
+    @GetMapping()
+    public ResponseEntity<List<DrinkProjection>> getAllDrink() {
+    	return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<DrinkProjection> getDrink(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 	
-    @GetMapping()
-    public ResponseEntity<List<DrinkProjection>> getAllDrink() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
-    }
 }

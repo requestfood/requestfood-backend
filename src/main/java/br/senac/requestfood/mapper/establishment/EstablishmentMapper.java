@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
-import br.senac.requestfood.dto.order.OrderDetailsDTO;
+import br.senac.requestfood.dto.order.establishment.OrderWithDateDTO;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.establishment.Establishment;
@@ -26,10 +26,10 @@ public class EstablishmentMapper {
 	
 	public EstablishmentWithOrdersDTO toEWOrdersDTO(Establishment entity) {
 		
-		List<OrderDetailsDTO> orders = new ArrayList<>();
+		List<OrderWithDateDTO> orders = new ArrayList<>();
 		
 		for (Order order : entity.getOrders()) {
-			orders.add(new OrderDetailsDTO(order.getId(), order.getEstablishment().getId(), order.getIssueDate(), null, order.getAmount()));
+			orders.add(new OrderWithDateDTO(order.getId(), order.getClient().getName(), order.getIssueDate(), order.getClosingDate()));
 		}
 		
 		final EstablishmentWithOrdersDTO dto = new EstablishmentWithOrdersDTO(entity.getId(), entity.getName(), orders);

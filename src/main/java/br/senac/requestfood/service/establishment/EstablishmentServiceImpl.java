@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
-import br.senac.requestfood.dto.order.OrderReadyDTO;
+import br.senac.requestfood.dto.order.establishment.OrderReadyDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
@@ -102,20 +102,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return repository.findByNameContainingIgnoreCase(pageable, name);
 	}
 
-	public Page<EstablishmentCardProjection> findNameByOrderByAsc(Pageable pageable, Integer page) {
-		int size = 4;
-		
-		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
-		return repository.findEstablishments(pageable);
-	}
-	
-	public Page<EstablishmentCardProjection> findNameByOrderByDesc(Pageable pageable, Integer page) {
-		int size = 4;
-		
-		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "name");
-		return repository.findEstablishments(pageable);
-	}
-	
 	public Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page) {
 		int size = 4;
 		

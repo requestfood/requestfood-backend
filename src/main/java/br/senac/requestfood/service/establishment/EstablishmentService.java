@@ -24,18 +24,14 @@ public interface EstablishmentService {
 	
 	EstablishmentProjection findById(Long id);
 	
-	EstablishmentWithOrdersReadyDTO findByIdWithOrderReady(Long id);
-	
 	EstablishmentStartOrderProjection findByIdStartOrder(Long id);
+	
+	EstablishmentWithOrdersReadyDTO findByIdWithOrderReady(Long id);
 	
 	EstablishmentWithOrdersDTO findByIdWithOrder(Long id);
 	
 	Page<EstablishmentCardProjection> findByName(Pageable pageable, Integer page,String name);
 
-	Page<EstablishmentCardProjection> findNameByOrderByAsc(Pageable pageable, Integer page);
-	
-	Page<EstablishmentCardProjection> findNameByOrderByDesc(Pageable pageable, Integer page);
-	
 	Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page);
 	
 	List<EstablishmentProjection> findAll();

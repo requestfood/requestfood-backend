@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.item.ItemDetailsDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
-import br.senac.requestfood.dto.order.OrderControlDTO;
-import br.senac.requestfood.dto.order.OrderDTO;
-import br.senac.requestfood.dto.order.OrderDetailsDTO;
+import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
+import br.senac.requestfood.dto.order.establishment.OrderControlDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
@@ -21,7 +21,6 @@ import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.order.OrderProjection;
-import br.senac.requestfood.projection.order.OrderWithItemProjection;
 import br.senac.requestfood.repository.client.ClientRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.repository.order.OrderRepository;
@@ -42,7 +41,7 @@ public class OrderServiceImpl implements OrderService{
         this.establishmentRepository = establishmentRepository;
     }
 
-    public OrderDTO save(CreateOrderDTO orderDTO) {
+    public ClientOrdersDTO save(CreateOrderDTO orderDTO) {
 		
 		final LocalDateTime issueDate = LocalDateTime.now();
 		OrderStatus status = OrderStatus.WAITING;
@@ -55,19 +54,8 @@ public class OrderServiceImpl implements OrderService{
 		Order order = new Order(orderDTO.id(), establishment, client, issueDate, null, status);
 		Order orderSaved = repository.save(order);
 		
-		return mapper.toDTO(orderSaved);
+		return mapper.toClientOrdersDTO(orderSaved);
 	}	
-
-    
-    public void update(OrderDTO orderDTO, Long id) {
-
-        Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-        
-        order.setClosingDate(orderDTO.closingDate());
-        order.setOrderStatus(orderDTO.orderStatus());
-
-        repository.save(order);
-    }
 
     public void delete(Long id) {
     	
@@ -82,11 +70,6 @@ public class OrderServiceImpl implements OrderService{
     
     public OrderProjection findById(Long id) {
         OrderProjection order = repository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-        return order;
-    }
-
-    public OrderWithItemProjection findByIdWithItem(Long id) {
-        OrderWithItemProjection order = repository.findOrderWithItemById(id).orElseThrow(() -> new OrderNotFoundException("Item " + id + " was not found"));
         return order;
     }
 
@@ -129,7 +112,7 @@ public class OrderServiceImpl implements OrderService{
 			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
 		}
 		
-		return new OrderDetailsDTO(order.getId(), order.getEstablishment().getId(), order.getIssueDate(), itemDetails, order.getAmount());
+		return new OrderDetailsDTO(order.getId(), order.getEstablishment().getName(), order.getIssueDate(), itemDetails, order.getAmount());
 	}
 
 	public OrderControlDTO findByIdOrderControl(Long id) {

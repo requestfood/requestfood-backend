@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.order.OrderByClientDTO;
+import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -54,13 +54,16 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 
-	@GetMapping("/orders/{id}")
-	public ResponseEntity<OrderByClientDTO> getClientWithOrders(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrders(id));
-	}
 	@GetMapping()
 	public ResponseEntity<List<ClientProjection>> getAllCLient() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+	}
+
+	//CLIENT's ORDERS
+	
+	@GetMapping("/orders/{id}")
+	public ResponseEntity<ClientOrdersDTO> getClientWithOrders(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrders(id));
 	}
 	
 }

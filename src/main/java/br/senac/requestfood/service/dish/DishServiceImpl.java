@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.dish.DishDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
-import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.dish.DishMapper;
@@ -34,9 +33,6 @@ public class DishServiceImpl implements DishService{
 
 	public DishDTO save(DishDTO dishDTO) {
 	
-		if (repository.existsByName(dishDTO.name()))
-			throw new ConsumableNameRegisteredException("Prato " + dishDTO.name() + " is already registered");
-		
 		Dish dish = mapper.toEntity(dishDTO);
 		Dish dishSaved = repository.save(dish);
 
@@ -46,9 +42,6 @@ public class DishServiceImpl implements DishService{
 	public void update(DishDTO dishDTO, Long id) {
 		
 		Dish dish = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));
-
-		if (!repository.existsByName(dishDTO.name()))
-			throw new ConsumableNameRegisteredException("Dish " + dishDTO.name() + " is already registered");
 
 		dish.setName(dishDTO.name());
 		dish.setPrice(dishDTO.price());

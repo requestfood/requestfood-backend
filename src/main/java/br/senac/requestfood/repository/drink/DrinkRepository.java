@@ -17,8 +17,6 @@ import br.senac.requestfood.projection.drink.DrinkProjection;
 @Repository
 public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
-    boolean existsByName (String name);
-
     Optional<DrinkProjection> findDrinkById(Long id);
     
     Page<ConsumableCardProjection> findDrinkByAlcoholic(Pageable pageable, Boolean alcoholic);
