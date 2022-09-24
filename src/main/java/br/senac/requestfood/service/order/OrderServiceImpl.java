@@ -14,7 +14,6 @@ import br.senac.requestfood.dto.order.OrderDetailsDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
-import br.senac.requestfood.exception.order.OrderLimitDeleteDoNotCatchUpException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.item.Item;
@@ -76,8 +75,6 @@ public class OrderServiceImpl implements OrderService{
     	
     	if(!checkStatus(order))
     		throw new OrderNotFoundException("You need cancel or finish order to delete");
-        if(!checkDate(order))
-        	throw new OrderLimitDeleteDoNotCatchUpException("Wait 24 hours to delete Order " + id);
     
     	repository.deleteById(id);
     }
@@ -102,7 +99,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
 		order.setOrderStatus(status);
 		
-		if(status == OrderStatus.FINISHED) {
+		if(status == OrderStatus.DELIVERED || status == OrderStatus.FINISHED || status == OrderStatus.CANCELED) {
 			order.setClosingDate(LocalDateTime.now());
 		}
 	
@@ -112,30 +109,10 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderProjection> findAllByClient(String name) {
 		return repository.findOrderByClientName(name);
 	}
-
-	
-	public Boolean checkDate(Order order) {
-		
-		if(order.getClosingDate().getYear() == LocalDateTime.now().getYear()) {
-        	if(order.getClosingDate().getMonth() == LocalDateTime.now().getMonth()){	
-        		
-        		if(order.getClosingDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()){	
-        			return false;
-        		
-        		} else if(order.getClosingDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth() - 1){
-        				
-        			if((order.getClosingDate().getHour() - 24) + LocalDateTime.now().getHour() < 24)
-        			 	return false;        		
-        		}
-        	}
-        }
-		
-		return true;
-	}
 	
 	public Boolean checkStatus(Order order) {
 		
-		if(order.getOrderStatus() == OrderStatus.WAITING || order.getOrderStatus() == OrderStatus.PREPARING)
+		if(order.getOrderStatus() == OrderStatus.WAITING)
     		return false;
 		
 		return true;

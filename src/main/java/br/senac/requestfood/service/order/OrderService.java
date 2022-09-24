@@ -33,8 +33,6 @@ public interface OrderService {
 	
 	OrderDetailsDTO findByIdOrderDetails(Long id);
 	
-	Boolean checkDate(Order order);
-	
 	Boolean checkStatus(Order order);
 	
 }
