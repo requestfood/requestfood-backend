@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.order.OrderByClientDTO;
-import br.senac.requestfood.dto.order.OrderFinallyDTO;
+import br.senac.requestfood.dto.order.OrderStartedDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
@@ -79,11 +79,11 @@ public class ClientServiceImpl implements ClientService {
 
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
-		List<OrderFinallyDTO> ordersFinally = new ArrayList<>();
+		List<OrderStartedDTO> ordersFinally = new ArrayList<>();
 		List<Order> clientOrders = client.getOrders();
 		
 		for (Order clientOrder : clientOrders) {
-			ordersFinally.add(new OrderFinallyDTO(clientOrder.getId(), clientOrder.getEstablishment().getImage(), clientOrder.getEstablishment().getName(), clientOrder.getOrderStatus(), clientOrder.getIssueDate()));
+			ordersFinally.add(new OrderStartedDTO(clientOrder.getId(), clientOrder.getEstablishment().getImage(), clientOrder.getEstablishment().getName(), clientOrder.getOrderStatus(), clientOrder.getIssueDate()));
 		}
 		
 		return new OrderByClientDTO(ordersFinally);

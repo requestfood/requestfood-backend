@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
 import br.senac.requestfood.dto.order.OrderControlDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
@@ -66,17 +67,17 @@ public class EstablishmentController {
 		service.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment deleted successfully");
 	}
+	
+	@GetMapping()
+	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<EstablishmentProjection> getEstablishment(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 	
-	@GetMapping("/start-order/{id}")
-	public ResponseEntity<EstablishmentStartOrderProjection> getEstablishmentStartOrder(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdStartOrder(id));
-	}
-
 	@GetMapping("/search-name/{name}/{page}")
 	public ResponseEntity<Page<EstablishmentCardProjection>> getEstablishmentByName(Pageable pageable, @PathVariable(value = "name") String name,  @PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(pageable, page,name));
@@ -97,25 +98,32 @@ public class EstablishmentController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAllToCard(pageable, page));
 	}
 	
-	@GetMapping("/with-orders/{id}")
-	public ResponseEntity<EstablishmentWithOrdersDTO> getEstablishmentWithOrdes(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
-	}
-	
 	@GetMapping("/getOpen/{id}")
 	public ResponseEntity<EstablishmentProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
 		service.setOpen(id);
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 	
-	@GetMapping("/order-control/{id}")
-	public ResponseEntity<OrderControlDTO> getOrderControl(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderControl(id));
+	//ORDERS
+	
+	@GetMapping("/with-order-ready/{id}")
+	public ResponseEntity<EstablishmentWithOrdersReadyDTO> getEstablishmentWithOrderReady(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrderReady(id));
 	}
 	
-	@GetMapping()
-	public ResponseEntity<List<EstablishmentProjection>> getAllEstablishment() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+	@GetMapping("/start-order/{id}")
+	public ResponseEntity<EstablishmentStartOrderProjection> getEstablishmentStartOrder(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdStartOrder(id));
+	}
+	
+	@GetMapping("/with-orders/{id}")
+	public ResponseEntity<EstablishmentWithOrdersDTO> getEstablishmentWithOrder(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
+	}
+
+	@GetMapping("/with-order-control/{id}")
+	public ResponseEntity<OrderControlDTO> getOrderControl(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderControl(id));
 	}
 	
 	//CONSUMABLES
