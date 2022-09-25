@@ -68,16 +68,16 @@ public class DishServiceImpl implements DishService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findByNameContainingIgnoreCase(name, pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findByNameContainingIgnoreCaseAndEstablishmentId(name, id, pageable));
 	}
 	
-	public EstablishmentWithConsumablesDTO  findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable) {
+	public EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable) {
 		
 		int size = 4;
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishes(pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishesByEstablishmentId(id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable) {
@@ -86,7 +86,7 @@ public class DishServiceImpl implements DishService{
 		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishes(pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishesByEstablishmentId(id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable) {
@@ -95,7 +95,7 @@ public class DishServiceImpl implements DishService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishes(pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishesByEstablishmentId(id, pageable));
 	}
 
 	public EstablishmentWithConsumablesDTO findByTypeDish(Long id, CategoryDish typeDish, Integer page, Pageable pageable) {
@@ -104,6 +104,6 @@ public class DishServiceImpl implements DishService{
 		pageable = PageRequest.of(page, size, Sort.Direction.ASC, "name");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishByTypeDish(typeDish, pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishByTypeDishAndEstablishmentId(typeDish, id, pageable));
 	}
 }

@@ -19,14 +19,13 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
     Optional<DrinkProjection> findDrinkById(Long id);
     
-    Page<ConsumableCardProjection> findDrinkByAlcoholic(Pageable pageable, Boolean alcoholic);
+    Page<ConsumableCardProjection> findDrinkByAlcoholicAndEstablishmentId(Boolean alcoholic, Long id, Pageable pageable);
     
-    Page<ConsumableCardProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<ConsumableCardProjection> findByNameContainingIgnoreCaseAndEstablishmentId(String name, Long id, Pageable pageable);
     
-    Page<ConsumableCardProjection> findDrinkByCategoryDrink(Pageable pageable, CategoryDrink categoryDrink);
+    Page<ConsumableCardProjection> findDrinkByCategoryDrinkAndEstablishmentId(CategoryDrink categoryDrink, Long id, Pageable pageable);
 
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, d.establishment AS establishment, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
-    Page<ConsumableCardProjection> findDrinks(Pageable pageable);
+    Page<ConsumableCardProjection> findDrinksByEstablishmentId(Long id, Pageable pageable);
     
     @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, d.establishment AS establishment, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
     List<DrinkProjection> findDrinks();

@@ -69,7 +69,7 @@ public class DrinkServiceImpl implements DrinkService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findByNameContainingIgnoreCase(name, pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findByNameContainingIgnoreCaseAndEstablishmentId(name, id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable) {
@@ -78,7 +78,7 @@ public class DrinkServiceImpl implements DrinkService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinks(pageable));
+		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinksByEstablishmentId(id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable) {
@@ -87,7 +87,7 @@ public class DrinkServiceImpl implements DrinkService{
 		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
 
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinks(pageable));
+		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinksByEstablishmentId(id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable) {
@@ -96,7 +96,8 @@ public class DrinkServiceImpl implements DrinkService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinks(pageable));	}
+		return  new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinksByEstablishmentId(id, pageable));	
+	}
 	
 	
 	public EstablishmentWithConsumablesDTO findByCategoryDrink(Long id, CategoryDrink categoryDrink, Integer page, Pageable pageable) {
@@ -105,7 +106,7 @@ public class DrinkServiceImpl implements DrinkService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinkByCategoryDrink(pageable, categoryDrink));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinkByCategoryDrinkAndEstablishmentId(categoryDrink, id, pageable));
 	}
 
 	public EstablishmentWithConsumablesDTO findByAlcoholic(Long id, Boolean alcoholic, Integer page, Pageable pageable) {
@@ -114,7 +115,7 @@ public class DrinkServiceImpl implements DrinkService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));		
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinkByAlcoholic(pageable, alcoholic));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDrinkByAlcoholicAndEstablishmentId(alcoholic, id, pageable));
 	}
 
 	public List<DrinkProjection> findAll() {
