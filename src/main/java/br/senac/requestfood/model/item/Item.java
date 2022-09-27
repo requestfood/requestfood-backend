@@ -1,9 +1,5 @@
 package br.senac.requestfood.model.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,13 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.requestfood.model.comanda.Comanda;
-import br.senac.requestfood.model.consumivel.Consumivel;
-import br.senac.requestfood.model.itemadicional.ItemAdicional;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.senac.requestfood.model.consumable.Consumable;
+import br.senac.requestfood.model.order.Order;
 
 @Entity
 @Table(name = "item")
@@ -30,102 +26,83 @@ public class Item {
 	@Column(name = "id_item")
 	private Long id;
 
+    @JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_comanda", nullable = false)
-	private Comanda comanda;
+	@JoinColumn(name = "id_order", nullable = false)
+	private Order order;
 
-	@Column(name = "quantidade_item", nullable = false)
-	private int quantidade;
+	@Column(name = "quantity_item", nullable = false)
+	private Integer quantity;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @MapsId
-	@JoinColumn(name = "id_consumivel", nullable = false)
-	private Consumivel produto;
+	@JoinColumn(name = "id_consumable", nullable = false)
+	private Consumable consumable;
 
-	@Column(name = "observacao_item", length = 100)
-	private String observacao;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemAdicional> itensAdicionais;
+	@Column(name = "observation_item", length = 100)
+	private String observation;
 
 	public Item() {}
 
-	public Item(Long id, Comanda comanda, int quantidade, Consumivel produto, String observacao) {
-		setId(id);
-		setComanda(comanda);
-		setQuantidade(quantidade);
-		setProduto(produto);
-		setObservacao(observacao);
-		itensAdicionais = new ArrayList<>();
+	public Item(Long id, Order order, Integer quantity, Consumable consumable, String observation) {
+		this.id = id;
+		this.order = order;
+		this.quantity = quantity;
+		this.consumable = consumable;
+		this.observation = observation;
 	}
 
-	public boolean equals(Object objeto) {
+	public boolean equals(Object object) {
 
-		if (this == objeto)
+		if (this == object)
 			return true;
 
-		if (objeto == null)
+		if (object == null)
 			return false;
 
-		if (getClass() != objeto.getClass())
+		if (getClass() != object.getClass())
 			return false;
 
-		Item item = ((Item) objeto);
+		Item item = ((Item) object);
 
-		return this.getId() == item.getId() && this.getComanda() == item.comanda
-				&& this.getQuantidade() == item.getQuantidade() && this.getProduto() == item.getProduto()
-				&& this.getObservacao().equals(getObservacao());
+		return this.getId() == item.getId() && this.getOrder() == item.getOrder()
+				&& this.getQuantity() == item.getQuantity() && this.getConsumable() == item.getConsumable()
+				&& this.getObservation().equals(getObservation());
 	}
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Comanda getComanda() {
-		return comanda;
+	public Order getOrder() {
+		return order;
 	}
-
-	public void setComanda(Comanda comanda) {
-		this.comanda = comanda;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+	public Integer getQuantity() {
+		return quantity;
 	}
-
-	public int getQuantidade() {
-		return quantidade;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
-
-	public void setProduto(Consumivel produto) {
-		this.produto = produto;
+	public Consumable getConsumable() {
+		return consumable;
 	}
-
-	public Consumivel getProduto() {
-		return produto;
+	public void setConsumable(Consumable consumable) {
+		this.consumable = consumable;
 	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public String getObservation() {
+		return observation;
 	}
-
-	public String getObservacao() {
-		return observacao;
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
-
-	public List<ItemAdicional> getItensAdicionais() {
-		return itensAdicionais;
-	}
-
-	public void adicionarItemAdicional(ItemAdicional itemAdicional) {
-		itensAdicionais.add(itemAdicional);
-	}
-
-	public void removerItemAdicional(ItemAdicional itemAdicional) {
-		itensAdicionais.remove(itemAdicional);
+	
+	public Double getSubTotal() {
+		return quantity * consumable.getPrice();
 	}
 }
