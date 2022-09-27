@@ -23,22 +23,24 @@ import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
+import br.senac.requestfood.repository.order.OrderRepository;
 
 @Service
 public class EstablishmentServiceImpl implements EstablishmentService {
 	
 	private final EstablishmentRepository repository;
 	private final ContactRepository contactRepository;
+	private final OrderRepository orderRepository;
 	private final EstablishmentMapper mapper;
 	
-	public EstablishmentServiceImpl (EstablishmentRepository repository, ContactRepository repositoryContact,EstablishmentMapper mapper) {
+	public EstablishmentServiceImpl (EstablishmentRepository repository, ContactRepository repositoryContact,EstablishmentMapper mapper, OrderRepository orderRepository) {
 		this.repository = repository;
 		this.contactRepository = repositoryContact;
 		this.mapper = mapper;
+		this.orderRepository = orderRepository;
 	}
 	
 	public EstablishmentAllDTO save(EstablishmentAllDTO dto) {
@@ -141,13 +143,11 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
-		EstablishmentWithOrderProjection orders = repository.findEstablishmentWithOrderById(establishment.getId());
+		List<OrderProjection> orders = orderRepository.findAllByOrderStatusAndEstablishmentId(OrderStatus.READY, establishment.getId());
 		List<OrderReadyDTO> dtos = new ArrayList<>();
 		
-		for (OrderProjection order : orders.getOrders()) {
-			if(order.getOrderStatus() == OrderStatus.DELIVERED) {
-				dtos.add(new OrderReadyDTO(order.getId(), order.getClient().getName(), order.getClosingDate()));
-			}
+		for (OrderProjection order : orders) {
+			dtos.add(new OrderReadyDTO(order.getId(), order.getClient().getName(), order.getClosingDate()));
 		}
 		
 		return new EstablishmentWithOrdersReadyDTO(establishment.getId(), establishment.getName(), dtos);

@@ -21,7 +21,9 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 	List<OrderProjection> findOrderByClientName(String name);
 
 	Page<OrderProjection> findOrderByOrderStatus(Pageable pageable,OrderStatus orderstatus);
-
+	
+	List<OrderProjection> findAllByOrderStatusAndEstablishmentId(OrderStatus orderstatus, Long id);
+	
 	@Query(value = "SELECT o.id AS id, o.establishment AS establishment, o.client AS client, o.issueDate AS issueDate, o.closingDate AS closingDate, o.orderStatus AS orderStatus FROM Order o")
 	List<OrderProjection> findOrders();
 }

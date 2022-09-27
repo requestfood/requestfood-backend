@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
 		order.setOrderStatus(status);
 		
-		if(status == OrderStatus.DELIVERED || status == OrderStatus.FINISHED || status == OrderStatus.CANCELED) {
+		if(status == OrderStatus.READY || status == OrderStatus.FINISHED || status == OrderStatus.CANCELED) {
 			order.setClosingDate(LocalDateTime.now());
 		}
 	
@@ -117,12 +117,12 @@ public class OrderServiceImpl implements OrderService{
 
 	public OrderControlDTO findByIdOrderControl(Long id) {
 		
-		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
+		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));		
 		
 		List<Item> items = order.getItems();
 		List<ItemDetailsDTO> itemDetails = new ArrayList<>();		
 		
-		for (Item item : items) {
+		for (Item item : items)  {
 			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
 		}
 		
