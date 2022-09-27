@@ -13,9 +13,10 @@ import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.mapper.client.ClientMapper;
-import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.projection.client.ClientProjection;
+import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
+import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.repository.client.ClientRepository;
 import br.senac.requestfood.repository.contact.ContactRepository;
 
@@ -77,12 +78,12 @@ public class ClientServiceImpl implements ClientService {
 
 	public ClientOrdersDTO findByIdWithOrders(Long id) {
 
-		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		ClientWithOrdersProjection client = repository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		List<OrderToClientDTO> dtos = new ArrayList<>();
-		List<Order> orders = client.getOrders();
+		List<OrderProjection> orders = client.getOrders();
 		
-		for (Order order : orders) {
+		for (OrderProjection order : orders) {
 			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
 		}
 		

@@ -8,8 +8,6 @@ public interface ClientWithOrdersProjection {
 
     Long getId();
 
-    String getName();
-
     List<OrderProjection> getOrders();
 }
 
