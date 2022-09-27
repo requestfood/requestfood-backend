@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
-import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
 
 public interface EstablishmentService {
 
@@ -24,19 +24,17 @@ public interface EstablishmentService {
 	
 	EstablishmentProjection findById(Long id);
 	
-	EstablishmentWithOrderProjection findByIdWithOrder(Long id);
+	EstablishmentStartOrderProjection findByIdStartOrder(Long id);
 	
-	EstablishmentWithConsumableProjection findByIdWithConsumable(Long id);
+	EstablishmentWithOrdersReadyDTO findByIdWithOrderReady(Long id);
 	
-	List<EstablishmentProjection> findByName(String name);
+	EstablishmentWithOrdersDTO findByIdWithOrder(Long id);
+	
+	Page<EstablishmentCardProjection> findByName(Pageable pageable, Integer page,String name);
 
-	Page<EstablishmentProjection> findNameByOrderByAsc(Pageable pageable, Integer page);
-	
-	Page<EstablishmentProjection> findNameByOrderByDesc(Pageable pageable, Integer page);
-	
-	Page<EstablishmentProjection> findAll(Pageable pageable, Integer page);
-	
 	Page<EstablishmentCardProjection> findAllToCard(Pageable pageable, Integer page);
 	
 	List<EstablishmentProjection> findAll();
+	
+	
 }

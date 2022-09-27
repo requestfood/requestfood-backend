@@ -1,6 +1,6 @@
 package br.senac.requestfood.projection.establishment;
 
-public interface EstablishmentCardProjection {
+public interface EstablishmentStartOrderProjection {
 
 	Long getId();
 	

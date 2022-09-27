@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.model.item.Item;
@@ -41,6 +41,7 @@ public class Order {
     @JoinColumn(name = "id_establishment")
     private Establishment establishment;
 
+	@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_client")
     private Client client;
@@ -51,6 +52,7 @@ public class Order {
     @Column(name = "closing_date_order")
     private LocalDateTime closingDate;
     
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 

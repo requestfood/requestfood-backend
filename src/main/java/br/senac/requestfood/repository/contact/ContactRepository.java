@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.projection.contact.ContactProjection;
-import br.senac.requestfood.projection.user.UserProjection;
 
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {

@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,7 +25,7 @@ public class Item {
 	@Column(name = "id_item")
 	private Long id;
 
-    @JsonIgnore
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_order", nullable = false)
 	private Order order;
@@ -35,7 +34,6 @@ public class Item {
 	private Integer quantity;
 
 	@OneToOne(fetch = FetchType.LAZY)
-    @MapsId
 	@JoinColumn(name = "id_consumable", nullable = false)
 	private Consumable consumable;
 

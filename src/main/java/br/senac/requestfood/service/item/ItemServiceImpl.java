@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.item.ItemDTO;
+import br.senac.requestfood.dto.item.ItemOrderDTO;
 import br.senac.requestfood.exception.item.ItemNotFoundException;
 import br.senac.requestfood.mapper.item.ItemMapper;
 import br.senac.requestfood.model.item.Item;
@@ -22,7 +22,7 @@ public class ItemServiceImpl implements ItemService{
 		this.mapper = mapper;
 	}
 
-	public ItemDTO save(ItemDTO itemDTO) {
+	public ItemOrderDTO save(ItemOrderDTO itemDTO) {
 		
 		Item item = mapper.toEntity(itemDTO); 
 		Item itemSaved = repository.save(item);
@@ -30,13 +30,12 @@ public class ItemServiceImpl implements ItemService{
 		return mapper.toDTO(itemSaved);
 	}
 
-	public void update(ItemDTO itemDTO, Long id) {
+	public void update(ItemOrderDTO itemDTO, Long id) {
 		
 		Item item = repository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item "+ id +" was not found"));		
 		
-		item.setId(itemDTO.id());
-		item.setQuantity(itemDTO.quantity());
-		item.setObservation(itemDTO.observation());
+		item.setQuantity(itemDTO.quantityItem());
+		item.setObservation(itemDTO.obsItem());
 	}
 
 	public void delete(Long id) {

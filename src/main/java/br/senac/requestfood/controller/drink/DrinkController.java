@@ -2,8 +2,6 @@ package br.senac.requestfood.controller.drink;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
-import br.senac.requestfood.enumeration.drink.CategoryDrink;
-import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 import br.senac.requestfood.service.drink.DrinkService;
 
@@ -33,8 +29,8 @@ public class DrinkController {
         this.service = drinkService;
     }
 
-    @PostMapping
-    public ResponseEntity<DrinkDTO> drink(@RequestBody DrinkDTO drinkDto) {
+    @PostMapping()
+    public ResponseEntity<DrinkDTO> addDrink(@RequestBody DrinkDTO drinkDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(drinkDto));
     }
 
@@ -50,44 +46,14 @@ public class DrinkController {
         return ResponseEntity.status(HttpStatus.OK).body("Drink deleted successfully");
     }
 
+    @GetMapping()
+    public ResponseEntity<List<DrinkProjection>> getAllDrink() {
+    	return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<DrinkProjection> getDrink(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
-    
-    @GetMapping("/search-name/{name}")
-	public ResponseEntity<Page<DrinkProjection>> getDrinkByName(@PathVariable(value = "name") String name, Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
-	}
 	
-	@GetMapping("/price/minor-to-major/{page}")
-	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByOrderByPriceByAsc(Pageable pageable, @PathVariable(value= "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByAsc(pageable, page));
-	}
-	
-	@GetMapping("/price/major-to-minor/{page}")
-	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByOrderByPriceByDesc(Pageable pageable, @PathVariable(value= "page") Integer page){
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByPriceByOrdemByDesc(pageable, page));
-	}
-	
-	@GetMapping("/category/{categoryDrink}")
-	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByCategoryDrink(@PathVariable(value = "categoryDrink") CategoryDrink categoryDrink, Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByCategoryDrink(categoryDrink, pageable));
-	}
-	
-	@GetMapping("/alcoholic/{alcoholic}")
-	public ResponseEntity<Page<DrinkProjection>> getAllDrinkByAlcoholic(Pageable pageable, @PathVariable(value = "alcoholic") Boolean alcoholic) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByAlcoholic(pageable, alcoholic));
-	}
-	
-	
-	@GetMapping("/page/{page}")
-	public ResponseEntity<Page<DrinkProjection>> getAllConsumable(Pageable pageable,@PathVariable(value = "page") Integer page) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable, page));
-	}
-
-    @GetMapping()
-    public ResponseEntity<List<DrinkProjection>> getAllDrink() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
-    }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.client.ClientUpdateDTO;
+import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -23,7 +23,6 @@ import br.senac.requestfood.service.client.ClientService;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/client")
-
 public class ClientController {
 
     private final ClientService service;
@@ -39,7 +38,7 @@ public class ClientController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedClient(@RequestBody ClientUpdateDTO dto, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedClient(@RequestBody AllClientDTO dto, @PathVariable(value = "id") Long id) {
 		service.update(dto, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully");
 	}
@@ -56,7 +55,15 @@ public class ClientController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ClientProjection>> getAllClient() {
+	public ResponseEntity<List<ClientProjection>> getAllCLient() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
+
+	//CLIENT's ORDERS
+	
+	@GetMapping("/orders/{id}")
+	public ResponseEntity<ClientOrdersDTO> getClientWithOrders(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrders(id));
+	}
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
 
@@ -20,14 +21,16 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentProjection> findEstablishmentById(Long id);
 	
+	Optional<EstablishmentStartOrderProjection> findEstablishmentStartOrderById(Long id);
+	
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);
 	
-	Optional<EstablishmentWithOrderProjection> findEstablishmentWithCommandById(Long id);
+	EstablishmentWithOrderProjection findEstablishmentWithOrderById(Long id);
 
-	List<EstablishmentProjection> findByNameContainingIgnoreCase(String name);
+	Page<EstablishmentCardProjection> findByNameContainingIgnoreCase(Pageable pageable, String name);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, u.contact AS contact, u.password AS password, e.image AS image, e.timeToOpen AS timeToOpen, e.timeToClose AS timeToClose FROM User u JOIN Establishment e ON u.id = e.id")
-	Page<EstablishmentProjection>findEstablishments(Pageable pageable);
+	Page<EstablishmentCardProjection>findEstablishments(Pageable pageable);
 	
 	@Query(value="SELECT u.id AS id, u.name AS name, e.image AS image FROM User u JOIN Establishment e ON u.id = e.id")
 	Page<EstablishmentCardProjection>findEstablishmentsCard(Pageable pageable);

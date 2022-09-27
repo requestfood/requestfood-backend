@@ -1,7 +1,5 @@
 package br.senac.requestfood.controller.order;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,16 +7,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
-import br.senac.requestfood.dto.order.OrderDTO;
+import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
-import br.senac.requestfood.projection.order.OrderProjection;
-import br.senac.requestfood.projection.order.OrderWithItemProjection;
 import br.senac.requestfood.service.order.OrderService;
 
 @RestController
@@ -34,14 +30,8 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public ResponseEntity<OrderDTO> addOrder(@RequestBody CreateOrderDTO orderDTO) {
+	public ResponseEntity<ClientOrdersDTO> addOrder(@RequestBody CreateOrderDTO orderDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(orderService.save(orderDTO));
-	}
-
-	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedOrder(@RequestBody OrderDTO orderDTO, @PathVariable(value = "id") Long id) {
-		orderService.update(orderDTO, id);
-		return ResponseEntity.status(HttpStatus.OK).body("Order updated successfully");
 	}
 
 	@DeleteMapping("/{id}")
@@ -49,20 +39,10 @@ public class OrderController {
 		orderService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Order deleted successfully");
 	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<OrderProjection> getOrder(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
-	}
-
-	@GetMapping()
-	public ResponseEntity<List<OrderProjection>> getAllOrder() {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findAll());
-	}
 	
-	@GetMapping("/with-items/{id}")
-	public ResponseEntity<OrderWithItemProjection> getOrderWithItems(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdWithItem(id));
+	@GetMapping("/{id}")
+	public ResponseEntity<OrderDetailsDTO> getOrderDetails(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderDetails(id));
 	}
 	
 	@PostMapping("/{status}/{id}")

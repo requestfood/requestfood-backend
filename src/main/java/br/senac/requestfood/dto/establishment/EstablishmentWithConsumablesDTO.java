@@ -1,7 +1,7 @@
 package br.senac.requestfood.dto.establishment;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
-import br.senac.requestfood.model.consumable.Consumable;
+import br.senac.requestfood.projection.consumable.ConsumableCardProjection;
 
-public record EstablishmentWithConsumablesDTO(Long id, String name, List<Consumable> consumables) {}
+public record EstablishmentWithConsumablesDTO(Long id, String name, Page<ConsumableCardProjection> consumables) {}

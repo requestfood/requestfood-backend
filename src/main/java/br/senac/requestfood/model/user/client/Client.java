@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.senac.requestfood.enumeration.gender.Gender;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.model.order.Order;
@@ -32,6 +34,7 @@ public class Client extends User {
 	@Column(name = "birth_date_client", nullable = false)
     private LocalDate birthDate;
 	
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.PERSIST)
     private List<Order> orders = new ArrayList<>();
     

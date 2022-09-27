@@ -1,39 +1,38 @@
 package br.senac.requestfood.service.dish;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
-import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
+import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.dish.DishMapper;
 import br.senac.requestfood.model.consumable.dish.Dish;
 import br.senac.requestfood.projection.dish.DishProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.dish.DishRepository;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
 public class DishServiceImpl implements DishService{
 
 	private final DishRepository repository;
+	private final EstablishmentRepository establishmentRepository;
 	private final DishMapper mapper;
 
 	
-	public DishServiceImpl(DishRepository repository, DishMapper mapper) {
+	public DishServiceImpl(DishRepository repository, DishMapper mapper, EstablishmentRepository establishmentRepository) {
 		this.repository = repository;
 		this.mapper = mapper;
+		this.establishmentRepository = establishmentRepository;
 	}
 
 	public DishDTO save(DishDTO dishDTO) {
 	
-		if (repository.existsByName(dishDTO.name()))
-			throw new ConsumableNameRegisteredException("Prato " + dishDTO.name() + " is already registered");
-		
 		Dish dish = mapper.toEntity(dishDTO);
 		Dish dishSaved = repository.save(dish);
 
@@ -43,9 +42,6 @@ public class DishServiceImpl implements DishService{
 	public void update(DishDTO dishDTO, Long id) {
 		
 		Dish dish = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));
-
-		if (!repository.existsByName(dishDTO.name()))
-			throw new ConsumableNameRegisteredException("Dish " + dishDTO.name() + " is already registered");
 
 		dish.setName(dishDTO.name());
 		dish.setPrice(dishDTO.price());
@@ -66,42 +62,48 @@ public class DishServiceImpl implements DishService{
 		return dish;
 	}
 	
-	public Page<DishProjection> findByName(String name, Pageable pageable) {
-		return repository.findByNameContainingIgnoreCase(name, pageable);
+	public EstablishmentWithConsumablesDTO findByName(Long id, String name, Integer page, Pageable pageable) {
+		
+		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findByNameContainingIgnoreCaseAndEstablishmentId(name, id, pageable));
 	}
 	
-	public Page<DishProjection> findByPriceByOrdemByAsc(Pageable pageable, Integer page) {
-		int size = 4;
+	public EstablishmentWithConsumablesDTO findByPriceByOrdemByAsc(Long id, Integer page, Pageable pageable) {
 		
+		int size = 4;
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
-		return repository.findDishes(pageable);
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishesByEstablishmentId(id, pageable));
 	}
 	
-	public Page<DishProjection> findByPriceByOrdemByDesc(Pageable pageable, Integer page) {
-		int size = 4;
+	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable) {
 		
+		int size = 4;
 		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
-		return repository.findDishes(pageable);
+		
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishesByEstablishmentId(id, pageable));
 	}
 	
-	public Page<DishProjection> findAll(Pageable pageable, Integer page) {
+	public EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable) {
+		
 		int size = 4;
+		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "name");
 		
-		pageable = PageRequest.of(page,size);
-		return repository.findDishes(pageable);
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishesByEstablishmentId(id, pageable));
 	}
 
-	public List<DishProjection> findAll() {
-		return repository.findDishes();
-	}
+	public EstablishmentWithConsumablesDTO findByTypeDish(Long id, CategoryDish typeDish, Integer page, Pageable pageable) {
 
-	public Page<DishProjection> findByTypeDish(CategoryDish typeDish, Pageable pageable) {
 		int size = 4;
-		int page = 0;
+		pageable = PageRequest.of(page, size, Sort.Direction.ASC, "name");
 		
-		pageable = PageRequest.of(page,size);
-		
-		return repository.findDishByTypeDish(pageable, typeDish);
+		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findDishByTypeDishAndEstablishmentId(typeDish, id, pageable));
 	}
-
 }

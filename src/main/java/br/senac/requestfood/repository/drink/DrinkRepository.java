@@ -11,24 +11,21 @@ import org.springframework.stereotype.Repository;
 
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.model.consumable.drink.Drink;
-import br.senac.requestfood.projection.dish.DishProjection;
+import br.senac.requestfood.projection.consumable.ConsumableCardProjection;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 
 @Repository
 public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
-    boolean existsByName (String name);
-
     Optional<DrinkProjection> findDrinkById(Long id);
     
-    Page<DrinkProjection> findDrinkByAlcoholic(Pageable pageable, Boolean alcoholic);
+    Page<ConsumableCardProjection> findDrinkByAlcoholicAndEstablishmentId(Boolean alcoholic, Long id, Pageable pageable);
     
-    Page<DrinkProjection> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<ConsumableCardProjection> findByNameContainingIgnoreCaseAndEstablishmentId(String name, Long id, Pageable pageable);
     
-    Page<DrinkProjection> findDrinkByCategoryDrink(Pageable pageable, CategoryDrink categoryDrink);
+    Page<ConsumableCardProjection> findDrinkByCategoryDrinkAndEstablishmentId(CategoryDrink categoryDrink, Long id, Pageable pageable);
 
-    @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, d.establishment AS establishment, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
-    Page<DrinkProjection> findDrinks(Pageable pageable);
+    Page<ConsumableCardProjection> findDrinksByEstablishmentId(Long id, Pageable pageable);
     
     @Query(value = "SELECT c.id AS id, c.name AS name, c.price AS price, c.description AS description, d.establishment AS establishment, c.image AS image, d.categoryDrink AS categoryDrink, d.alcoholic AS alcoholic FROM Consumable c JOIN Drink d ON c.id = d.id")
     List<DrinkProjection> findDrinks();

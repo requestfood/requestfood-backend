@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.senac.requestfood.exception.client.ClientEmailNotFoundException;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.client.ContactRegisteredException;
 import br.senac.requestfood.exception.consumable.ConsumableNameRegisteredException;
@@ -11,9 +12,11 @@ import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
+import br.senac.requestfood.exception.establishment.EstablishmentEmailNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.exception.item.ItemNotFoundException;
 import br.senac.requestfood.exception.order.OrderClientNotFoundException;
+import br.senac.requestfood.exception.order.OrderLimitDeleteDoNotCatchUpException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.exception.user.UserClientNotFoundException;
 import br.senac.requestfood.exception.user.UserEstablishmentNotFoundException;
@@ -34,8 +37,13 @@ public class CustomControllerAdvice {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
+    @ExceptionHandler(ClientEmailNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleClientEmailNotFoundException(Exception exception) {
 
-    //Exceptions Command
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
+    }
+
+    //Exceptions Order
 
     @ExceptionHandler(OrderClientNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleOrderClientNotFoundException(Exception exception){
@@ -48,7 +56,11 @@ public class CustomControllerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
 
     }
+    @ExceptionHandler(OrderLimitDeleteDoNotCatchUpException.class)
+    public ResponseEntity<ErrorResponse> handleOrderLimitDeleteDoNotCatchUpException(Exception exception) {
 
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(HttpStatus.CONFLICT, exception.getMessage()));
+    }
     //Exceptions Consumable
 
     @ExceptionHandler(ConsumableNameRegisteredException.class)
@@ -92,6 +104,12 @@ public class CustomControllerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
 
     }
+    @ExceptionHandler(EstablishmentEmailNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleEstablishmentEmailNotFoundException(Exception exception){
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
+
+    }    
 
     //Exceptions Item
 
