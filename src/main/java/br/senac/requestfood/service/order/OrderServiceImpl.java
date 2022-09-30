@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.item.ItemDetailsDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
@@ -41,7 +40,7 @@ public class OrderServiceImpl implements OrderService{
         this.establishmentRepository = establishmentRepository;
     }
 
-    public ClientOrdersDTO save(CreateOrderDTO orderDTO) {
+    public CreateOrderDTO save(CreateOrderDTO orderDTO) {
 		
 		final LocalDateTime issueDate = LocalDateTime.now();
 		OrderStatus status = OrderStatus.WAITING;
@@ -54,7 +53,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = new Order(orderDTO.id(), establishment, client, issueDate, null, status);
 		Order orderSaved = repository.save(order);
 		
-		return mapper.toClientOrdersDTO(orderSaved);
+		return mapper.toDTO(orderSaved);
 	}	
 
     public void delete(Long id) {
