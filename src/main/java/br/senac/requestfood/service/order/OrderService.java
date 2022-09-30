@@ -12,7 +12,7 @@ import br.senac.requestfood.projection.order.OrderProjection;
 
 public interface OrderService {
 	
-	ClientOrdersDTO save(CreateOrderDTO orderDTO);
+	CreateOrderDTO save(CreateOrderDTO orderDTO);
 	
 	void delete(Long id);
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.ClientOrdersDTO;
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.OrderToClientDTO;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.repository.client.ClientRepository;
@@ -20,6 +21,10 @@ public class OrderMapper {
 	public OrderMapper(EstablishmentRepository establishmentRepository, ClientRepository clientRepository) {
 		this.establishmentRepository = establishmentRepository;
 		this.clientRepository = clientRepository;
+	}
+	
+	public CreateOrderDTO toDTO(Order entity) {
+		return new CreateOrderDTO(entity.getId(), entity.getEstablishment().getId(), entity.getClient().getId());
 	}
 
 	public ClientOrdersDTO toClientOrdersDTO(Order entity) {
