@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientOrdersDTO;
+import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -38,7 +39,7 @@ public class ClientController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedClient(@RequestBody AllClientDTO dto, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedClient(@RequestBody ClientUpdateDTO dto, @PathVariable(value = "id") Long id) {
 		service.update(dto, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully");
 	}
