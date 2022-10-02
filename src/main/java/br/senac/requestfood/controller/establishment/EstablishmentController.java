@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
@@ -57,7 +58,7 @@ public class EstablishmentController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatedEstablishment(@RequestBody EstablishmentAllDTO dto, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updatedEstablishment(@RequestBody EstablishmentUpdateDTO dto, @PathVariable(value = "id") Long id) {
 		service.update(dto, id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment update successfully");
 	}

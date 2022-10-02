@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientOrdersDTO;
+import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.dto.order.client.OrderToClientDTO;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
@@ -50,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
 		return mapper.AllToDTO(clientSaved);
 	}
 	
-	public void update(AllClientDTO dto, Long id) {
+	public void update(ClientUpdateDTO dto, Long id) {
 		
 		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		

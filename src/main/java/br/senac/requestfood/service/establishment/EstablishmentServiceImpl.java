@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
 import br.senac.requestfood.dto.order.establishment.OrderReadyDTO;
@@ -57,7 +58,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		return mapper.toDTO(establishmentSaved);
 	}
 	
-	public void update(EstablishmentAllDTO dto, Long id) {
+	public void update(EstablishmentUpdateDTO dto, Long id) {
 
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 
@@ -65,6 +66,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		establishment.setImage(dto.image());
 		establishment.setTimeToOpen(dto.timeToOpen());
 		establishment.setTimeToClose(dto.timeToClose());
+		
 		
 		repository.save(establishment);
 	}
