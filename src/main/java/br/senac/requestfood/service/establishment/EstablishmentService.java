@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
@@ -16,7 +17,7 @@ public interface EstablishmentService {
 
 	EstablishmentAllDTO save(EstablishmentAllDTO establishmentDTO);
 	
-	void update(EstablishmentAllDTO establishmentDTO, Long id);
+	void update(EstablishmentUpdateDTO establishmentDTO, Long id);
 	
 	void delete(Long id);
 	
