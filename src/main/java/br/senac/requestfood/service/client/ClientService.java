@@ -17,9 +17,11 @@ public interface ClientService {
 	
 	AllClientDTO encodePassword (AllClientDTO clientDTO);
 	
-	ClientProjection findById(Long id);
+	ClientUpdateDTO findById(Long id);
 	
 	ClientOrdersDTO findByIdWithOrders(Long id);
+	
+	ClientOrdersDTO findByWithOrdersByEstablishmentName(Long id, String name);
 	
 	List<ClientProjection> findAll();
 	
