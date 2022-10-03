@@ -51,7 +51,7 @@ public class ClientController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ClientProjection> getClient(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<ClientUpdateDTO> getClient(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 
@@ -67,4 +67,8 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrders(id));
 	}
 	
+	@GetMapping("/orders/{id}/establishment-name/{name}")
+	public ResponseEntity<ClientOrdersDTO> getOrdersClientByEstablishmentName(@PathVariable(value = "id") Long id, @PathVariable(value = "name") String name) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByWithOrdersByEstablishmentName(id, name));
+	}
 }

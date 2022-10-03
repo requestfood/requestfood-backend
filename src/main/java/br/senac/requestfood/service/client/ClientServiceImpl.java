@@ -20,20 +20,23 @@ import br.senac.requestfood.projection.client.ClientWithOrdersProjection;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.repository.client.ClientRepository;
 import br.senac.requestfood.repository.contact.ContactRepository;
+import br.senac.requestfood.repository.order.OrderRepository;
 
 @Service
 public class ClientServiceImpl implements ClientService {
 
-	private final ClientRepository repository;
+	private final ClientRepository clientRepository;
+	private final OrderRepository orderRepository;
 	private final ClientMapper mapper;
 	private final PasswordEncoder encoder;
 	private final ContactRepository contactRepository;
 	
-	public ClientServiceImpl (ClientRepository repository, ClientMapper mapper, PasswordEncoder encoder, ContactRepository contactRepository) {
-		this.repository = repository;
+	public ClientServiceImpl (ClientRepository repository, ClientMapper mapper, PasswordEncoder encoder, ContactRepository contactRepository, OrderRepository orderRepository) {
+		this.clientRepository = repository;
 		this.mapper = mapper;
 		this.encoder = encoder;
 		this.contactRepository = contactRepository;
+		this.orderRepository = orderRepository;
 	}
 	
 	public AllClientDTO save(AllClientDTO dto) {
@@ -46,43 +49,44 @@ public class ClientServiceImpl implements ClientService {
 		}
 		
 		Client client = mapper.AllToEntity(dto);
-		Client clientSaved = repository.save(client);
+		Client clientSaved = clientRepository.save(client);
 		
 		return mapper.AllToDTO(clientSaved);
 	}
 	
 	public void update(ClientUpdateDTO dto, Long id) {
 		
-		Client client = repository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		Client client = clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		client.setName(dto.name());
 		client.setSurname(dto.surname());
 		client.setGender(dto.gender());
 		
-		repository.save(client);
+		clientRepository.save(client);
 	}
 	
 	public void delete(Long id) {
 		
-		if(!repository.existsById(id))
+		if(!clientRepository.existsById(id))
 			throw new ClientNotFoundException("Client "+ id +" was not found");
 		
-		repository.deleteById(id);
+		clientRepository.deleteById(id);
 	}
 	
-	public ClientProjection findById(Long id) {
+	public ClientUpdateDTO findById(Long id) {
 
-		ClientProjection client = repository.findClientById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		ClientProjection client = clientRepository.findClientById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
-		return client;
+		return new ClientUpdateDTO(client.getName(), client.getSurname(), client.getGender());
 	}
 
 	public ClientOrdersDTO findByIdWithOrders(Long id) {
 
-		ClientWithOrdersProjection client = repository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		ClientWithOrdersProjection client = clientRepository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
 		List<OrderToClientDTO> dtos = new ArrayList<>();
 		List<OrderProjection> orders = client.getOrders();
+		
 		
 		for (OrderProjection order : orders) {
 			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
@@ -102,7 +106,21 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	public List<ClientProjection> findAll() {
-		return repository.findClients();
+		return clientRepository.findClients();
+	}
+
+	public ClientOrdersDTO findByWithOrdersByEstablishmentName(Long id, String name) {
+		
+		ClientProjection client = clientRepository.findClientById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		
+		List<OrderToClientDTO> dtos = new ArrayList<>();
+		List<OrderProjection> orders = orderRepository.findAllByClientIdAndEstablishmentNameContainingIgnoreCase(client.getId(), name);
+		
+		for (OrderProjection order : orders) {
+			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
+		}
+		
+		return new ClientOrdersDTO(client.getId(), dtos);
 	}
 	
 }
