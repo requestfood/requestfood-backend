@@ -10,6 +10,7 @@ import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.dto.order.client.OrderToClientDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.contact.ContactEmailRegisteredException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
@@ -121,6 +122,19 @@ public class ClientServiceImpl implements ClientService {
 		}
 		
 		return new ClientOrdersDTO(client.getId(), dtos);
+	}
+
+	public Long findByIdWithCurrentOrder(Long id) {
+		
+		ClientWithOrdersProjection client = clientRepository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client " + id + " was not found"));
+		
+		for (OrderProjection order : client.getOrders()) {
+			if(order.getOrderStatus() == OrderStatus.WAITING) {
+				return order.getId();
+			}
+		}
+		
+		return null;
 	}
 	
 }

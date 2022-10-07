@@ -9,19 +9,9 @@ import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.OrderToClientDTO;
 import br.senac.requestfood.model.order.Order;
-import br.senac.requestfood.repository.client.ClientRepository;
-import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 
 @Service
 public class OrderMapper {
-	
-	private EstablishmentRepository establishmentRepository;
-	private ClientRepository clientRepository;
-	
-	public OrderMapper(EstablishmentRepository establishmentRepository, ClientRepository clientRepository) {
-		this.establishmentRepository = establishmentRepository;
-		this.clientRepository = clientRepository;
-	}
 	
 	public CreateOrderDTO toDTO(Order entity) {
 		return new CreateOrderDTO(entity.getId(), entity.getEstablishment().getId(), entity.getClient().getId());

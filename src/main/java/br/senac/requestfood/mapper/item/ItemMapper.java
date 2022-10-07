@@ -32,9 +32,9 @@ public class ItemMapper {
 	
 	public Item toEntity(ItemOrderDTO dto) {
 		Order order = orderRepository.findById(dto.idOrder())
-				.orElseThrow(() -> new OrderNotFoundException(null));
+				.orElseThrow(() -> new OrderNotFoundException("Order " + dto.idOrder() + " was not found"));
 		Consumable consumable = consumableRepository.findById(dto.idConsumable())
-				.orElseThrow(() -> new ConsumableNotFoundException(null));		
+				.orElseThrow(() -> new ConsumableNotFoundException("Order " + dto.idOrder() + " was not found"));		
 		
 		return new Item(dto.id(), order, dto.quantityItem(), consumable, dto.obsItem());
 	}
