@@ -24,6 +24,7 @@ import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrdersProjection;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
@@ -92,11 +93,13 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	}
 	
 	public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
+		
+		OrderStatus status = OrderStatus.SENT;
 
-		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		EstablishmentWithOrdersProjection establishment = repository.findEstablishmentWithOrdersByIdAndOrdersOrderStatus(id, status).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
 		EstablishmentWithOrdersDTO establishmentWithOrders = mapper.toEWOrdersDTO(establishment);
 		
-		return establishmentWithOrders;
+		return establishmentWithOrders;	
 	}
 
 	public Page<EstablishmentCardProjection> findByName(Pageable pageable, Integer page, String name) {	
