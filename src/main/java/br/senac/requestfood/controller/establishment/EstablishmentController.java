@@ -3,9 +3,7 @@ package br.senac.requestfood.controller.establishment;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +33,7 @@ import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.service.consumable.ConsumableService;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
@@ -47,13 +46,16 @@ import br.senac.requestfood.service.order.OrderService;
 public class EstablishmentController {
     
     private final EstablishmentService service;
+    private final EstablishmentRepository repository;
     private final OrderService orderService;
     private final ConsumableService consumableService;
     private final DishService dishService;
     private final DrinkService drinkService;
 
-    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService, ConsumableService consumableService) {
+    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService, 
+    		ConsumableService consumableService, EstablishmentRepository repository) {
 		this.service = establishmentService;
+		this.repository = repository;
 		this.consumableService = consumableService;
 		this.dishService = dishService;
 		this.drinkService = drinkService;
@@ -62,17 +64,19 @@ public class EstablishmentController {
 
 	@PostMapping
 	public ResponseEntity<EstablishmentAllDTO> addEstablishment(@RequestBody EstablishmentAllDTO dto) {
-				
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
 	
 	@PostMapping("/image/{id}")
-	public ResponseEntity<EstablishmentImageDTO> addEstablishmentImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
-		Long number = (long) 1;
-		EstablishmentImageDTO dto = new EstablishmentImageDTO(compressBytes(file.getBytes()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.saveImage(dto, number));
+	public ResponseEntity<String> addEstablishmentImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
+		service.saveImage(compressBytes(file.getBytes()), id);
+		return ResponseEntity.status(HttpStatus.OK).body("Establishment image registered successfully");
 	}
 
+	@GetMapping("/getImage/{id}")
+	public ResponseEntity<EstablishmentImageDTO> getEstablishmentImage(@PathVariable Long id) throws IOException {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
+	}
 	
 	//COMPRESS AND DESCOMPRESS BYTES
 	public static byte[] compressBytes(byte[] data) {
@@ -92,22 +96,7 @@ public class EstablishmentController {
 		System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
 		return outputStream.toByteArray();
 	}
-	public static byte[] decompressBytes(byte[] data) {
-		Inflater inflater = new Inflater();
-		inflater.setInput(data);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		byte[] buffer = new byte[1024];
-		try {
-			while (!inflater.finished()) {
-				int count = inflater.inflate(buffer);
-				outputStream.write(buffer, 0, count);
-			}
-			outputStream.close();
-		} catch (IOException ioe) {
-		} catch (DataFormatException e) {
-		}
-		return outputStream.toByteArray();
-	}
+	
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updatedEstablishment(@RequestBody EstablishmentUpdateDTO dto, @PathVariable(value = "id") Long id) {

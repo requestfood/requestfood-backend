@@ -42,7 +42,7 @@ public class Establishment extends User {
     private Boolean open;
     
 	@Lob
-	@Column(name = "image_establishment")
+	@Column(name = "image_establishment", length = 1000)
 	private byte[] image;
     
     public Establishment() {}

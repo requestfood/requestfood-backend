@@ -18,7 +18,7 @@ public interface EstablishmentService {
 
 	EstablishmentAllDTO save(EstablishmentAllDTO establishmentDTO);
 	
-	EstablishmentImageDTO saveImage(EstablishmentImageDTO imageDTO, Long id);
+	void saveImage(byte[] image, Long id);
 	
 	void update(EstablishmentUpdateDTO establishmentDTO, Long id);
 	
@@ -27,6 +27,8 @@ public interface EstablishmentService {
 	Boolean setOpen(Long id);
 	
 	EstablishmentProjection findById(Long id);
+	
+	EstablishmentImageDTO findByIdImage(Long id);
 	
 	EstablishmentStartOrderProjection findByIdStartOrder(Long id);
 	
