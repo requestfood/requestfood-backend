@@ -5,6 +5,7 @@ import java.util.List;
 import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 
 public interface ClientService {
@@ -21,7 +22,7 @@ public interface ClientService {
 	
 	ClientOrdersDTO findByIdWithOrders(Long id);
 	
-	Long findByIdWithCurrentOrder(Long id);
+	CreateOrderDTO findByIdWithCurrentOrder(Long id);
 	
 	ClientOrdersDTO findByWithOrdersByEstablishmentName(Long id, String name);
 	

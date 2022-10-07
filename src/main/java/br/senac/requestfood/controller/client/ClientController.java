@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
+import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -73,7 +74,7 @@ public class ClientController {
 	}
 	
 	@GetMapping("/current-order/{id}")
-	public ResponseEntity<Long> getClientWithCurrentOrder(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<CreateOrderDTO> getClientWithCurrentOrder(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithCurrentOrder(id));
 	}
 	
