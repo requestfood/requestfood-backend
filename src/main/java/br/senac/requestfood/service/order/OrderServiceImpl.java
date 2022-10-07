@@ -13,6 +13,7 @@ import br.senac.requestfood.dto.order.establishment.OrderControlDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
+import br.senac.requestfood.exception.order.OrderAlreadyStartedException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.item.Item;
@@ -49,6 +50,12 @@ public class OrderServiceImpl implements OrderService{
 				.orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ orderDTO.idEstablishment() +" was not found"));
 		Client client = clientRepository.findById(orderDTO.idClient())
 				.orElseThrow(() -> new ClientNotFoundException("Client "+ orderDTO.idClient() +" was not found"));
+		
+		for (Order order : client.getOrders()) {
+			if(order.getOrderStatus() == OrderStatus.WAITING) {
+				throw new OrderAlreadyStartedException("You already started a order");
+			}
+		}
 		
 		Order order = new Order(orderDTO.id(), establishment, client, issueDate, null, status);
 		Order orderSaved = repository.save(order);

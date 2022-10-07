@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.senac.requestfood.projection.order.OrderProjection;
 
-public interface EstablishmentWithOrderProjection {
+public interface EstablishmentWithOrdersProjection {
 
 	Long getId();
 

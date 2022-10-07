@@ -9,12 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;
-import br.senac.requestfood.projection.establishment.EstablishmentWithOrderProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrdersProjection;
 
 @Repository
 public interface EstablishmentRepository extends JpaRepository<Establishment, Long> {
@@ -25,7 +26,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);
 	
-	EstablishmentWithOrderProjection findEstablishmentWithOrderById(Long id);
+	Optional<EstablishmentWithOrdersProjection> findEstablishmentWithOrdersByIdAndOrdersOrderStatus(Long id, OrderStatus orderStatus);
 
 	Page<EstablishmentCardProjection> findByNameContainingIgnoreCase(Pageable pageable, String name);
 	

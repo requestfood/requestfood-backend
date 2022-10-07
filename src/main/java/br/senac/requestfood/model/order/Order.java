@@ -53,7 +53,7 @@ public class Order {
     private LocalDateTime closingDate;
     
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
     @Enumerated(EnumType.ORDINAL)

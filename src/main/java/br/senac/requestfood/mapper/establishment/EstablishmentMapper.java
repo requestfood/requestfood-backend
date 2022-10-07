@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.order.establishment.OrderWithDateDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.model.contact.Contact;
-import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrdersProjection;
+import br.senac.requestfood.projection.order.OrderProjection;
 
 @Service
 public class EstablishmentMapper {
@@ -24,15 +26,17 @@ public class EstablishmentMapper {
 		return new Establishment(dto.id(), dto.name(), contact, dto.password(), dto.image(), dto.timeToOpen(), dto.timeToClose());
 	}
 	
-	public EstablishmentWithOrdersDTO toEWOrdersDTO(Establishment entity) {
+	public EstablishmentWithOrdersDTO toEWOrdersDTO(EstablishmentWithOrdersProjection establishment) {
 		
 		List<OrderWithDateDTO> orders = new ArrayList<>();
 		
-		for (Order order : entity.getOrders()) {
-			orders.add(new OrderWithDateDTO(order.getId(), order.getClient().getName(), order.getIssueDate(), order.getClosingDate()));
+		for (OrderProjection order : establishment.getOrders()) {
+			
+			if(order.getOrderStatus() == OrderStatus.SENT)
+			orders.add(new OrderWithDateDTO(order.getId(), order.getClient().getName(), order.getIssueDate(), order.getClosingDate()));	
 		}
 		
-		final EstablishmentWithOrdersDTO dto = new EstablishmentWithOrdersDTO(entity.getId(), entity.getName(), orders);
+		final EstablishmentWithOrdersDTO dto = new EstablishmentWithOrdersDTO(establishment.getId(), establishment.getName(), orders);
 		return dto;
 	}
 	

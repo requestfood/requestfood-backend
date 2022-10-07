@@ -71,4 +71,10 @@ public class ClientController {
 	public ResponseEntity<ClientOrdersDTO> getOrdersClientByEstablishmentName(@PathVariable(value = "id") Long id, @PathVariable(value = "name") String name) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByWithOrdersByEstablishmentName(id, name));
 	}
+	
+	@GetMapping("/current-order/{id}")
+	public ResponseEntity<Long> getClientWithCurrentOrder(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithCurrentOrder(id));
+	}
+	
 }

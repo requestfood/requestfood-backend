@@ -21,6 +21,8 @@ public interface ClientService {
 	
 	ClientOrdersDTO findByIdWithOrders(Long id);
 	
+	Long findByIdWithCurrentOrder(Long id);
+	
 	ClientOrdersDTO findByWithOrdersByEstablishmentName(Long id, String name);
 	
 	List<ClientProjection> findAll();

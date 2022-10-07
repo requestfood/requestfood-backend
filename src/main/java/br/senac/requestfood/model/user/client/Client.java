@@ -35,7 +35,7 @@ public class Client extends User {
     private LocalDate birthDate;
 	
 	@JsonManagedReference
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
     
 	public Client() {}
