@@ -25,11 +25,11 @@ import br.senac.requestfood.model.user.User;
 public class Establishment extends User {
 
 	@JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Consumable> consumables = new ArrayList<>();
     
 	@JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "establishment", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
     
     @Column(name = "time_to_open_establishment")
