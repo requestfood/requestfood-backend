@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService{
 		List<ItemDetailsDTO> itemDetails = new ArrayList<>();		
 		
 		for (Item item : items) {
-			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
+			itemDetails.add(new ItemDetailsDTO(item.getId(), item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
 		}
 		
 		return new OrderDetailsDTO(order.getId(), order.getEstablishment().getName(), order.getIssueDate(), itemDetails, order.getAmount());
@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService{
 		List<ItemDetailsDTO> itemDetails = new ArrayList<>();		
 		
 		for (Item item : items)  {
-			itemDetails.add(new ItemDetailsDTO(item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
+			itemDetails.add(new ItemDetailsDTO(item.getId(), item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
 		}
 		
 		return new OrderControlDTO(order.getId(), order.getClient().getName(), order.getAmount(), itemDetails);

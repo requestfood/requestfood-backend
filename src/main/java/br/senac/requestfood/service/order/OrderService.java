@@ -3,7 +3,6 @@ package br.senac.requestfood.service.order;
 import java.util.List;
 
 import br.senac.requestfood.dto.order.CreateOrderDTO;
-import br.senac.requestfood.dto.order.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
 import br.senac.requestfood.dto.order.establishment.OrderControlDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
