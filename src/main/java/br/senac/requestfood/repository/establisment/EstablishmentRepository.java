@@ -22,8 +22,6 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Optional<EstablishmentProjection> findEstablishmentById(Long id);
 	
-	Optional<EstablishmentImageProjection> findEstablishmentImageById(Long id);
-	
 	Optional<EstablishmentStartOrderProjection> findEstablishmentStartOrderById(Long id);
 	
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);

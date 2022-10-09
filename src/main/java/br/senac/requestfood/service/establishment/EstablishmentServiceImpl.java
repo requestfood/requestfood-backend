@@ -135,7 +135,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	
 	public EstablishmentImageDTO findByIdImage(Long id) {
 		
-		final EstablishmentImageProjection dbImage = repository.findEstablishmentImageById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		final Establishment dbImage = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		
 		return new EstablishmentImageDTO(decompressBytes(dbImage.getImage()));
 	}
