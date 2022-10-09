@@ -1,7 +1,5 @@
-package br.senac.requestfood.dto.client;
+package br.senac.requestfood.dto.order.client;
 
 import java.util.List;
-
-import br.senac.requestfood.dto.order.client.OrderToClientDTO;
 
 public record ClientOrdersDTO(Long idClient ,List<OrderToClientDTO> ordersClient) {}

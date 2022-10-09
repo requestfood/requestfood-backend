@@ -7,9 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.client.AllClientDTO;
-import br.senac.requestfood.dto.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
+import br.senac.requestfood.dto.order.client.ClientOrdersDTO;
 import br.senac.requestfood.dto.order.client.OrderToClientDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
