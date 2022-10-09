@@ -5,4 +5,4 @@ import java.time.LocalDateTime;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 
 //Screen 9
-public record OrderToClientDTO( Long idOrder, Byte[] imageEstablishment, String nameEstablishment, OrderStatus  orderStatus, LocalDateTime issueDate ) {}
+public record OrderToClientDTO( Long idOrder, byte[] imageEstablishment, String nameEstablishment, OrderStatus  orderStatus, LocalDateTime issueDate ) {}

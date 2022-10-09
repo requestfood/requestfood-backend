@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentImageProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithConsumableProjection;

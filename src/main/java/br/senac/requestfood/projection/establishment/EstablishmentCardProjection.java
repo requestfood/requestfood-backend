@@ -6,6 +6,6 @@ public interface EstablishmentCardProjection {
 	
 	String getName();
 	
-	Byte[] getImage();
+	byte[] getImage();
 	
 }

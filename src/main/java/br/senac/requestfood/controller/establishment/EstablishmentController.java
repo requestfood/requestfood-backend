@@ -1,6 +1,9 @@
 package br.senac.requestfood.controller.establishment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.zip.Deflater;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.senac.requestfood.dto.establishment.EstablishmentAllDTO;
+import br.senac.requestfood.dto.establishment.EstablishmentImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
@@ -27,6 +33,7 @@ import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.service.consumable.ConsumableService;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
@@ -39,13 +46,16 @@ import br.senac.requestfood.service.order.OrderService;
 public class EstablishmentController {
     
     private final EstablishmentService service;
+    private final EstablishmentRepository repository;
     private final OrderService orderService;
     private final ConsumableService consumableService;
     private final DishService dishService;
     private final DrinkService drinkService;
 
-    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService, ConsumableService consumableService) {
+    public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService, 
+    		ConsumableService consumableService, EstablishmentRepository repository) {
 		this.service = establishmentService;
+		this.repository = repository;
 		this.consumableService = consumableService;
 		this.dishService = dishService;
 		this.drinkService = drinkService;
@@ -56,7 +66,38 @@ public class EstablishmentController {
 	public ResponseEntity<EstablishmentAllDTO> addEstablishment(@RequestBody EstablishmentAllDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 	}
+	
+	@PostMapping("/image/{id}")
+	public ResponseEntity<String> addEstablishmentImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
+		service.saveImage(compressBytes(file.getBytes()), id);
+		return ResponseEntity.status(HttpStatus.OK).body("Establishment image registered successfully");
+	}
 
+	@GetMapping("/getImage/{id}")
+	public ResponseEntity<EstablishmentImageDTO> getEstablishmentImage(@PathVariable Long id) throws IOException {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
+	}
+	
+	//COMPRESS AND DESCOMPRESS BYTES
+	public static byte[] compressBytes(byte[] data) {
+		Deflater deflater = new Deflater();
+		deflater.setInput(data);
+		deflater.finish();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+		byte[] buffer = new byte[1024];
+		while (!deflater.finished()) {
+			int count = deflater.deflate(buffer);
+			outputStream.write(buffer, 0, count);
+		}
+		try {
+			outputStream.close();
+		} catch (IOException e) {
+		}
+		System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+		return outputStream.toByteArray();
+	}
+	
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updatedEstablishment(@RequestBody EstablishmentUpdateDTO dto, @PathVariable(value = "id") Long id) {
 		service.update(dto, id);

@@ -42,12 +42,12 @@ public class Establishment extends User {
     private Boolean open;
     
 	@Lob
-	@Column(name = "image_establishment")
-	private Byte[] image;
+	@Column(name = "image_establishment", length = 1000)
+	private byte[] image;
     
     public Establishment() {}
 
-	public Establishment(Long id, String nome, Contact contact, String password, Byte[] image, LocalTime timeToOpen, LocalTime timeToClose) {
+	public Establishment(Long id, String nome, Contact contact, String password, byte[] image, LocalTime timeToOpen, LocalTime timeToClose) {
 		super(id, nome, contact, password);
 		this.image = image;
 		this.timeToOpen = timeToOpen;
@@ -60,10 +60,10 @@ public class Establishment extends User {
 	public List<Order> getOrders() {
 		return orders;
 	}
-	public Byte[] getImage() {
+	public byte[] getImage() {
 		return image;
 	}
-	public void setImage(Byte[] image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 	
