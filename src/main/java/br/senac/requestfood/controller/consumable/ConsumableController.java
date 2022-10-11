@@ -1,5 +1,6 @@
 package br.senac.requestfood.controller.consumable;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.senac.requestfood.dto.consumable.ConsumableImageDTO;
+import br.senac.requestfood.dto.dish.DishImageDTO;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 import br.senac.requestfood.service.consumable.ConsumableService;
 
@@ -25,6 +28,11 @@ public class ConsumableController {
 		this.service = service;
 	}
 
+	@GetMapping("/getImage/{id}")
+	public ResponseEntity<ConsumableImageDTO> getDrinkImage(@PathVariable Long id) throws IOException {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
+	}
+	
 	@GetMapping()
 	public ResponseEntity<List<ConsumableProjection>> getAllConsumables() {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());

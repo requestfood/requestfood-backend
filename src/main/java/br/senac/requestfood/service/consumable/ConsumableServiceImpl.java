@@ -1,5 +1,6 @@
 package br.senac.requestfood.service.consumable;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
@@ -7,13 +8,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.consumable.ConsumableImageDTO;
+import br.senac.requestfood.dto.dish.DishImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
+import br.senac.requestfood.model.consumable.Consumable;
+import br.senac.requestfood.model.consumable.dish.Dish;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.consumable.ConsumableRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
+import br.senac.requestfood.util.ImageUtil;
 
 @Service
 public class ConsumableServiceImpl implements ConsumableService{
@@ -31,7 +37,6 @@ public class ConsumableServiceImpl implements ConsumableService{
 			throw new ConsumableNotFoundException("Consumable "+ id +" was not found");
 		
 		repository.deleteById(id);
-
 	}
 	
 	public ConsumableProjection findById(Long id) {
@@ -39,6 +44,13 @@ public class ConsumableServiceImpl implements ConsumableService{
 		ConsumableProjection consumable = repository.findConsumableById(id).orElseThrow(() -> new ConsumableNotFoundException("Consumable "+ id +" was not found."));
 		
 		return consumable;
+	}
+	
+	public ConsumableImageDTO findByIdImage(Long id) {
+		
+		final Consumable dbImage = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Consumable "+ id +" was not found"));
+		
+		return new ConsumableImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getImage())));
 	}
 	
 	public EstablishmentWithConsumablesDTO findByName(Long id, String name, Integer page, Pageable pageable) {
@@ -80,6 +92,4 @@ public class ConsumableServiceImpl implements ConsumableService{
 	public List<ConsumableProjection> findAll() {
 		return repository.findConsumables();
 	}
-
-	
 }
