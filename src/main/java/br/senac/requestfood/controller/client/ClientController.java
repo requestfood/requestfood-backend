@@ -18,6 +18,7 @@ import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.ClientOrdersDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.projection.client.ClientProjection;
 import br.senac.requestfood.service.client.ClientService;
 
@@ -68,9 +69,14 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrders(id));
 	}
 	
+	@GetMapping("/orders/{status}/{id}")
+	public ResponseEntity<ClientOrdersDTO> getClientWithOrdersByStatus(@PathVariable(value = "status") OrderStatus status, @PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrdersByStatus(id, status));
+	}
+	
 	@GetMapping("/orders/{id}/establishment-name/{name}")
 	public ResponseEntity<ClientOrdersDTO> getOrdersClientByEstablishmentName(@PathVariable(value = "id") Long id, @PathVariable(value = "name") String name) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findByWithOrdersByEstablishmentName(id, name));
+		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrdersByEstablishmentName(id, name));
 	}
 	
 	@GetMapping("/current-order/{id}")

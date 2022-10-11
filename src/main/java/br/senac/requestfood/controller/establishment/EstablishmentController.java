@@ -1,9 +1,7 @@
 package br.senac.requestfood.controller.establishment;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.zip.Deflater;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +37,7 @@ import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
 import br.senac.requestfood.service.establishment.EstablishmentService;
 import br.senac.requestfood.service.order.OrderService;
+import br.senac.requestfood.util.ImageUtil;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -69,7 +68,7 @@ public class EstablishmentController {
 	
 	@PostMapping("/image/{id}")
 	public ResponseEntity<String> addEstablishmentImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
-		service.saveImage(compressBytes(file.getBytes()), id);
+		service.saveImage(ImageUtil.compressBytes(file.getBytes()), id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment image registered successfully");
 	}
 
@@ -77,26 +76,6 @@ public class EstablishmentController {
 	public ResponseEntity<EstablishmentImageDTO> getEstablishmentImage(@PathVariable Long id) throws IOException {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
 	}
-	
-	//COMPRESS AND DESCOMPRESS BYTES
-	public static byte[] compressBytes(byte[] data) {
-		Deflater deflater = new Deflater();
-		deflater.setInput(data);
-		deflater.finish();
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		byte[] buffer = new byte[1024];
-		while (!deflater.finished()) {
-			int count = deflater.deflate(buffer);
-			outputStream.write(buffer, 0, count);
-		}
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-		}
-		System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
-		return outputStream.toByteArray();
-	}
-	
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updatedEstablishment(@RequestBody EstablishmentUpdateDTO dto, @PathVariable(value = "id") Long id) {
