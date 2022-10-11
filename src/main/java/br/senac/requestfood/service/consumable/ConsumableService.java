@@ -9,6 +9,8 @@ import br.senac.requestfood.projection.consumable.ConsumableProjection;
 
 public interface ConsumableService {
 	
+	void delete(Long id);
+	
 	ConsumableProjection findById(Long id);
 	
 	EstablishmentWithConsumablesDTO findByName(Long id, String name, Integer page,Pageable pageable);

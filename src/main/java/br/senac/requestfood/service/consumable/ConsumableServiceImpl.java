@@ -26,6 +26,14 @@ public class ConsumableServiceImpl implements ConsumableService{
 		this.establishmentRepository = establishmentRepository;
 	}
 
+	public void delete(Long id) {
+		if(!repository.existsById(id))
+			throw new ConsumableNotFoundException("Consumable "+ id +" was not found");
+		
+		repository.deleteById(id);
+
+	}
+	
 	public ConsumableProjection findById(Long id) {
 		
 		ConsumableProjection consumable = repository.findConsumableById(id).orElseThrow(() -> new ConsumableNotFoundException("Consumable "+ id +" was not found."));
@@ -72,4 +80,6 @@ public class ConsumableServiceImpl implements ConsumableService{
 	public List<ConsumableProjection> findAll() {
 		return repository.findConsumables();
 	}
+
+	
 }
