@@ -10,15 +10,19 @@ import br.senac.requestfood.exception.contact.ContactNotFoundException;
 import br.senac.requestfood.exception.contact.ContactPhoneRegisteredException;
 import br.senac.requestfood.model.contact.Contact;
 import br.senac.requestfood.projection.contact.ContactProjection;
+import br.senac.requestfood.projection.user.UserProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
+import br.senac.requestfood.repository.user.UserRepository;
 
 @Service
 public class ContactServiceImpl implements ContactService {
 
 	private final ContactRepository repository;
+	private final UserRepository userRepository;
 	
-	public ContactServiceImpl(ContactRepository repository) {
+	public ContactServiceImpl(ContactRepository repository, UserRepository userRepository) {
 		this.repository = repository;
+		this.userRepository = userRepository;
 	}
 	
 	public void update(ContactDTO dto, Long id) {
@@ -50,9 +54,9 @@ public class ContactServiceImpl implements ContactService {
 	
 	public ContactProjection findById(Long id) {
 
-		ContactProjection contact = repository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
+		UserProjection user = userRepository.findUserById(id).orElseThrow(() -> new ContactNotFoundException("Contact "+ id +" was not found."));
 		
-		return contact;
+		return user.getContact();
 	}
 	
 	public List<ContactProjection> findAll() {

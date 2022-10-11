@@ -1,6 +1,6 @@
 package br.senac.requestfood.projection.user;
 
-import br.senac.requestfood.model.contact.Contact;
+import br.senac.requestfood.projection.contact.ContactProjection;
 
 public interface UserProjection {
 
@@ -8,7 +8,7 @@ public interface UserProjection {
 	
 	String getName();
 	
-	Contact getContact();
+	ContactProjection getContact();
 	
 	String getPassword();
 
