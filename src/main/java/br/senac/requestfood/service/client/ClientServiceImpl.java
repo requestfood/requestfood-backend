@@ -91,7 +91,7 @@ public class ClientServiceImpl implements ClientService {
 		
 		
 		for (OrderProjection order : orders) {
-			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
+			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
 		}
 		
 		return new ClientOrdersDTO(client.getId() ,dtos);
@@ -111,7 +111,7 @@ public class ClientServiceImpl implements ClientService {
 		return clientRepository.findClients();
 	}
 
-	public ClientOrdersDTO findByWithOrdersByEstablishmentName(Long id, String name) {
+	public ClientOrdersDTO findByIdWithOrdersByEstablishmentName(Long id, String name) {
 		
 		ClientProjection client = clientRepository.findClientById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
 		
@@ -119,11 +119,25 @@ public class ClientServiceImpl implements ClientService {
 		List<OrderProjection> orders = orderRepository.findAllByClientIdAndEstablishmentNameContainingIgnoreCase(client.getId(), name);
 		
 		for (OrderProjection order : orders) {
-			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
+			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
 		}
 		
 		return new ClientOrdersDTO(client.getId(), dtos);
 	}
+	
+	public ClientOrdersDTO findByIdWithOrdersByStatus(Long id, OrderStatus status) {
+
+		ClientWithOrdersProjection client = clientRepository.findClientWithOrdersById(id).orElseThrow(() -> new ClientNotFoundException("Client "+ id +" was not found"));
+		
+		List<OrderToClientDTO> dtos = new ArrayList<>();
+
+		for (OrderProjection order : client.getOrders()) {
+			if(order.getOrderStatus() == status)
+				dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
+		}
+		
+		return new ClientOrdersDTO(client.getId(), dtos);
+	}	
 
 	public CreateOrderDTO findByIdWithCurrentOrder(Long id) {
 		
@@ -137,5 +151,4 @@ public class ClientServiceImpl implements ClientService {
 		
 		return null;
 	}
-	
 }

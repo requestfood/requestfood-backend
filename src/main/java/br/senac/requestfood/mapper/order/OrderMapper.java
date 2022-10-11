@@ -23,7 +23,7 @@ public class OrderMapper {
 		List<OrderToClientDTO> dtos = new ArrayList<>();
 		
 		for (Order order : orders) {
-			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
+			dtos.add(new OrderToClientDTO(order.getId(), order.getEstablishment().getId(), order.getEstablishment().getImage(), order.getEstablishment().getName(), order.getOrderStatus(), order.getIssueDate()));
 		}
 		
 		return new ClientOrdersDTO(entity.getClient().getId(), dtos);

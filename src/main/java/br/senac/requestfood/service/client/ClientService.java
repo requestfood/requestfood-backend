@@ -6,6 +6,7 @@ import br.senac.requestfood.dto.client.AllClientDTO;
 import br.senac.requestfood.dto.client.ClientUpdateDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.ClientOrdersDTO;
+import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.projection.client.ClientProjection;
 
 public interface ClientService {
@@ -24,7 +25,9 @@ public interface ClientService {
 	
 	CreateOrderDTO findByIdWithCurrentOrder(Long id);
 	
-	ClientOrdersDTO findByWithOrdersByEstablishmentName(Long id, String name);
+	ClientOrdersDTO findByIdWithOrdersByEstablishmentName(Long id, String name);
+	
+	ClientOrdersDTO findByIdWithOrdersByStatus(Long id, OrderStatus status);
 	
 	List<ClientProjection> findAll();
 	
