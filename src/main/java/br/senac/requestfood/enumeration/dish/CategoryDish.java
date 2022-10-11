@@ -2,5 +2,7 @@ package br.senac.requestfood.enumeration.dish;
 
 public enum CategoryDish {
 
-    READY, DESSERT, PORTION, VEGAN, LUNCH;
+
+
+	CHEESE_BURGUER, DESSERT, PORTION, VEGAN, PACKED_LUNCH, SUSHI;
 }
