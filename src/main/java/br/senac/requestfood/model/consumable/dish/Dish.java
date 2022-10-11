@@ -20,7 +20,7 @@ public class Dish extends Consumable {
 
     public Dish() {}
 
-	public Dish(Long id, Establishment establishment, String name, Double price, String description, Byte[] image, CategoryDish typeDish) {
+	public Dish(Long id, Establishment establishment, String name, Double price, String description, byte[] image, CategoryDish typeDish) {
 		super(id, name, establishment, price, description, image);
 		this.typeDish = typeDish;
 	}

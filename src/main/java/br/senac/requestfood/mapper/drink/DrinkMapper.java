@@ -21,14 +21,14 @@ public class DrinkMapper {
 	}
 
 	public DrinkDTO toDTO(Drink drink) {
-		return new DrinkDTO(drink.getId(), drink.getName(), drink.getEstablishment().getId(),drink.getPrice(), drink.getDescription(), drink.getImage(), drink.getAlcoholic(), drink.getCategoryDrink());
+		return new DrinkDTO(drink.getId(), drink.getName(), drink.getEstablishment().getId(),drink.getPrice(), drink.getDescription(), drink.getAlcoholic(), drink.getCategoryDrink());
 	}
 	
 	public Drink toEntity(DrinkDTO drinkDTO) {
 		Establishment establishment = establishmentRepository.findById(drinkDTO.idEstablishment())
 				.orElseThrow(() -> new EstablishmentNotFoundException(null));
 		
-		return new Drink(drinkDTO.id(), drinkDTO.name(), establishment, drinkDTO.price(), drinkDTO.description(), drinkDTO.image(), drinkDTO.alcoholic(), drinkDTO.categoryDrink());
+		return new Drink(drinkDTO.id(), drinkDTO.name(), establishment, drinkDTO.price(), drinkDTO.description(), null, drinkDTO.alcoholic(), drinkDTO.categoryDrink());
 	}
 	
 	public List<DrinkDTO> toDTO(List<Drink> drinks){

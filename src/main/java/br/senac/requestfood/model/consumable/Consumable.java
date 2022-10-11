@@ -43,11 +43,11 @@ public abstract class Consumable {
 
 	@Lob
 	@Column(name = "image_consumable")
-	private Byte[] image;
+	private byte[] image;
 
 	protected Consumable() {}
 
-	protected Consumable(Long id, String name, Establishment establishment, Double price, String description,Byte[] image) {
+	protected Consumable(Long id, String name, Establishment establishment, Double price, String description,byte[] image) {
 		this.id = id;
 		this.establishment = establishment;
 		this.name = name;
@@ -104,10 +104,10 @@ public abstract class Consumable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Byte[] getImage() {
+	public byte[] getImage() {
 		return image;
 	}
-	public void setImage(Byte[] image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 }
