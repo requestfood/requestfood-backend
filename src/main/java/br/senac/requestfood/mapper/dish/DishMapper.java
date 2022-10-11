@@ -21,14 +21,14 @@ public class DishMapper {
 	}
 
 	public DishDTO toDTO(Dish dish) {
-		return new DishDTO(dish.getId(), dish.getEstablishment().getId(), dish.getName(), dish.getDescription(), dish.getImage(), dish.getPrice(), dish.getTypeDish());
+		return new DishDTO(dish.getId(), dish.getEstablishment().getId(), dish.getName(), dish.getDescription(), dish.getPrice(), dish.getTypeDish());
 	}
 	
 	public Dish toEntity(DishDTO dishDTO) {
 		Establishment establishment = establishmentRepository.findById(dishDTO.idEstablishment())
 				.orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ dishDTO.idEstablishment() +" was not found."));
 		
-		return new Dish(dishDTO.id(), establishment, dishDTO.name(), dishDTO.price(), dishDTO.description(), dishDTO.image(),  dishDTO.categoryDish());
+		return new Dish(dishDTO.id(), establishment, dishDTO.name(), dishDTO.price(), dishDTO.description(), null,  dishDTO.categoryDish());
 	}
 
 	public List<DishDTO> toDTO(List<Dish> dishes){

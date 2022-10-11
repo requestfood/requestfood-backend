@@ -1,5 +1,6 @@
 package br.senac.requestfood.service.drink;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
+import br.senac.requestfood.dto.drink.DrinkImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -18,6 +20,7 @@ import br.senac.requestfood.projection.drink.DrinkProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.drink.DrinkRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
+import br.senac.requestfood.util.ImageUtil;
 
 @Service
 public class DrinkServiceImpl implements DrinkService{
@@ -38,6 +41,22 @@ public class DrinkServiceImpl implements DrinkService{
 		Drink drinkSaved = repository.save(drink);
 
 		return mapper.toDTO(drinkSaved);
+	}
+	
+	public void saveImage(byte[] image, Long id) {
+		
+		Drink drink = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink "+ id +" was not found"));
+		
+		drink.setImage(image);
+		
+		repository.save(drink);
+	}
+	
+	public DrinkImageDTO findByIdImage(Long id) {
+		
+		final Drink dbImage = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink "+ id +" was not found"));
+		
+		return new DrinkImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getImage())));
 	}
 
 	public void update(DrinkDTO drinkDTO, Long id) {

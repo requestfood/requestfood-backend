@@ -23,7 +23,7 @@ public class Drink extends Consumable {
 
 	public Drink() {}
 	
-	public Drink(Long id, String name, Establishment establishment, Double price, String description, Byte[] image, Boolean alcoholic, CategoryDrink categoryDrink){
+	public Drink(Long id, String name, Establishment establishment, Double price, String description, byte[] image, Boolean alcoholic, CategoryDrink categoryDrink){
 		super(id, name, establishment, price, description, image);
 		this.alcoholic = alcoholic;
 		this.categoryDrink = categoryDrink;
