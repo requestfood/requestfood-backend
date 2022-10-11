@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.dto.dish.DishImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.projection.dish.DishProjection;
@@ -16,6 +17,10 @@ public interface DishService {
 	void update(DishDTO dishDTO, Long id);
 	
 	void delete(Long id);
+	
+	void saveImage(byte[] image, Long id);
+
+	DishImageDTO findByIdImage(Long id);
 	
 	DishProjection findById(Long id);
 	

@@ -8,8 +8,6 @@ import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.drink.DrinkImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
-import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
-import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 
 public interface DrinkService {

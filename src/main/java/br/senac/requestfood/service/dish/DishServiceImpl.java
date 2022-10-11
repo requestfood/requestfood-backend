@@ -1,11 +1,14 @@
 package br.senac.requestfood.service.dish;
 
+import java.util.Base64;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
+import br.senac.requestfood.dto.dish.DishImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -16,6 +19,7 @@ import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.dish.DishRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
+import br.senac.requestfood.util.ImageUtil;
 
 @Service
 public class DishServiceImpl implements DishService{
@@ -39,6 +43,22 @@ public class DishServiceImpl implements DishService{
 		return mapper.toDTO(dishSaved);
 	}
 
+	public void saveImage(byte[] image, Long id) {
+		
+		Dish dish = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish "+ id +" was not found"));
+		
+		dish.setImage(image);
+		
+		repository.save(dish);
+	}
+	
+	public DishImageDTO findByIdImage(Long id) {
+		
+		final Dish dbImage = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish "+ id +" was not found"));
+		
+		return new DishImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getImage())));
+	}
+	
 	public void update(DishDTO dishDTO, Long id) {
 		
 		Dish dish = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));

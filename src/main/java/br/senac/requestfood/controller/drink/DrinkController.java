@@ -42,7 +42,7 @@ public class DrinkController {
     @PostMapping("/image/{id}")
 	public ResponseEntity<String> addDrinkImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
 		service.saveImage(ImageUtil.compressBytes(file.getBytes()), id);
-		return ResponseEntity.status(HttpStatus.OK).body("Establishment image registered successfully");
+		return ResponseEntity.status(HttpStatus.OK).body("Drink image registered successfully");
 	}
     
     @GetMapping("/getImage/{id}")

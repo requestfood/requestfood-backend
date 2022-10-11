@@ -1,28 +1,21 @@
 package br.senac.requestfood.service.drink;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.drink.DrinkImageDTO;
-import br.senac.requestfood.dto.establishment.EstablishmentImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.mapper.drink.DrinkMapper;
 import br.senac.requestfood.model.consumable.drink.Drink;
-import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.drink.DrinkRepository;
@@ -52,7 +45,7 @@ public class DrinkServiceImpl implements DrinkService{
 	
 	public void saveImage(byte[] image, Long id) {
 		
-		Drink drink = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		Drink drink = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink "+ id +" was not found"));
 		
 		drink.setImage(image);
 		
@@ -61,7 +54,7 @@ public class DrinkServiceImpl implements DrinkService{
 	
 	public DrinkImageDTO findByIdImage(Long id) {
 		
-		final Drink dbImage = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		final Drink dbImage = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink "+ id +" was not found"));
 		
 		return new DrinkImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getImage())));
 	}
