@@ -34,7 +34,7 @@ public class Item {
 	private Integer quantity;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_consumable", nullable = false)
+	@JoinColumn(name = "id_consumable")
 	private Consumable consumable;
 
 	@Column(name = "observation_item", length = 100)
