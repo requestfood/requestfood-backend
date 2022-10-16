@@ -45,6 +45,12 @@ public class DrinkController {
 		return ResponseEntity.status(HttpStatus.OK).body("Drink image registered successfully");
 	}
     
+    @PutMapping("/update-image/{id}")
+	public ResponseEntity<String> updateDrinkImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
+		service.saveImage(ImageUtil.compressBytes(file.getBytes()), id);
+		return ResponseEntity.status(HttpStatus.OK).body("Drink image registered successfully");
+	}
+    
     @GetMapping("/getImage/{id}")
 	public ResponseEntity<DrinkImageDTO> getDrinkImage(@PathVariable Long id) throws IOException {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
