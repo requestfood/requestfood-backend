@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
+import br.senac.requestfood.dto.order.establishment.OrderWithDateDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.service.order.OrderService;
 
@@ -42,6 +43,11 @@ public class OrderController {
 	@GetMapping("/{id}")
 	public ResponseEntity<OrderDetailsDTO> getOrderDetails(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderDetails(id));
+	}
+	
+	@GetMapping("/order-id/{id}")
+	public ResponseEntity<OrderWithDateDTO> getOrderById(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
 	}
 	
 	@PostMapping("/{status}/{id}")
