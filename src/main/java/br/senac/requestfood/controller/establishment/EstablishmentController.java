@@ -73,7 +73,7 @@ public class EstablishmentController {
 	}
 
 	@GetMapping("/getImage/{id}")
-	public ResponseEntity<EstablishmentImageDTO> getEstablishmentImage(@PathVariable Long id) throws IOException {
+	public ResponseEntity<EstablishmentImageDTO> getEstablishmentImage(@PathVariable Long id) {		
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
 	}
 	
