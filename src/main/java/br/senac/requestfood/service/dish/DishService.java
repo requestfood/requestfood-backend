@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
 import br.senac.requestfood.dto.dish.DishImageDTO;
+import br.senac.requestfood.dto.dish.DishUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.projection.dish.DishProjection;
@@ -14,7 +15,7 @@ public interface DishService {
 
 	DishDTO save(DishDTO dishDTO);
 	
-	void update(DishDTO dishDTO, Long id);
+	void update(DishUpdateDTO dishDTO, Long id);
 	
 	void delete(Long id);
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.drink.DrinkImageDTO;
+import br.senac.requestfood.dto.drink.DrinkUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -59,12 +60,15 @@ public class DrinkServiceImpl implements DrinkService{
 		return new DrinkImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getImage())));
 	}
 
-	public void update(DrinkDTO drinkDTO, Long id) {
+	public void update(DrinkUpdateDTO dto, Long id) {
 
 		Drink drink = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Drink " + id + " was not found"));
 
-		drink.setName(drinkDTO.name());
-		drink.setPrice(drinkDTO.price());
+		drink.setName(dto.name());
+		drink.setPrice(dto.price());
+		drink.setDescription(dto.description());
+		drink.setAlcoholic(dto.alcoholic());
+		drink.setCategoryDrink(dto.categoryDrink());
 
 		repository.save(drink);
 	}

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.senac.requestfood.dto.dish.DishDTO;
 import br.senac.requestfood.dto.dish.DishImageDTO;
+import br.senac.requestfood.dto.dish.DishUpdateDTO;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.util.ImageUtil;
 
@@ -55,7 +56,7 @@ public class DishController {
 	}
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatedDish(@RequestBody DishDTO dishDTO, @PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> updatedDish(@RequestBody DishUpdateDTO dishDTO, @PathVariable(value = "id") Long id) {
         service.update(dishDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body("Dish updated successfully");
     }

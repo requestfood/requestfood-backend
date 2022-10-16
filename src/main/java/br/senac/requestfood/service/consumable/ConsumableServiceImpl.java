@@ -9,15 +9,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.consumable.ConsumableImageDTO;
-import br.senac.requestfood.dto.dish.DishImageDTO;
+import br.senac.requestfood.dto.consumable.ConsumableRoleDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.model.consumable.Consumable;
-import br.senac.requestfood.model.consumable.dish.Dish;
+import br.senac.requestfood.model.consumable.drink.Drink;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.repository.consumable.ConsumableRepository;
+import br.senac.requestfood.repository.drink.DrinkRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.util.ImageUtil;
 
@@ -25,11 +26,14 @@ import br.senac.requestfood.util.ImageUtil;
 public class ConsumableServiceImpl implements ConsumableService{
 
 	private final ConsumableRepository repository;
+	private final DrinkRepository drinkRepository;
 	private final EstablishmentRepository establishmentRepository;
 	
-	public ConsumableServiceImpl(ConsumableRepository repository, EstablishmentRepository establishmentRepository) {
+	public ConsumableServiceImpl(ConsumableRepository repository, EstablishmentRepository establishmentRepository,
+			DrinkRepository drinkRepository) {
 		this.repository = repository;
 		this.establishmentRepository = establishmentRepository;
+		this.drinkRepository = drinkRepository;
 	}
 
 	public void delete(Long id) {
@@ -44,6 +48,16 @@ public class ConsumableServiceImpl implements ConsumableService{
 		ConsumableProjection consumable = repository.findConsumableById(id).orElseThrow(() -> new ConsumableNotFoundException("Consumable "+ id +" was not found."));
 		
 		return consumable;
+	}
+	
+	public ConsumableRoleDTO findTypeById(Long id) {
+	
+		Drink consumable = drinkRepository.findById(id).orElse(null);
+		
+		if(consumable == null)
+			return new ConsumableRoleDTO("dish");
+		else
+			return new ConsumableRoleDTO("drink");
 	}
 	
 	public ConsumableImageDTO findByIdImage(Long id) {

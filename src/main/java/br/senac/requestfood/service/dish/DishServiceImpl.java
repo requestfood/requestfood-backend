@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.requestfood.dto.dish.DishDTO;
 import br.senac.requestfood.dto.dish.DishImageDTO;
+import br.senac.requestfood.dto.dish.DishUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.enumeration.dish.CategoryDish;
 import br.senac.requestfood.exception.consumable.ConsumableNotFoundException;
@@ -59,12 +60,14 @@ public class DishServiceImpl implements DishService{
 		return new DishImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getImage())));
 	}
 	
-	public void update(DishDTO dishDTO, Long id) {
+	public void update(DishUpdateDTO dto, Long id) {
 		
 		Dish dish = repository.findById(id).orElseThrow(() -> new ConsumableNotFoundException("Dish " + id + " was not found"));
 
-		dish.setName(dishDTO.name());
-		dish.setPrice(dishDTO.price());
+		dish.setName(dto.name());
+		dish.setPrice(dto.price());
+		dish.setDescription(dto.description());
+		dish.setTypeDish(dto.categoryDish());
 
 		repository.save(dish);
 	}
