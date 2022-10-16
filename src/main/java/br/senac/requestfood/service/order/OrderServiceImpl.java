@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService{
     
     public OrderWithDateDTO findById(Long id) {
         OrderProjection order = repository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-        return new OrderWithDateDTO(id, order.getClient().getName(), order.getIssueDate(), order.getClosingDate());
+        return new OrderWithDateDTO(id, order.getClient().getName(), order.getOrderStatus(), order.getIssueDate(), order.getClosingDate());
     }
 
     public List<OrderProjection> findAll() {

@@ -2,4 +2,6 @@ package br.senac.requestfood.dto.order.establishment;
 
 import java.time.LocalDateTime;
 
-public record OrderWithDateDTO(Long idOrder, String nameClient, LocalDateTime IssueDate, LocalDateTime closingDate) {}
+import br.senac.requestfood.enumeration.order.OrderStatus;
+
+public record OrderWithDateDTO(Long idOrder, String nameClient, OrderStatus status,LocalDateTime IssueDate, LocalDateTime closingDate) {}

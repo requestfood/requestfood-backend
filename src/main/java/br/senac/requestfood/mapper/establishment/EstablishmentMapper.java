@@ -31,9 +31,7 @@ public class EstablishmentMapper {
 		List<OrderWithDateDTO> orders = new ArrayList<>();
 		
 		for (OrderProjection order : establishment.getOrders()) {
-			
-			if(order.getOrderStatus() == OrderStatus.SENT)
-			orders.add(new OrderWithDateDTO(order.getId(), order.getClient().getName(), order.getIssueDate(), order.getClosingDate()));	
+			orders.add(new OrderWithDateDTO(order.getId(), order.getClient().getName(), order.getOrderStatus(), order.getIssueDate(), order.getClosingDate()));	
 		}
 		
 		final EstablishmentWithOrdersDTO dto = new EstablishmentWithOrdersDTO(establishment.getId(), establishment.getName(), orders);

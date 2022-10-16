@@ -30,6 +30,8 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	Optional<EstablishmentWithConsumableProjection> findEstablishmentWithConsumableById(Long id);
 	
 	Optional<EstablishmentWithOrdersProjection> findEstablishmentWithOrdersByIdAndOrdersOrderStatus(Long id, OrderStatus orderStatus);
+	
+	Optional<EstablishmentWithOrdersProjection> findEstablishmentWithOrdersById(Long id);
 
 	Page<EstablishmentCardProjection> findByNameContainingIgnoreCase(Pageable pageable, String name);
 	
