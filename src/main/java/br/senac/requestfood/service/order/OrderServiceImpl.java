@@ -10,6 +10,7 @@ import br.senac.requestfood.dto.item.ItemDetailsDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
 import br.senac.requestfood.dto.order.establishment.OrderControlDTO;
+import br.senac.requestfood.dto.order.establishment.OrderWithDateDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
@@ -74,9 +75,9 @@ public class OrderServiceImpl implements OrderService{
     }
     
     
-    public OrderProjection findById(Long id) {
+    public OrderWithDateDTO findById(Long id) {
         OrderProjection order = repository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-        return order;
+        return new OrderWithDateDTO(id, order.getClient().getName(), order.getIssueDate(), order.getClosingDate());
     }
 
     public List<OrderProjection> findAll() {
@@ -88,7 +89,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = repository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
 		order.setOrderStatus(status);
 		
-		if(status == OrderStatus.READY || status == OrderStatus.FINISHED || status == OrderStatus.CANCELED) {
+		if(status == OrderStatus.READY || status == OrderStatus.CANCELED) {
 			order.setClosingDate(LocalDateTime.now());
 		}
 	
