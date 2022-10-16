@@ -13,6 +13,7 @@ import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentUpdateProjection;
 
 public interface EstablishmentService {
 
@@ -26,7 +27,7 @@ public interface EstablishmentService {
 	
 	Boolean setOpen(Long id);
 	
-	EstablishmentProjection findById(Long id);
+	EstablishmentUpdateProjection findById(Long id);
 	
 	EstablishmentImageDTO findByIdImage(Long id);
 	
