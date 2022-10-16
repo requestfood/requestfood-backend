@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import br.senac.requestfood.dto.consumable.ConsumableImageDTO;
+import br.senac.requestfood.dto.consumable.ConsumableRoleDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithConsumablesDTO;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 
@@ -13,6 +14,8 @@ public interface ConsumableService {
 	void delete(Long id);
 	
 	ConsumableProjection findById(Long id);
+	
+	ConsumableRoleDTO findTypeById(Long id);
 			
 	ConsumableImageDTO findByIdImage(Long id);
 	

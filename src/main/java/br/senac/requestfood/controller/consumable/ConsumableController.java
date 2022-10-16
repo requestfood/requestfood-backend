@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.requestfood.dto.consumable.ConsumableImageDTO;
+import br.senac.requestfood.dto.consumable.ConsumableRoleDTO;
 import br.senac.requestfood.dto.dish.DishImageDTO;
 import br.senac.requestfood.projection.consumable.ConsumableProjection;
 import br.senac.requestfood.service.consumable.ConsumableService;
@@ -41,6 +42,11 @@ public class ConsumableController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ConsumableProjection> getConsumable(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+	}
+	
+	@GetMapping("/role/{id}")
+	public ResponseEntity<ConsumableRoleDTO> getTypeConsumable(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findTypeById(id));
 	}
 	
 	@DeleteMapping("{id}")
