@@ -4,4 +4,4 @@ import java.util.List;
 
 import br.senac.requestfood.dto.item.ItemDetailsDTO;
 
-public record OrderControlDTO(Long idOrder, String nomeCient, Double amount, List<ItemDetailsDTO> items) {}
+public record OrderControlDTO(Long idOrder, String name, String surname, Double amount, List<ItemDetailsDTO> items) {}

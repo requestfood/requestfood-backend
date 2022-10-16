@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService{
 			itemDetails.add(new ItemDetailsDTO(item.getId(), item.getConsumable().getName(), item.getSubTotal(), item.getQuantity(), item.getObservation()));
 		}
 		
-		return new OrderControlDTO(order.getId(), order.getClient().getName(), order.getAmount(), itemDetails);
+		return new OrderControlDTO(order.getId(), order.getClient().getName(), order.getClient().getSurname(), order.getAmount(), itemDetails);
 	}
 }
 

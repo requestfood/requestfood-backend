@@ -6,4 +6,5 @@ public enum OrderStatus {
 	SENT,
 	READY,
 	CANCELED
+	
 }
