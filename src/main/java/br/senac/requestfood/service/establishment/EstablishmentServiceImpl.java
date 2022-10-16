@@ -26,6 +26,7 @@ import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentUpdateProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentWithOrdersProjection;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.repository.contact.ContactRepository;
@@ -92,9 +93,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		repository.deleteById(id);
 	}
 	
-	public EstablishmentProjection findById(Long id) {
+	public EstablishmentUpdateProjection findById(Long id) {
 
-		EstablishmentProjection establishment = repository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
+		EstablishmentUpdateProjection establishment = repository.findEstablishmentUpdateById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
 		return establishment;
 	}
 	

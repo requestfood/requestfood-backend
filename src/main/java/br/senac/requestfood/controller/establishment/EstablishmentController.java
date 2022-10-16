@@ -31,6 +31,7 @@ import br.senac.requestfood.enumeration.drink.CategoryDrink;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
+import br.senac.requestfood.projection.establishment.EstablishmentUpdateProjection;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.service.consumable.ConsumableService;
 import br.senac.requestfood.service.dish.DishService;
@@ -71,7 +72,13 @@ public class EstablishmentController {
 		service.saveImage(ImageUtil.compressBytes(file.getBytes()), id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment image registered successfully");
 	}
-
+	
+	@PutMapping("/update-image/{id}")
+	public ResponseEntity<String> updateEstablishmentImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
+		service.saveImage(ImageUtil.compressBytes(file.getBytes()), id);
+		return ResponseEntity.status(HttpStatus.OK).body("Establishment image update successfully");
+	}
+	
 	@GetMapping("/getImage/{id}")
 	public ResponseEntity<EstablishmentImageDTO> getEstablishmentImage(@PathVariable Long id) {		
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
@@ -95,7 +102,7 @@ public class EstablishmentController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EstablishmentProjection> getEstablishment(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<EstablishmentUpdateProjection> getEstablishment(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 	
@@ -110,7 +117,7 @@ public class EstablishmentController {
 	}
 	
 	@GetMapping("/getOpen/{id}")
-	public ResponseEntity<EstablishmentProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<EstablishmentUpdateProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
 		service.setOpen(id);
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
