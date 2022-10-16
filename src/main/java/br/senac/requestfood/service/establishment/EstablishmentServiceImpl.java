@@ -1,6 +1,5 @@
 package br.senac.requestfood.service.establishment;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -141,30 +140,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	}
 	
 	
-	public Boolean setOpen(Long id) {
-		
-		Establishment establishment =  repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
-		
-		if (LocalTime.now().getHour() > establishment.getTimeToOpen().getHour() && LocalTime.now().getHour() < establishment.getTimeToClose().getHour()) {
-			
-			if(LocalTime.now().getHour() == establishment.getTimeToOpen().getHour()) {
-				
-				if(LocalTime.now().getMinute() <= establishment.getTimeToOpen().getMinute())		
-					establishment.setOpen(true);
-					return establishment.getOpen();
-			}
-			
-			if(LocalTime.now().getHour() == establishment.getTimeToClose().getHour()) {
-				
-				if(LocalTime.now().getMinute() <= establishment.getTimeToClose().getMinute())
-					establishment.setOpen(false);
-					return establishment.getOpen();
-			}
-		}
-		establishment.setOpen(false);
-		return establishment.getOpen();	
-	}
-
 	public EstablishmentWithOrdersReadyDTO findByIdWithOrderReady(Long id) {
 		
 		Establishment establishment = repository.findById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment "+ id +" was not found"));
@@ -178,8 +153,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		
 		return new EstablishmentWithOrdersReadyDTO(establishment.getId(), establishment.getName(), dtos);
 	}
-
-
 }
 
 

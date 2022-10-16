@@ -32,7 +32,6 @@ import br.senac.requestfood.projection.establishment.EstablishmentCardProjection
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentUpdateProjection;
-import br.senac.requestfood.repository.establisment.EstablishmentRepository;
 import br.senac.requestfood.service.consumable.ConsumableService;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.service.drink.DrinkService;
@@ -46,16 +45,14 @@ import br.senac.requestfood.util.ImageUtil;
 public class EstablishmentController {
     
     private final EstablishmentService service;
-    private final EstablishmentRepository repository;
     private final OrderService orderService;
     private final ConsumableService consumableService;
     private final DishService dishService;
     private final DrinkService drinkService;
 
     public EstablishmentController(EstablishmentService establishmentService, DishService dishService, DrinkService drinkService, OrderService orderService, 
-    		ConsumableService consumableService, EstablishmentRepository repository) {
+    		ConsumableService consumableService) {
 		this.service = establishmentService;
-		this.repository = repository;
 		this.consumableService = consumableService;
 		this.dishService = dishService;
 		this.drinkService = drinkService;
@@ -114,12 +111,6 @@ public class EstablishmentController {
 	@GetMapping("/card/{page}")
 	public ResponseEntity<Page<EstablishmentCardProjection>> getAllEstablishmentCard(Pageable pageable,@PathVariable(value = "page") Integer page) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAllToCard(pageable, page));
-	}
-	
-	@GetMapping("/getOpen/{id}")
-	public ResponseEntity<EstablishmentUpdateProjection> getEstablishmentOpen(@PathVariable(value = "id") Long id) {
-		service.setOpen(id);
-		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 	
 	//ORDERS

@@ -10,6 +10,7 @@ import br.senac.requestfood.dto.establishment.EstablishmentImageDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentUpdateDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersReadyDTO;
+import br.senac.requestfood.model.user.establishment.Establishment;
 import br.senac.requestfood.projection.establishment.EstablishmentCardProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentProjection;
 import br.senac.requestfood.projection.establishment.EstablishmentStartOrderProjection;
@@ -24,8 +25,6 @@ public interface EstablishmentService {
 	void update(EstablishmentUpdateDTO establishmentDTO, Long id);
 	
 	void delete(Long id);
-	
-	Boolean setOpen(Long id);
 	
 	EstablishmentUpdateProjection findById(Long id);
 	
