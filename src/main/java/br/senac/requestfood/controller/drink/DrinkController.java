@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.senac.requestfood.dto.drink.DrinkDTO;
 import br.senac.requestfood.dto.drink.DrinkImageDTO;
+import br.senac.requestfood.dto.drink.DrinkUpdateDTO;
 import br.senac.requestfood.projection.drink.DrinkProjection;
 import br.senac.requestfood.service.drink.DrinkService;
 import br.senac.requestfood.util.ImageUtil;
@@ -57,7 +58,7 @@ public class DrinkController {
 	}
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatedDrink(@RequestBody DrinkDTO drinkDTO, @PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> updatedDrink(@RequestBody DrinkUpdateDTO drinkDTO, @PathVariable(value = "id") Long id) {
         service.update(drinkDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body("Drink updated successfully");
     }
