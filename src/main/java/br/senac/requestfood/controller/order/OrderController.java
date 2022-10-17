@@ -45,7 +45,7 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderDetails(id));
 	}
 	
-	@GetMapping("/order-id/{id}")
+	@GetMapping("/search-id/{id}")
 	public ResponseEntity<OrderWithDateDTO> getOrderById(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
 	}

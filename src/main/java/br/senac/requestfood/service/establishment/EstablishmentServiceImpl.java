@@ -107,14 +107,15 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	public EstablishmentWithOrdersDTO findByIdWithOrder(Long id) {
 		
 		EstablishmentWithOrdersProjection establishment = repository.findEstablishmentWithOrdersById(id).orElseThrow(() -> new EstablishmentNotFoundException("No orders was found."));
+		List<OrderProjection> orders = new ArrayList<>();
 		
 		for (OrderProjection order: establishment.getOrders()) {
 			
-			if(order.getOrderStatus() == OrderStatus.WAITING)
-				establishment.getOrders().remove(order);
+			if(order.getOrderStatus() != OrderStatus.WAITING)
+				orders.add(order);
 		}
 		
-		EstablishmentWithOrdersDTO establishmentWithOrders = mapper.toEWOrdersDTO(establishment);
+		EstablishmentWithOrdersDTO establishmentWithOrders = mapper.toEWOrdersDTO(establishment, orders);
 		
 		return establishmentWithOrders;	
 	}
