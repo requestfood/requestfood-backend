@@ -132,6 +132,11 @@ public class EstablishmentController {
 	public ResponseEntity<EstablishmentWithOrdersDTO> getEstablishmentWithOrder(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdWithOrder(id));
 	}
+	
+	@GetMapping("/{id}/search-order/{idOrder}")
+	public ResponseEntity<EstablishmentWithOrdersDTO> getOrderById(@PathVariable(value = "idOrder") Long idOrder, @PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(idOrder, id));
+	}
 
 	//Triggered when Establishment wants delete or update an order
 	@GetMapping("/order-control/{id}")

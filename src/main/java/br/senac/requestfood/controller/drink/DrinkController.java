@@ -52,6 +52,11 @@ public class DrinkController {
 		return ResponseEntity.status(HttpStatus.OK).body("Drink image registered successfully");
 	}
     
+    @GetMapping("/{id}")
+	public ResponseEntity<DrinkProjection> getDrink(@PathVariable(value = "id") Long id){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+	}
+    
     @GetMapping("/getImage/{id}")
 	public ResponseEntity<DrinkImageDTO> getDrinkImage(@PathVariable Long id) throws IOException {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findByIdImage(id));
@@ -74,9 +79,4 @@ public class DrinkController {
     	return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<DrinkProjection> getDrink(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
-    }
-	
 }

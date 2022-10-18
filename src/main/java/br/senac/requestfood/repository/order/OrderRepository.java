@@ -26,6 +26,8 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 	
 	List<OrderProjection> findAllByClientIdAndEstablishmentNameContainingIgnoreCase(Long id, String name);
 	
+	List<OrderProjection> findByIdContainingAndEstablishmentId(Long id, Long idEstablishment);
+	
 	@Query(value = "SELECT o.id AS id, o.establishment AS establishment, o.client AS client, o.issueDate AS issueDate, o.closingDate AS closingDate, o.orderStatus AS orderStatus FROM Order o")
 	List<OrderProjection> findOrders();
 }

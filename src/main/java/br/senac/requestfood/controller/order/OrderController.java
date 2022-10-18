@@ -45,11 +45,6 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(orderService.findByIdOrderDetails(id));
 	}
 	
-	@GetMapping("/search-id/{id}")
-	public ResponseEntity<OrderWithDateDTO> getOrderById(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
-	}
-	
 	@PostMapping("/{status}/{id}")
 	public ResponseEntity<String> alterOrderStatus(@PathVariable(value = "status")OrderStatus status ,@PathVariable(value = "id")Long id) {
 		orderService.alterOrderStatus(id, status);

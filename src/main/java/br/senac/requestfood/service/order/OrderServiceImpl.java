@@ -6,21 +6,23 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.requestfood.dto.establishment.EstablishmentWithOrdersDTO;
 import br.senac.requestfood.dto.item.ItemDetailsDTO;
 import br.senac.requestfood.dto.order.CreateOrderDTO;
 import br.senac.requestfood.dto.order.client.OrderDetailsDTO;
 import br.senac.requestfood.dto.order.establishment.OrderControlDTO;
-import br.senac.requestfood.dto.order.establishment.OrderWithDateDTO;
 import br.senac.requestfood.enumeration.order.OrderStatus;
 import br.senac.requestfood.exception.client.ClientNotFoundException;
 import br.senac.requestfood.exception.establishment.EstablishmentNotFoundException;
 import br.senac.requestfood.exception.order.OrderAlreadyStartedException;
 import br.senac.requestfood.exception.order.OrderNotFoundException;
+import br.senac.requestfood.mapper.establishment.EstablishmentMapper;
 import br.senac.requestfood.mapper.order.OrderMapper;
 import br.senac.requestfood.model.item.Item;
 import br.senac.requestfood.model.order.Order;
 import br.senac.requestfood.model.user.client.Client;
 import br.senac.requestfood.model.user.establishment.Establishment;
+import br.senac.requestfood.projection.establishment.EstablishmentWithOrdersProjection;
 import br.senac.requestfood.projection.order.OrderProjection;
 import br.senac.requestfood.repository.client.ClientRepository;
 import br.senac.requestfood.repository.establisment.EstablishmentRepository;
@@ -32,14 +34,16 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository repository;
     private final OrderMapper mapper;
     private final EstablishmentRepository establishmentRepository;
+    private final EstablishmentMapper establishmentMapper;
     private final ClientRepository clientRepository;
 
     public OrderServiceImpl (OrderRepository repository, OrderMapper mapper, 
-    		EstablishmentRepository establishmentRepository, ClientRepository clientRepository) {
+    		EstablishmentRepository establishmentRepository, ClientRepository clientRepository, EstablishmentMapper establishmentMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.clientRepository = clientRepository;
         this.establishmentRepository = establishmentRepository;
+        this.establishmentMapper = establishmentMapper;
     }
 
     public CreateOrderDTO save(CreateOrderDTO orderDTO) {
@@ -75,9 +79,20 @@ public class OrderServiceImpl implements OrderService{
     }
     
     
-    public OrderWithDateDTO findById(Long id) {
-        OrderProjection order = repository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException("Order " + id + " was not found"));
-        return new OrderWithDateDTO(id, order.getClient().getName(), order.getOrderStatus(), order.getIssueDate(), order.getClosingDate());
+    public EstablishmentWithOrdersDTO findById(Long idOrder, Long idEstablishment) {
+    	
+    	EstablishmentWithOrdersProjection establishment = establishmentRepository.findEstablishmentWithOrdersById(idEstablishment).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + idEstablishment + " was not found"));
+
+    	List<OrderProjection> orders = new ArrayList<>();
+    	
+    	for (OrderProjection order : establishment.getOrders()) {
+			if(order.getId() == idOrder)
+				orders.add(order);
+		}
+    	
+        EstablishmentWithOrdersDTO dto = establishmentMapper.toEWOrdersDTO(establishment, orders);
+        
+        return dto;
     }
 
     public List<OrderProjection> findAll() {

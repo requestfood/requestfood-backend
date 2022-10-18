@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.senac.requestfood.dto.dish.DishDTO;
 import br.senac.requestfood.dto.dish.DishImageDTO;
 import br.senac.requestfood.dto.dish.DishUpdateDTO;
+import br.senac.requestfood.projection.dish.DishProjection;
 import br.senac.requestfood.service.dish.DishService;
 import br.senac.requestfood.util.ImageUtil;
 
@@ -48,6 +49,11 @@ public class DishController {
 	public ResponseEntity<String> updateDrinkImage(@RequestParam("image") MultipartFile file, @PathVariable(value = "id") Long id) throws IOException{
 		service.saveImage(ImageUtil.compressBytes(file.getBytes()), id);
 		return ResponseEntity.status(HttpStatus.OK).body("Establishment image registered successfully");
+	}
+    
+    @GetMapping("/{id}")
+	public ResponseEntity<DishProjection> getDish(@PathVariable Long id){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
     
     @GetMapping("/getImage/{id}")
