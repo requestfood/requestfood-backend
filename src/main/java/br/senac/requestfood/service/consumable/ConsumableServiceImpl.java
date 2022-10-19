@@ -82,7 +82,7 @@ public class ConsumableServiceImpl implements ConsumableService{
 		pageable = PageRequest.of(page,size, Sort.Direction.ASC, "price");
 
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findConsumables(pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findAllByEstablishmentId(id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findByPriceByOrdemByDesc(Long id, Integer page, Pageable pageable) {
@@ -91,7 +91,7 @@ public class ConsumableServiceImpl implements ConsumableService{
 		pageable = PageRequest.of(page,size, Sort.Direction.DESC, "price");
 		
 		EstablishmentProjection establishment = establishmentRepository.findEstablishmentById(id).orElseThrow(() -> new EstablishmentNotFoundException("Establishment " + id + " was not found"));
-		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findConsumables(pageable));
+		return new EstablishmentWithConsumablesDTO(establishment.getId(), establishment.getName(), repository.findAllByEstablishmentId(id, pageable));
 	}
 	
 	public EstablishmentWithConsumablesDTO findAll(Long id, Integer page, Pageable pageable) {
