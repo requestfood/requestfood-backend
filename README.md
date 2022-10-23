@@ -12,20 +12,17 @@
 
 ## 📃 Descrição do projeto
 ### Contextualização
-  A pandemia mudou drasticamente a nossa rotina em diversas esferas. Várias pessoas ficaram impossibilitadas de trafegar por motivos de saúde. Desta forma,  quem se alimenta fora de casa, teve que adaptar a forma de conseguir seu alimento. Isto levou a um aumento médio de 25,6% dos pedidos online.
+ A pandemia mudou drasticamente a nossa rotina em diversas esferas. Várias pessoas ficaram impossibilitadas de trafegar por motivos de saúde. Desta forma, quem se alimenta fora de casa, teve que adaptar a forma de conseguir seu alimento. Isto levou a um aumento médio de 25,6% dos pedidos de comida online.
   
 ### Problema
-  Com isso, encontramos um problema nessa questão, que está na morosidade da relação B2C que existe ao realizar um pedido em mesa juntamente com a má organização que é gerada com uma comanda de papel.
+ Todavia, nem todos os estabelecimentos estavam preparados para digitalizar seus negócios em um espaço de tempo tão diminuto. Muitos dos que vinham seguindo neste caminho, tinham implantado dispositivos para realizar pedidos no local. Assim sendo, o cliente precisa estar se deslocando ao estabelecimento para poder realizar o seu pedido.
   
 ### Objetivo
-  Nosso objetivo é justamente usar essa deficiência para auxiliar nas vendas com foco na retirada. Tendo assim a facilidade de por exemplo o cliente sair de seu local de trabalho, passar no restaurante e levar seu pedido para casa. 
+  O objetivo do projeto é permitir que o cliente faça seus pedidos sem estar fisicamente no restaurante.
  
 ### Solução
-  Visando estreitar ainda mais a relação B2C desenvolvemos o RequestFood. Com fácil compreensão do sistema, em poucos passos você faz o pedido e retira no restaurante 	desejado.
+  Visando implementar uma comanda digital foi criado o RequestFood. O sistema permite ao estabelecimento cadastrar os produtos que comercializa. Além disso, o usuário pode realizar pedidos no local em que ele estiver, bem como acompanhar todo o processo até a finalização do pedido, deslocando-se ao estabelecimento, exclusivamente, para retirar o pedido.
   
-### Conclusão
-  Concluímos que o RequestFood traz como principal característica visar a praticidade entre B2C, trazendo rapidez e agilidade, evitando possíveis transtornos ao atendimento.
-
 #
 
 ## 👨‍💻 Tecnologias Utilizadas 
